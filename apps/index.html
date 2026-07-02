@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- favicon / アイコン -->
+    <link rel="icon" href="../assets/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="../assets/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+    <link rel="manifest" href="../site.webmanifest" />
+    <meta name="theme-color" content="#171716" />
+    <!-- OGP -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="misoclub" />
+    <meta property="og:image" content="../assets/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>アプリ一覧 | misoclub</title>
+    <meta name="description" content="misoclub がリリースしているアプリの一覧です。" />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header class="site-header">
+      <div class="container">
+        <span class="brand">
+          <img src="../assets/logo.png" alt="misoclub" class="brand-logo" />
+        </span>
+      </div>
+    </header>
+
+    <section>
+      <div class="container">
+        <h1 class="section-title">アプリ一覧</h1>
+        <p class="section-lead">misoclub がリリースしているアプリ。</p>
+
+        <div class="app-list">
+          <!--
+            アプリを増やすときは apps/_template/ フォルダを apps/<アプリ>/ にコピーし、
+            このページにも <article> を複製して追記してください。
+            ・アイコン: apps/<アプリ>/icon.png（正方形・推奨 256px 以上）
+            ・ストアバッジの href="#" を各ストアの URL に差し替え
+          -->
+          <article class="app-card">
+            <img
+              class="app-icon"
+              src="./nihon-tabinikki/icon.png"
+              alt="日本旅日記 アイコン"
+              width="96"
+              height="96"
+            />
+            <div class="app-info">
+              <h3>日本旅日記</h3>
+              <p>旅の行き先・日程・写真・メモを、端末内だけに記録できる旅日記アプリ。</p>
+              <div class="store-badges">
+                <a href="https://apps.apple.com/app/id6786138606" aria-label="App Store でダウンロード">
+                  <img src="../assets/app-store-badge.svg" alt="App Store でダウンロード" />
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.misoclub.jpdiary" aria-label="Google Play で手に入れよう">
+                  <img src="../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="app-card">
+            <img
+              class="app-icon"
+              src="./memoria/icon.png"
+              alt="キネンカ アイコン"
+              width="96"
+              height="96"
+            />
+            <div class="app-info">
+              <h3>キネンカ 〜たいせつな日のカウントダウン〜</h3>
+              <p>記念日や大切な日までの日数を、絵文字や通知とともにカウントダウン。</p>
+              <div class="store-badges">
+                <a href="https://apps.apple.com/app/id6786140094" aria-label="App Store でダウンロード">
+                  <img src="../assets/app-store-badge.svg" alt="App Store でダウンロード" />
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.misoclub.memoria" aria-label="Google Play で手に入れよう">
+                  <img src="../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="app-card">
+            <img
+              class="app-icon"
+              src="./taiju-log/icon.png"
+              alt="きょうの体重 アイコン"
+              width="96"
+              height="96"
+            />
+            <div class="app-info">
+              <h3>きょうの体重</h3>
+              <p>毎日の体重を ＋／− でサッと記録。体脂肪・BMI・目標まで、グラフで変化を見られる体重管理アプリ。</p>
+              <div class="store-badges">
+                <a href="https://apps.apple.com/app/id6786136357" aria-label="App Store でダウンロード">
+                  <img src="../assets/app-store-badge.svg" alt="App Store でダウンロード" />
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.misoclub.easydiet" aria-label="Google Play で手に入れよう">
+                  <img src="../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; <span id="year"></span> misoclub</p>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

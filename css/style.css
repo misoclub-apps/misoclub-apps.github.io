@@ -1,0 +1,531 @@
+/* ===========================================================
+   misoclub - 共通スタイル
+   素のCSSのみ。フレームワーク不要。
+   カラーやフォントは :root の変数を変えるだけで全体に反映されます。
+   =========================================================== */
+
+:root {
+  --color-bg: #fffdf7;
+  --color-fg: #2b2b2b;
+  --color-muted: #6b6b6b;
+  --color-accent: #e8915b;      /* みそ色っぽいアクセント。好みで変更可 */
+  --color-accent-dark: #c9743f;
+  --color-border: #ece7da;
+  --color-card: #ffffff;
+  --color-dark: #171716;        /* ロゴの背景色に合わせたダーク */
+
+  --max-width: 960px;
+  --radius: 14px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+  --font-base: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+    "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* 横スクロール（はみ出し）を防ぐ。スマホで重要 */
+  overflow-x: hidden;
+  /* 端末の自動文字サイズ拡大を無効化（iOS の横向き等で崩れない） */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  color: var(--color-fg);
+  background: var(--color-bg);
+  line-height: 1.8;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  /* タップ時の青いハイライトを抑える */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* タップ領域を最低 44px 確保（Apple HIG 推奨） */
+a,
+button {
+  touch-action: manipulation;
+}
+
+a {
+  color: var(--color-accent-dark);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- レイアウト ---------- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  /* セーフエリア（ノッチ・丸角）を避けつつ左右余白を確保 */
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+}
+
+section {
+  padding: 64px 0;
+}
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-dark);
+  border-bottom: 1px solid #000;
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+}
+.brand:hover {
+  text-decoration: none;
+}
+.brand-logo {
+  height: 46px;
+  display: block;
+}
+.nav a {
+  margin-left: 24px;
+  color: #f3f0e9;
+  font-size: 0.95rem;
+}
+.nav a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* ---------- ヒーロー ---------- */
+.hero {
+  text-align: center;
+  padding: 80px 0 40px;
+  background: linear-gradient(180deg, #fff6ea 0%, var(--color-bg) 100%);
+}
+.hero h1 {
+  font-size: 2.6rem;
+  margin: 0 0 16px;
+  letter-spacing: 0.02em;
+}
+.hero p {
+  font-size: 1.1rem;
+  color: var(--color-muted);
+  max-width: 620px;
+  margin: 0 auto; /* 末尾要素なので下マージンは持たせない */
+}
+
+/* ---------- ボタン ---------- */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+.btn:hover {
+  background: var(--color-accent-dark);
+  text-decoration: none;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--color-accent-dark);
+  border: 1.5px solid var(--color-accent);
+}
+.btn-outline:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* ---------- 見出し ---------- */
+.section-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin: 0 0 8px;
+}
+.section-lead {
+  text-align: center;
+  color: var(--color-muted);
+  margin: 0 0 40px;
+}
+
+/* ---------- アプリカード（共通の見た目） ---------- */
+.app-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+.app-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+.app-card p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin: 0 0 16px;
+}
+
+/* トップページの紹介グリッド（シンプル版・ホバーで浮く） */
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+.app-grid .app-card {
+  transition: transform 0.2s ease;
+}
+.app-grid .app-card:hover {
+  transform: translateY(-4px);
+}
+
+/* アプリ一覧ページのリッチカード（アイコン＋情報＋ストアバッジ） */
+.app-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: var(--max-width); /* サイト共通の最大幅に統一 */
+  margin: 0 auto;
+}
+.app-list .app-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.app-icon {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 22%; /* iOS 風の角丸 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+}
+.app-info {
+  flex: 1;
+  min-width: 0;
+}
+.app-info h3 {
+  margin: 0 0 6px;
+}
+.app-info p {
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+}
+/* カード内のストアバッジは左寄せ・やや小さめ */
+.app-card .store-badges {
+  justify-content: flex-start;
+  gap: 12px;
+}
+.app-card .store-badges img {
+  height: 42px;
+}
+
+/* リンク付きカード（トップページ用）
+   ・カード本体（.app-card-link）= 個別DLページへの主リンク
+   ・右上の .app-privacy = プライバシーポリシーへのアイコンリンク */
+.app-card--link {
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.app-card--link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+.app-card-link {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+  min-width: 0;
+  padding-right: 80px; /* 右上のプライバシー（🔒 JA/EN）と文字が重ならないように */
+  text-decoration: none;
+  color: inherit;
+}
+.app-card-link:hover {
+  text-decoration: none;
+}
+.app-cta {
+  display: inline-block;
+  color: var(--color-accent-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+/* プライバシーポリシー（右上）: 🔒 + JA/EN の言語別リンク（リンク取得用） */
+.app-privacy {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.app-privacy svg {
+  flex-shrink: 0;
+}
+.app-privacy a {
+  color: var(--color-muted);
+  text-decoration: none;
+  padding: 2px 5px;
+  border-radius: 5px;
+  line-height: 1;
+}
+.app-privacy a:hover {
+  color: var(--color-accent-dark);
+  background: var(--color-border);
+}
+
+/* ---------- 本文ページ（プライバシー等） ---------- */
+.page {
+  max-width: var(--max-width); /* サイト共通の最大幅に統一 */
+  margin: 0 auto;
+  padding: 56px 20px 80px;
+}
+.page h1 {
+  font-size: 2rem;
+  margin: 0 0 8px;
+}
+.page .updated {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin: 0 0 40px;
+}
+.page h2 {
+  font-size: 1.3rem;
+  margin: 40px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--color-border);
+}
+.page p,
+.page li {
+  color: #3a3a3a;
+}
+.page ul {
+  padding-left: 1.4em;
+}
+
+/* ---------- フッター ---------- */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: 32px 0;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+.site-footer a {
+  margin: 0 10px;
+  color: var(--color-muted);
+}
+
+/* ---------- ストアバッジ（App Store / Google Play 公式バッジ） ---------- */
+.store-badges {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* 常に横並び（折り返さない） */
+}
+.store-badges a {
+  display: block;
+  line-height: 0;
+  flex-shrink: 0;
+}
+/* 高さをそろえる。アスペクト比が違うため幅は自動 */
+.store-badges img {
+  height: 52px;
+  width: auto;
+  display: block;
+}
+
+/* ---------- ダウンロードページ（アプリからのシェア用） ---------- */
+.dl-page {
+  min-height: 100vh;
+  min-height: 100svh; /* モバイルのアドレスバー増減で崩れないように */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(48px + env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
+    calc(48px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  background: linear-gradient(180deg, #fff6ea 0%, var(--color-bg) 100%);
+}
+/* アプリのスプラッシュ画像（縦長）。端末画面のように角丸＋影で表示 */
+.dl-splash {
+  width: auto;
+  max-width: 260px;
+  max-height: 46vh;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+  margin-bottom: 32px;
+}
+.dl-page h1 {
+  font-size: 1.9rem;
+  margin: 0 0 8px;
+}
+.dl-page .dl-desc {
+  color: var(--color-muted);
+  margin: 0 0 36px;
+}
+.dl-page .store-badges {
+  margin-bottom: 40px;
+}
+.dl-others {
+  font-size: 0.95rem;
+}
+
+/* ===========================================================
+   レスポンシブ（スマホ最適化）
+   このサイトはスマホ閲覧を主用途として最適化しています。
+   =========================================================== */
+@media (max-width: 600px) {
+  /* セクション余白を詰める */
+  section {
+    padding: 44px 0;
+  }
+
+  /* ヘッダー：ロゴとナビを詰めて 1 行に収める */
+  .brand-logo {
+    height: 40px;
+  }
+  .nav a {
+    margin-left: 14px;
+    font-size: 0.82rem;
+  }
+
+  /* ヒーロー */
+  .hero {
+    padding: 44px 0 24px;
+  }
+  .hero h1 {
+    font-size: 1.9rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+
+  /* 見出し */
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  /* トップの紹介グリッド：1 カラムで縦積み */
+  .app-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .app-card {
+    padding: 22px;
+  }
+
+  /* リッチカード：アイコンはやや小さめ（横並びは維持） */
+  .app-icon {
+    width: 84px;
+    height: 84px;
+  }
+
+  /* ボタンはタップしやすいよう大きめ＆幅広に */
+  .btn {
+    padding: 14px 28px;
+  }
+
+  /* 本文ページ（プライバシー等）の余白調整 */
+  .page {
+    padding: 40px 20px 64px;
+  }
+  .page h1 {
+    font-size: 1.6rem;
+  }
+  .page h2 {
+    font-size: 1.15rem;
+  }
+
+  /* ストアバッジ：スマホでも横並び。両ストアとも同じ高さ。
+     はみ出さないよう高さを控えめに（端末幅で折り返しも許可） */
+  .store-badges {
+    gap: 12px;
+  }
+  .store-badges img {
+    height: 42px;
+  }
+  .app-card .store-badges img {
+    height: 38px;
+  }
+
+  /* ダウンロードページ */
+  .dl-page h1 {
+    font-size: 1.6rem;
+  }
+  .dl-splash {
+    max-width: 220px;
+    max-height: 42vh;
+    margin-bottom: 28px;
+  }
+}
+
+/* 狭い画面：リッチカードはアイコンを上にした縦並びに切り替え
+   （それより広い画面ではアイコンと情報は横並びを維持） */
+@media (max-width: 480px) {
+  .app-list .app-card,
+  .app-card-link {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+  /* リンクカードは中央寄せ時にアイコン分の右パディングを解除 */
+  .app-card-link {
+    padding-right: 0;
+  }
+  /* flex 縦並びで子が内容幅にならないよう全幅にする */
+  .app-info {
+    width: 100%;
+  }
+  .app-card .store-badges {
+    justify-content: center;
+  }
+}
+
+/* さらに小さい端末（iPhone SE 等） */
+@media (max-width: 360px) {
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+  .nav a {
+    margin-left: 9px;
+    font-size: 0.74rem;
+  }
+  .brand-logo {
+    height: 34px;
+  }
+  .store-badges img {
+    height: 38px;
+  }
+  .app-card .store-badges img {
+    height: 34px;
+  }
+}

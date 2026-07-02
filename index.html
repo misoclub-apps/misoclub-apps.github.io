@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- favicon / アイコン -->
+    <link rel="icon" href="./assets/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="./assets/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <meta name="theme-color" content="#171716" />
+    <!-- OGP -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="misoclub" />
+    <meta property="og:image" content="./assets/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>misoclub</title>
+    <meta name="description" content="misoclub（みそくらぶ）は、個人で制作したアプリやツールを公開しています。" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header class="site-header">
+      <div class="container">
+        <a href="./" class="brand"
+          ><img src="./assets/logo.png" alt="misoclub" class="brand-logo"
+        /></a>
+      </div>
+    </header>
+
+    <!-- ヒーロー -->
+    <section class="hero">
+      <div class="container">
+        <h1>misoclub</h1>
+        <p>
+          misoclub は、個人で制作したアプリやツールを公開しています。<br />
+          毎日を便利に楽しくする。そんなものづくりを続けています。
+        </p>
+      </div>
+    </section>
+
+    <!-- アプリ（各カードから個別のDLページへ） -->
+    <section id="apps">
+      <div class="container">
+        <h2 class="section-title">アプリ</h2>
+        <p class="section-lead">misoclub がリリースしているアプリ。</p>
+
+        <div class="app-list">
+          <!--
+            ・カード本体（app-card-link）→ 各アプリの個別DLページ
+            ・右上の app-privacy → プライバシーポリシー（🔒 JA=日本語 / EN=英語。リンク取得用）
+          -->
+          <div class="app-card app-card--link">
+            <a class="app-card-link" href="./apps/nihon-tabinikki/">
+              <img
+                class="app-icon"
+                src="./apps/nihon-tabinikki/icon.png"
+                alt="日本旅日記 アイコン"
+                width="96"
+                height="96"
+              />
+              <div class="app-info">
+                <h3>日本旅日記</h3>
+                <p>旅の行き先・日程・写真・メモを、端末内だけに記録できる旅日記アプリ。</p>
+                <span class="app-cta">ダウンロード →</span>
+              </div>
+            </a>
+            <div class="app-privacy" aria-label="プライバシーポリシー">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <a href="./apps/nihon-tabinikki/privacy.html" title="プライバシーポリシー（日本語）">JA</a>
+              <a href="./apps/nihon-tabinikki/privacy-en.html" title="Privacy Policy (English)">EN</a>
+            </div>
+          </div>
+
+          <div class="app-card app-card--link">
+            <a class="app-card-link" href="./apps/memoria/">
+              <img
+                class="app-icon"
+                src="./apps/memoria/icon.png"
+                alt="キネンカ アイコン"
+                width="96"
+                height="96"
+              />
+              <div class="app-info">
+                <h3>キネンカ 〜たいせつな日のカウントダウン〜</h3>
+                <p>記念日や大切な日までの日数を、絵文字や通知とともにカウントダウン。</p>
+                <span class="app-cta">ダウンロード →</span>
+              </div>
+            </a>
+            <div class="app-privacy" aria-label="プライバシーポリシー">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <a href="./apps/memoria/privacy.html" title="プライバシーポリシー（日本語）">JA</a>
+              <a href="./apps/memoria/privacy-en.html" title="Privacy Policy (English)">EN</a>
+            </div>
+          </div>
+
+          <div class="app-card app-card--link">
+            <a class="app-card-link" href="./apps/taiju-log/">
+              <img
+                class="app-icon"
+                src="./apps/taiju-log/icon.png"
+                alt="きょうの体重 アイコン"
+                width="96"
+                height="96"
+              />
+              <div class="app-info">
+                <h3>きょうの体重</h3>
+                <p>毎日の体重を ＋／− でサッと記録。体脂肪・BMI・目標まで、グラフで変化を見られる体重管理アプリ。</p>
+                <span class="app-cta">ダウンロード →</span>
+              </div>
+            </a>
+            <div class="app-privacy" aria-label="プライバシーポリシー">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <a href="./apps/taiju-log/privacy.html" title="プライバシーポリシー（日本語）">JA</a>
+              <a href="./apps/taiju-log/privacy-en.html" title="Privacy Policy (English)">EN</a>
+            </div>
+          </div>
+        </div>
+
+        <p style="text-align: center; margin-top: 32px">
+          <a href="./apps/" class="btn btn-outline">アプリ一覧を見る</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; <span id="year"></span> misoclub</p>
+      </div>
+    </footer>
+
+    <script>
+      // フッターの年号を自動更新
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
