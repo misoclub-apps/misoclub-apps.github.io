@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- favicon / アイコン -->
+    <link rel="icon" href="./assets/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="./assets/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <meta name="theme-color" content="#171716" />
+    <!-- OGP -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="misoclub" />
+    <meta property="og:image" content="./assets/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>お問い合わせ・サポート | misoclub</title>
+    <meta name="description" content="misoclub のアプリに関するお問い合わせ・サポート窓口です。ご質問・ご不具合の報告はこちらから。" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header class="site-header">
+      <div class="container">
+        <a href="./" class="brand"
+          ><img src="./assets/logo.png" alt="misoclub" class="brand-logo"
+        /></a>
+      </div>
+    </header>
+
+    <main class="page">
+      <h1>お問い合わせ・サポート</h1>
+      <p class="support-lead">
+        misoclub のアプリについてのご質問、ご要望、不具合のご報告などを受け付けています。<br />
+        下のフォームに入力して「メールを作成」を押すと、ご利用の端末のメールアプリが起動します。内容をご確認のうえ送信してください。
+      </p>
+
+      <!--
+        静的サイト（GitHub Pages）のため、フォーム送信は mailto で行います。
+        「メールを作成」で misoclubsupport@gmail.com 宛のメールを生成します。
+      -->
+      <form class="support-form" id="support-form">
+        <div class="field">
+          <label for="name">お名前 <span class="opt">（任意）</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <label for="app">対象のアプリ <span class="opt">（任意）</span></label>
+          <select id="app" name="app">
+            <option value="">選択してください</option>
+            <option value="きょうの体重">きょうの体重</option>
+            <option value="日本旅日記">日本旅日記</option>
+            <option value="キネンカ">キネンカ</option>
+            <option value="その他・全般">その他・全般</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">お問い合わせ内容 <span class="req">必須</span></label>
+          <textarea id="message" name="message" required placeholder="ご質問・ご要望・不具合の内容をご記入ください。&#10;不具合の場合は、端末（例：iPhone 15）と OS バージョン（例：iOS 18.5）もご記入いただけるとスムーズです。"></textarea>
+        </div>
+
+        <button type="submit" class="btn">メールを作成</button>
+      </form>
+
+      <p class="form-note">
+        ※ 送信ボタンでメールアプリが起動しない場合は、お手数ですが下記アドレス宛に直接メールをお送りください。<br />
+        ※ いただいたお問い合わせには、通常数日以内に返信いたします。
+      </p>
+
+      <h2>直接メールで連絡する</h2>
+      <div class="support-contact">
+        <p>メールでのお問い合わせ先：</p>
+        <p class="mail">
+          <a href="mailto:misoclubsupport@gmail.com">misoclubsupport@gmail.com</a>
+        </p>
+      </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          <a href="./">ホーム</a>
+          <a href="./apps/">アプリ一覧</a>
+          <a href="./support.html">お問い合わせ</a>
+        </p>
+        <p>&copy; <span id="year"></span> misoclub</p>
+      </div>
+    </footer>
+
+    <script>
+      // フッターの年号を自動更新
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // mailto でメールアプリを起動する（静的サイトのためサーバー送信は行わない）
+      document
+        .getElementById("support-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          var to = "misoclubsupport@gmail.com";
+          var name = document.getElementById("name").value.trim();
+          var app = document.getElementById("app").value;
+          var message = document.getElementById("message").value.trim();
+
+          if (!message) {
+            document.getElementById("message").focus();
+            return;
+          }
+
+          var subject = "[お問い合わせ] " + (app || "misoclub");
+
+          var bodyLines = [];
+          if (name) bodyLines.push("お名前：" + name);
+          if (app) bodyLines.push("対象アプリ：" + app);
+          bodyLines.push("");
+          bodyLines.push(message);
+          bodyLines.push("");
+          bodyLines.push("----");
+          bodyLines.push("※ 不具合の場合は端末・OSバージョンもご記入ください。");
+
+          var mailto =
+            "mailto:" +
+            to +
+            "?subject=" +
+            encodeURIComponent(subject) +
+            "&body=" +
+            encodeURIComponent(bodyLines.join("\n"));
+
+          window.location.href = mailto;
+        });
+    </script>
+  </body>
+</html>
