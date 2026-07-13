@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" href="../../../assets/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png" />
+    <meta name="theme-color" content="#171716" />
+    <meta name="robots" content="noindex" />
+    <title>MIO でともだち追加</title>
+    <style>
+      :root {
+        --bg: #f5f3fb; --card: #ffffff; --fg: #2a2540; --sub: #6b6580;
+        --accent: #9e8fd6; --accentText: #ffffff; --line: #eceaf3;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #14121c; --card: #1e1b2a; --fg: #ece9f5; --sub: #a49fb8;
+          --accent: #9e8fd6; --accentText: #1a1626; --line: #2b2740;
+        }
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg); color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+          "Noto Sans JP", sans-serif;
+        min-height: 100vh; display: flex; align-items: center;
+        justify-content: center; padding: 24px;
+      }
+      .card {
+        background: var(--card); border-radius: 24px; max-width: 400px;
+        width: 100%; padding: 32px 24px; text-align: center;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      }
+      .icon {
+        width: 88px; height: 88px; border-radius: 20px; object-fit: cover;
+        margin: 0 auto 16px; display: block;
+      }
+      h1 { font-size: 20px; margin: 0 0 6px; }
+      p.sub { color: var(--sub); font-size: 14px; margin: 0 0 24px; line-height: 1.6; }
+      .code-label { color: var(--sub); font-size: 12px; margin: 0 0 6px; }
+      .code {
+        font-size: 26px; font-weight: 700; letter-spacing: 3px;
+        background: var(--bg); border: 1px solid var(--line);
+        border-radius: 14px; padding: 14px; margin: 0 0 24px;
+        font-variant-numeric: tabular-nums;
+      }
+      .btn {
+        display: block; width: 100%; padding: 15px; border-radius: 14px;
+        font-size: 16px; font-weight: 600; text-decoration: none;
+        margin-bottom: 12px; border: 1px solid var(--line); color: var(--fg);
+        background: var(--card);
+      }
+      .btn.primary { background: var(--accent); color: var(--accentText); border-color: transparent; }
+      .note { color: var(--sub); font-size: 12px; margin-top: 18px; line-height: 1.6; }
+      .hidden { display: none; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <img class="icon" src="../icon.png" alt="MIO" />
+      <h1>MIO でともだち追加</h1>
+      <p class="sub">
+        アプリが入っていれば自動でアプリが開きます。<br />
+        入っていない場合は、下からインストールしてください。
+      </p>
+
+      <div id="codeBlock" class="hidden">
+        <p class="code-label">ともだちコード</p>
+        <div class="code" id="code">--------</div>
+      </div>
+
+      <a class="btn primary" id="storeBtn" href="https://misoclub-apps.github.io/apps/mio/">
+        アプリをインストール
+      </a>
+      <a class="btn" href="https://misoclub-apps.github.io/apps/mio/">MIO について</a>
+
+      <p class="note">
+        インストール後、アプリの「ともだち追加」で上のコードを入力（または
+        このQRをアプリ内カメラで読み取り）すると追加できます。
+      </p>
+    </div>
+
+    <script>
+      (function () {
+        // ?c= のコードを表示（XXXX-XXXX 整形）。
+        var params = new URLSearchParams(location.search);
+        var c = (params.get("c") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+        if (c.length === 8) {
+          document.getElementById("code").textContent =
+            c.slice(0, 4) + "-" + c.slice(4);
+          document.getElementById("codeBlock").classList.remove("hidden");
+        }
+        // 端末に合わせてストアボタンの遷移先を切り替える。
+        var ua = navigator.userAgent || "";
+        var ios = /iPhone|iPad|iPod/.test(ua);
+        var android = /Android/.test(ua);
+        var btn = document.getElementById("storeBtn");
+        if (ios) {
+          btn.href = "https://apps.apple.com/app/id6789859554";
+          btn.textContent = "App Store でインストール";
+        } else if (android) {
+          btn.href =
+            "https://play.google.com/store/apps/details?id=com.misoclub.mio";
+          btn.textContent = "Google Play でインストール";
+        }
+      })();
+    </script>
+  </body>
+</html>
