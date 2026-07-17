@@ -675,13 +675,14 @@ section {
   font-weight: 700;
   margin-top: 6px;
 }
-.lp-tagline {
+/* .hero p { margin: 0 auto } の詳細度に勝つよう .lp-hero を付けて指定 */
+.lp-hero .lp-tagline {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--color-accent-dark);
   margin: 0 0 16px;
 }
-.lp-lead {
+.lp-hero .lp-lead {
   color: var(--color-muted);
   margin: 0 0 40px;
   max-width: none;
