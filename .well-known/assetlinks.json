@@ -1,16 +1,22 @@
 [
   {
-    "relation": [ "delegate_permission/common.handle_all_urls" ],
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.misoclub.mio",
       "sha256_cert_fingerprints": [
-        "5A:8B:E1:EE:70:59:6A:60:A4:EF:41:D1:79:2C:9D:BE:64:CF:F5:4D:69:90:E2:A1:DA:31:61:3A:58:D4:91:A9"
+        "5A:8B:E1:EE:70:59:6A:60:A4:EF:41:D1:79:2C:9D:BE:64:CF:F5:4D:69:90:E2:A1:DA:31:61:3A:58:D4:91:A9",
+        "28:65:81:FC:8D:55:0E:DA:5C:BC:D2:DD:BF:A6:3A:36:A0:3D:D3:39:44:3B:61:28:33:CD:65:E3:98:2E:69:7C"
       ]
     }
   },
   {
-    "relation": [ "delegate_permission/common.handle_all_urls" ],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.misoclub.mio.dev",
