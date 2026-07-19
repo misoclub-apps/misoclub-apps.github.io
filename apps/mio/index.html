@@ -8,7 +8,14 @@
     <link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png" />
     <link rel="manifest" href="../../site.webmanifest" />
-    <meta name="theme-color" content="#171716" />
+    <meta name="theme-color" content="#3d8bff" />
+    <!-- 丸ゴシック（ポップな雰囲気・MIO LP 用） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <!-- OGP（アプリのホームページとして共有されるため絶対URL） -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="misoclub" />
@@ -24,11 +31,12 @@
     />
     <link rel="stylesheet" href="../../css/style.css" />
   </head>
-  <body>
+  <body class="theme-mio">
     <!--
       MIO のランディングページ（アプリのホームページとして OAuth 同意画面等に登録するページ）。
       ・プライバシーポリシーへのリンクはヘッダー / 本文 / フッターに明示的に設置すること（審査要件）。
-      ・img/ph-*.svg は仮画像。実際のスクリーンショットに差し替えてください。
+      ・img/ 配下の hero-home / f-* / shot-* は実スクショ（差し替え済み）。
+        旧仮画像 img/ph-*.svg は未使用（残置）。
       ・シェア用のシンプルなDLページは ./download.html にバックアップとして残してあります。
     -->
 
@@ -70,8 +78,7 @@
           </div>
         </div>
         <div class="lp-hero-visual">
-          <!-- 仮画像: ホーム画面の実機スクショに差し替え -->
-          <img src="./img/ph-hero.svg" alt="MIO のホーム画面（準備中）" class="lp-phone" />
+          <img src="./img/hero-home.png" alt="MIO のホーム画面" class="lp-phone" />
         </div>
       </div>
     </section>
@@ -85,7 +92,7 @@
         <div class="lp-feature-grid">
           <div class="app-card lp-feature">
             <div class="lp-feature-shot">
-              <img src="./img/ph-timetable.svg" alt="時間割画面（準備中）" loading="lazy" />
+              <img src="./img/f-timetable.png" alt="時間割画面" loading="lazy" />
             </div>
             <h3>📅 時間割</h3>
             <p>
@@ -96,7 +103,7 @@
 
           <div class="app-card lp-feature">
             <div class="lp-feature-shot">
-              <img src="./img/ph-assignments.svg" alt="課題一覧画面（準備中）" loading="lazy" />
+              <img src="./img/f-assignments.png" alt="課題一覧画面" loading="lazy" />
             </div>
             <h3>📝 課題・提出物</h3>
             <p>
@@ -107,7 +114,7 @@
 
           <div class="app-card lp-feature">
             <div class="lp-feature-shot">
-              <img src="./img/ph-attendance.svg" alt="出欠・単位画面（準備中）" loading="lazy" />
+              <img src="./img/f-attendance.png" alt="出欠・卒業単位画面" loading="lazy" />
             </div>
             <h3>✅ 出欠と卒業単位</h3>
             <p>
@@ -118,7 +125,7 @@
 
           <div class="app-card lp-feature">
             <div class="lp-feature-shot">
-              <img src="./img/ph-schedule.svg" alt="予定画面（準備中）" loading="lazy" />
+              <img src="./img/f-schedule.png" alt="予定・カレンダー画面" loading="lazy" />
             </div>
             <h3>🗓 予定管理</h3>
             <p>
@@ -129,7 +136,7 @@
 
           <div class="app-card lp-feature">
             <div class="lp-feature-shot">
-              <img src="./img/ph-friends.svg" alt="友達画面（準備中）" loading="lazy" />
+              <img src="./img/f-friends.png" alt="友達の時間割画面" loading="lazy" />
             </div>
             <h3>👥 友達と共有</h3>
             <p>
@@ -140,7 +147,7 @@
 
           <div class="app-card lp-feature">
             <div class="lp-feature-shot">
-              <img src="./img/ph-misc.svg" alt="設定・テーマ画面（準備中）" loading="lazy" />
+              <img src="./img/f-misc.png" alt="設定・テーマ画面" loading="lazy" />
             </div>
             <h3>🎨 そのほかも充実</h3>
             <p>
@@ -156,14 +163,17 @@
     <section id="screenshots" class="lp-shots-section">
       <div class="container">
         <h2 class="section-title">スクリーンショット</h2>
-        <p class="section-lead">実際の画面をチェック。（画像は準備中です）</p>
+        <p class="section-lead">実際の画面をチェック。横にスワイプできます。</p>
       </div>
       <div class="lp-shots" aria-label="アプリのスクリーンショット一覧">
-        <!-- 仮画像: 実機スクショ（縦）に差し替え -->
-        <img src="./img/ph-shot-1.svg" alt="スクリーンショット 1（準備中）" loading="lazy" />
-        <img src="./img/ph-shot-2.svg" alt="スクリーンショット 2（準備中）" loading="lazy" />
-        <img src="./img/ph-shot-3.svg" alt="スクリーンショット 3（準備中）" loading="lazy" />
-        <img src="./img/ph-shot-4.svg" alt="スクリーンショット 4（準備中）" loading="lazy" />
+        <img src="./img/shot-01.png" alt="ホーム画面" loading="lazy" />
+        <img src="./img/shot-02.png" alt="時間割画面" loading="lazy" />
+        <img src="./img/shot-03.png" alt="カレンダー画面" loading="lazy" />
+        <img src="./img/shot-04.png" alt="出欠・卒業単位画面" loading="lazy" />
+        <img src="./img/shot-05.png" alt="バイト管理画面" loading="lazy" />
+        <img src="./img/shot-06.png" alt="イベント割り勘画面" loading="lazy" />
+        <img src="./img/shot-07.png" alt="サークル画面" loading="lazy" />
+        <img src="./img/shot-08.png" alt="イベント日程調整画面" loading="lazy" />
       </div>
     </section>
 
