@@ -35,7 +35,7 @@
     <!--
       MIO のランディングページ（アプリのホームページとして OAuth 同意画面等に登録するページ）。
       ・プライバシーポリシーへのリンクはヘッダー / 本文 / フッターに明示的に設置すること（審査要件）。
-      ・img/ 配下の hero-home / f-* / shot-* は実スクショ（差し替え済み）。
+      ・img/poster-01〜14.jpg は装飾済みストア用ポスター（ヒーロー/機能/ギャラリーで使用）。
         旧仮画像 img/ph-*.svg は未使用（残置）。
       ・シェア用のシンプルなDLページは ./download.html にバックアップとして残してあります。
     -->
@@ -62,7 +62,7 @@
         <div class="lp-hero-copy">
           <img src="./icon.png" alt="MIO アプリアイコン" class="lp-hero-icon" width="96" height="96" />
           <h1>MIO<span class="lp-hero-sub">学生生活まるごと管理</span></h1>
-          <p class="lp-tagline">毎日、いろいろ、おもしろく。</p>
+          <p class="lp-tagline">みんなと、いっしょに、おくる毎日</p>
           <p class="lp-lead">
             時間割・課題・出欠・バイト・サークル・イベントまで、<br />
             学生生活をこれひとつでまるごと管理。<br />
@@ -78,7 +78,7 @@
           </div>
         </div>
         <div class="lp-hero-visual">
-          <img src="./img/hero-home.png" alt="MIO のホーム画面" class="lp-phone" />
+          <img src="./img/poster-01.jpg" alt="MIO ができること（学生生活まるごと管理）" class="lp-phone" />
         </div>
       </div>
     </section>
@@ -91,71 +91,53 @@
 
         <div class="lp-feature-grid">
           <div class="app-card lp-feature">
-            <div class="lp-feature-shot">
-              <img src="./img/f-timetable.png" alt="時間割画面" loading="lazy" />
+            <div class="lp-feature-shot lp-feature-poster">
+              <img src="./img/poster-03.jpg" alt="時間割画面" loading="lazy" />
             </div>
             <h3>📅 時間割</h3>
-            <p>
-              年度・学期ごとに時間割を管理。授業の場所や先生、メモもまとめて登録できます。
-              学期が変わっても過去の時間割はそのまま残ります。
-            </p>
+            <p>タップで作れる時間割。授業の場所・先生・メモも登録でき、出欠もその場で記録できます。</p>
           </div>
 
           <div class="app-card lp-feature">
-            <div class="lp-feature-shot">
-              <img src="./img/f-assignments.png" alt="課題一覧画面" loading="lazy" />
+            <div class="lp-feature-shot lp-feature-poster">
+              <img src="./img/poster-11.jpg" alt="カレンダー画面" loading="lazy" />
             </div>
-            <h3>📝 課題・提出物</h3>
-            <p>
-              レポートや課題を締切つきで登録。通知でリマインドしてくれるので、
-              「出し忘れた…」を防げます。
-            </p>
+            <h3>🗓 カレンダー</h3>
+            <p>授業・バイト・サークル・イベントをまとめて管理。月間・週間・リストで切り替えられます。</p>
           </div>
 
           <div class="app-card lp-feature">
-            <div class="lp-feature-shot">
-              <img src="./img/f-attendance.png" alt="出欠・卒業単位画面" loading="lazy" />
+            <div class="lp-feature-shot lp-feature-poster">
+              <img src="./img/poster-12.jpg" alt="出欠と卒業単位画面" loading="lazy" />
             </div>
             <h3>✅ 出欠と卒業単位</h3>
-            <p>
-              授業ごとの出席・欠席・遅刻を記録。取得した単位を集計して、
-              卒業に必要な単位の達成状況もチェックできます。
-            </p>
+            <p>出席・欠席・遅刻を記録。出席率も、卒業に必要な単位の達成状況も自動で集計します。</p>
           </div>
 
           <div class="app-card lp-feature">
-            <div class="lp-feature-shot">
-              <img src="./img/f-schedule.png" alt="予定・カレンダー画面" loading="lazy" />
+            <div class="lp-feature-shot lp-feature-poster">
+              <img src="./img/poster-05.jpg" alt="バイト画面" loading="lazy" />
             </div>
-            <h3>🗓 予定管理</h3>
-            <p>
-              バイトのシフト、サークル、イベント、テスト期間まで。
-              授業以外の予定もまとめてカレンダーで管理できます。
-            </p>
+            <h3>💰 バイト</h3>
+            <p>シフトと給料をまとめて管理。今月の予想給料や勤務時間がひと目でわかります。</p>
           </div>
 
           <div class="app-card lp-feature">
-            <div class="lp-feature-shot">
-              <img src="./img/f-friends.png" alt="友達の時間割画面" loading="lazy" />
+            <div class="lp-feature-shot lp-feature-poster">
+              <img src="./img/poster-13.jpg" alt="サークル画面" loading="lazy" />
             </div>
-            <h3>👥 友達と共有</h3>
-            <p>
-              フレンドコードで友達とつながって、時間割や予定を共有。
-              「次の空きコマいつ？」がすぐわかります。
-            </p>
+            <h3>🎪 サークル</h3>
+            <p>おしらせ・イベント・集金・メンバー管理まで。サークル運営がこれひとつで完結します。</p>
           </div>
 
           <div class="app-card lp-feature">
-            <div class="lp-feature-shot">
-              <img src="./img/f-misc.png" alt="設定・テーマ画面" loading="lazy" />
+            <div class="lp-feature-shot lp-feature-poster">
+              <img src="./img/poster-07.jpg" alt="割り勘画面" loading="lazy" />
             </div>
-            <h3>🎨 そのほかも充実</h3>
-            <p>
-              通知リマインド、データのバックアップ、テーマの着せ替え、実績（トロフィー）など、
-              毎日使うのが楽しくなる機能がそろっています。
-            </p>
+            <h3>🧾 割り勘</h3>
+            <p>イベントの費用を1円まで自動で精算。誰が誰にいくら払うかもすぐわかります。</p>
           </div>
-        </div>
+                </div>
       </div>
     </section>
 
@@ -166,14 +148,13 @@
         <p class="section-lead">実際の画面をチェック。横にスワイプできます。</p>
       </div>
       <div class="lp-shots" aria-label="アプリのスクリーンショット一覧">
-        <img src="./img/shot-01.png" alt="ホーム画面" loading="lazy" />
-        <img src="./img/shot-02.png" alt="時間割画面" loading="lazy" />
-        <img src="./img/shot-03.png" alt="カレンダー画面" loading="lazy" />
-        <img src="./img/shot-04.png" alt="出欠・卒業単位画面" loading="lazy" />
-        <img src="./img/shot-05.png" alt="バイト管理画面" loading="lazy" />
-        <img src="./img/shot-06.png" alt="イベント割り勘画面" loading="lazy" />
-        <img src="./img/shot-07.png" alt="サークル画面" loading="lazy" />
-        <img src="./img/shot-08.png" alt="イベント日程調整画面" loading="lazy" />
+        <img src="./img/poster-02.jpg" alt="ホーム画面" loading="lazy" />
+        <img src="./img/poster-04.jpg" alt="週間カレンダー画面" loading="lazy" />
+        <img src="./img/poster-06.jpg" alt="イベント画面" loading="lazy" />
+        <img src="./img/poster-08.jpg" alt="卒業単位画面" loading="lazy" />
+        <img src="./img/poster-09.jpg" alt="就活画面" loading="lazy" />
+        <img src="./img/poster-10.jpg" alt="日記画面" loading="lazy" />
+        <img src="./img/poster-14.jpg" alt="日程調整画面" loading="lazy" />
       </div>
     </section>
 
