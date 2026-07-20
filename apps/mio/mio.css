@@ -54,18 +54,10 @@ body {
   transform: none;
 }
 
-/* ---------- ヘッダー：半透明ブラーの固定ナビ ---------- */
+/* ---------- ヘッダー：元の配色（青地・白ナビ）のまま。
+   ピン留めショーケースより前面に出すため z-index だけ上げる ---------- */
 .theme-mio .lp-header {
-  position: sticky;
-  top: 0;
   z-index: 60;
-  background: rgba(255, 255, 255, 0.72);
-  -webkit-backdrop-filter: saturate(180%) blur(18px);
-  backdrop-filter: saturate(180%) blur(18px);
-  border-bottom: 1px solid rgba(20, 30, 50, 0.08);
-}
-.theme-mio .lp-header .nav a {
-  font-weight: 700;
 }
 
 /* ---------- 大見出し ---------- */
@@ -216,9 +208,16 @@ body {
   object-fit: cover;
   object-position: top center;
 }
-.theme-mio .mio-hero-phone .mio-phone {
-  height: min(52vh, 560px);
+/* ヒーローのメインビジュアル（MIO の装飾ポスター poster-01 をそのまま表示） */
+.theme-mio .mio-hero-phone img {
+  display: block;
+  height: min(56vh, 620px);
   width: auto;
+  max-width: 88vw;
+  border-radius: clamp(18px, 2.4vw, 28px);
+  box-shadow:
+    0 2px 6px rgba(20, 40, 90, 0.12),
+    0 34px 70px -20px rgba(20, 40, 90, 0.42);
 }
 
 /* =====================================================================
@@ -243,7 +242,9 @@ body {
   top: 0;
   height: 100vh;
   height: 100svh;
-  padding: 0 20px;
+  box-sizing: border-box;
+  /* 上端はヘッダー(約64px)ぶんを避けて中身を収める */
+  padding: 78px 20px 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -259,7 +260,7 @@ body {
 }
 .sc-live .mio-stage-label {
   position: absolute;
-  top: clamp(22px, 5vh, 58px);
+  top: clamp(74px, 9vh, 96px);
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
@@ -283,6 +284,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: clamp(22px, 4vh, 40px);
 }
 .theme-mio:not(.sc-live) .mio-beat + .mio-beat {
@@ -338,7 +340,7 @@ body {
 }
 .theme-mio .mio-beat-media img {
   display: block;
-  height: min(48vh, 520px);
+  height: min(44vh, 480px);
   width: auto;
   max-width: 86vw;
   border-radius: clamp(16px, 2vw, 24px);
@@ -370,43 +372,110 @@ body {
   line-height: 1.85;
 }
 
-/* --- 進捗（バー＋カウンタ）。動きOKのときだけ表示 --- */
-.theme-mio .mio-progress {
+/* --- 進捗ドット（動きOKのときだけ表示） --- */
+.theme-mio .mio-dots {
   display: none;
 }
-.sc-live .mio-progress {
+.sc-live .mio-dots {
   position: absolute;
   left: 50%;
-  bottom: clamp(22px, 4.5vh, 46px);
+  bottom: clamp(20px, 4.5vh, 44px);
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 14px;
-  width: min(320px, 76vw);
+  justify-content: center;
+  gap: clamp(7px, 1vw, 10px);
 }
-.theme-mio .mio-progress-count {
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  color: var(--mio-ink-soft);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-.theme-mio .mio-progress-track {
-  position: relative;
-  flex: 1;
-  height: 4px;
+.theme-mio .mio-dots span {
+  width: 7px;
+  height: 7px;
   border-radius: 999px;
-  background: rgba(27, 36, 50, 0.14);
-  overflow: hidden;
+  background: rgba(27, 36, 50, 0.2);
+  transition:
+    transform 0.35s var(--mio-ease),
+    background-color 0.35s var(--mio-ease);
 }
-.theme-mio .mio-progress-bar {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 0;
-  border-radius: 999px;
+.theme-mio .mio-dots span.is-active {
   background: var(--mio-blue);
-  transition: width 0.2s linear;
+  transform: scale(1.4);
+}
+
+/* =====================================================================
+   全機能一覧：PC は 3 列グリッド／スマホは横スクロール（解説文つき）
+   ===================================================================== */
+.theme-mio .mio-grid-section {
+  padding: clamp(64px, 11vh, 130px) 0;
+}
+.theme-mio .mio-grid-section .section-title {
+  text-align: center;
+  margin: 0 0 clamp(32px, 6vh, 60px);
+}
+.theme-mio .mio-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4px 20px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2vw, 26px);
+}
+.theme-mio .mio-grid-card {
+  background: var(--mio-card);
+  border-radius: var(--mio-radius);
+  padding: 16px 16px 22px;
+  border: 1px solid rgba(20, 30, 50, 0.05);
+  box-shadow:
+    0 1px 2px rgba(20, 30, 50, 0.05),
+    0 18px 40px -28px rgba(20, 40, 90, 0.4);
+  transition:
+    transform 0.4s var(--mio-ease),
+    box-shadow 0.4s var(--mio-ease);
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 721px) {
+  .theme-mio .mio-grid-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 1px 2px rgba(20, 30, 50, 0.06),
+      0 30px 60px -30px rgba(20, 40, 90, 0.5);
+  }
+}
+.theme-mio .mio-grid-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 14px;
+}
+.theme-mio .mio-grid-title {
+  font-weight: 900;
+  font-size: 1.16rem;
+  margin: 16px 0 8px;
+}
+.theme-mio .mio-grid-desc {
+  margin: 0;
+  color: var(--mio-ink-soft);
+  line-height: 1.8;
+}
+/* スマホ：スクショと同じ横スクロールに。1 枚はポスター全体＋解説文 */
+@media (max-width: 720px) {
+  .theme-mio .mio-grid {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    padding: 4px max(20px, env(safe-area-inset-left)) 12px
+      max(20px, env(safe-area-inset-right));
+  }
+  .theme-mio .mio-grid-card {
+    flex: 0 0 78%;
+    scroll-snap-align: center;
+  }
+  .theme-mio .mio-grid-media img {
+    aspect-ratio: auto;
+    height: auto;
+  }
 }
 
 /* =====================================================================
