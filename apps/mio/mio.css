@@ -245,12 +245,12 @@ body {
   box-sizing: border-box;
   /* 上端はヘッダー(約64px)ぶんを避ける。ラベル・ビート・ドットを
      ひとまとまりとして縦中央に寄せる */
-  padding: 64px 20px 28px;
+  padding: 64px 20px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(16px, 3vh, 34px);
+  gap: clamp(14px, 2vh, 24px);
 }
 
 /* 見出しラベル */
@@ -274,38 +274,69 @@ body {
   margin: 0 auto;
 }
 .sc-live .mio-beats {
+  /* 固定高さの入れ物。ビートはこの中に重ねて配置する。
+     flex:none で伸縮を止め、active ビートの中身量に関係なく高さを固定する。
+     svh 系で高さを決め、スマホの URL バー出入りでも位置がズレないように。 */
   position: relative;
+  flex: none;
   width: 100%;
-  height: min(66vh, 680px);
+  height: min(66vh, 660px);
+  height: min(66svh, 660px);
 }
 
-/* --- 1 ビート（画像＋テキスト） --- */
+/* --- 1 ビート（画像＋テキスト） ---
+   スマホ（縦積み）は画像を上端そろえにして、説明文の行数が違っても
+   画像の位置が全ビートで揃うようにする（＝ページ間の位置ズレ防止）。 */
 .theme-mio .mio-beat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(22px, 4vh, 40px);
+  /* スマホは通常のブロック積み（上から画像→本文）。flex の縦揃えは
+     本文の行数でズレることがあるため使わない＝画像位置を全ビートで固定。 */
+  text-align: center;
 }
-.theme-mio:not(.sc-live) .mio-beat + .mio-beat {
+/* 静的フォールバック時だけビート間に余白（.sc-live は <html> に付くので
+   :root:not(.sc-live) で判定する。body の .theme-mio では判定できない）。 */
+:root:not(.sc-live) .mio-beat + .mio-beat {
   margin-top: clamp(56px, 10vh, 120px);
 }
 @media (min-width: 900px) {
   .theme-mio .mio-beat {
+    display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: center;
     gap: clamp(48px, 6vw, 96px);
+    text-align: left;
   }
 }
-/* 動きOK時：各ビートを重ねて配置し、フェードで切り替え */
+/* 動きOK時：各ビートを入れ物いっぱいに重ねる。
+   スマホは画像・本文を「固定位置」に絶対配置して、本文の行数に関係なく
+   全ビートで画像位置が完全に一致するようにする（＝ページ間の位置ズレ防止）。 */
 .sc-live .mio-beat {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   margin: 0;
   pointer-events: none;
 }
 .sc-live .mio-beat.is-active {
   pointer-events: auto;
+}
+/* 画像：上端中央に固定。本文：画像のすぐ下の固定オフセットに配置。 */
+.sc-live .mio-beat-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+}
+.sc-live .mio-beat-text {
+  position: absolute;
+  top: calc(min(36vh, 400px) + 28px);
+  top: calc(min(36svh, 400px) + 28px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 /* 画像・テキストは下（translateY +）で待機 → active で中央 → past で上へ抜ける */
 .sc-live .mio-beat-media,
@@ -333,16 +364,32 @@ body {
 .sc-live .mio-beat.is-past .mio-beat-text {
   transform: translateY(-52px);
 }
+/* PC は横並び（画像＋テキスト）に戻す＝絶対配置を解除 */
+@media (min-width: 900px) {
+  .sc-live .mio-beat-media,
+  .sc-live .mio-beat-text {
+    position: static;
+    top: auto;
+  }
+}
 
 /* --- 画像（ポスター） --- */
 .theme-mio .mio-beat-media {
   flex: none;
+  margin: 0 auto clamp(16px, 2.6vh, 30px);
+}
+@media (min-width: 900px) {
+  .theme-mio .mio-beat-media {
+    margin: 0;
+  }
 }
 .theme-mio .mio-beat-media img {
   display: block;
-  height: min(44vh, 480px);
+  height: min(36vh, 400px);
+  height: min(36svh, 400px);
   width: auto;
   max-width: 86vw;
+  margin: 0 auto;
   border-radius: clamp(16px, 2vw, 24px);
   box-shadow:
     0 2px 6px rgba(20, 40, 90, 0.12),
@@ -352,10 +399,12 @@ body {
 /* --- テキスト --- */
 .theme-mio .mio-beat-text {
   width: min(440px, 92vw);
+  margin: 0 auto;
   text-align: center;
 }
 @media (min-width: 900px) {
   .theme-mio .mio-beat-text {
+    margin: 0;
     text-align: left;
   }
 }
