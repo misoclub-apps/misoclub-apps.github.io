@@ -30,13 +30,8 @@
       content="MIO（ミオ）は、時間割・課題・出欠・バイト・サークル・イベントまで、学生生活をまるごと管理できる無料アプリ。友達と時間割や予定も共有できます。iOS / Android 対応。"
     />
     <link rel="stylesheet" href="../../css/style.css" />
-    <!-- MIO LP 専用スタイル（Apple 風リニューアル・スクロール演出） -->
+    <!-- MIO LP 専用スタイル（このページ専用） -->
     <link rel="stylesheet" href="./mio.css" />
-    <!-- JS 有効を最速で知らせ、演出用の初期状態を first paint 前に適用する
-         （JS 無効時は .js が付かず、素直な段組み表示のまま） -->
-    <script>
-      document.documentElement.className += " js";
-    </script>
   </head>
   <body class="theme-mio">
     <!--
@@ -65,22 +60,22 @@
       </div>
     </header>
 
-    <!-- ヒーロー（全画面・シネマティック） -->
+    <!-- ヒーロー -->
     <section class="mio-hero" id="top">
       <div class="mio-hero-inner">
         <img
           src="./icon.png"
           alt="MIO アプリアイコン"
-          class="mio-hero-icon reveal"
+          class="mio-hero-icon"
           width="104"
           height="104"
         />
-        <h1 class="mio-hero-title reveal">学生生活、<br />これ1つ。</h1>
-        <p class="mio-hero-sub reveal">
+        <h1 class="mio-hero-title">学生生活、<br />これ1つ。</h1>
+        <p class="mio-hero-sub">
           時間割も、出欠も、バイトも、あそびも。<br />
           MIO がぜんぶ、まとめて整える。
         </p>
-        <div class="store-badges mio-hero-cta reveal">
+        <div class="store-badges mio-hero-cta">
           <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
             <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
           </a>
@@ -88,7 +83,7 @@
             <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
           </a>
         </div>
-        <div class="mio-hero-phone reveal reveal--pop">
+        <div class="mio-hero-phone">
           <img src="./img/poster-01.jpg" alt="MIO — 学生生活、これ1つ。" />
         </div>
       </div>
@@ -293,88 +288,6 @@
     <script>
       // フッターの年号を自動更新
       document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
-
-    <script>
-      // スクロールで各要素をふわっと出現させる（reveal）。
-      // prefers-reduced-motion のときは演出せず、コンテンツは通常表示のまま。
-      (function () {
-        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (reduce) return;
-
-        document.documentElement.classList.add("sc-live");
-
-        function tag(el, pop, delay) {
-          if (!el) return;
-          el.classList.add("reveal");
-          if (pop) el.classList.add("reveal--pop");
-          if (delay) el.style.setProperty("--reveal-delay", delay + "ms");
-        }
-
-        // ヒーロー内の要素を少しずつ遅らせて登場
-        [".mio-hero-icon", ".mio-hero-title", ".mio-hero-sub", ".mio-hero-cta"].forEach(
-          function (sel, i) {
-            tag(document.querySelector(sel), false, i * 90);
-          }
-        );
-        tag(document.querySelector(".mio-hero-phone"), true, 380);
-
-        // 各セクションの見出し・リード（スクショ節は触らない）
-        document
-          .querySelectorAll(
-            "section:not(#screenshots) > .container > .section-title, " +
-              "section:not(#screenshots) > .container > .section-lead"
-          )
-          .forEach(function (el) {
-            tag(el, false, 0);
-          });
-
-        // 機能リスト：スクロールで各機能が順番にふわっと登場
-        document
-          .querySelectorAll(".mio-feature-list .mio-beat")
-          .forEach(function (el) {
-            tag(el, true, 0);
-          });
-
-        // 「安心してつかえます」のカード
-        document
-          .querySelectorAll(".lp-trust-list .lp-trust-item")
-          .forEach(function (el, i) {
-            tag(el, false, i * 90);
-          });
-
-        // ダウンロード CTA のボタン
-        tag(document.querySelector(".lp-cta .store-badges"), false, 120);
-
-        // スクロール位置で判定して順番に表示（IntersectionObserver 非依存で確実）。
-        var revealItems = [].slice.call(document.querySelectorAll(".reveal"));
-        function reveal() {
-          var trigger = window.innerHeight * 0.9;
-          for (var i = revealItems.length - 1; i >= 0; i--) {
-            if (revealItems[i].getBoundingClientRect().top < trigger) {
-              revealItems[i].classList.add("is-visible");
-              revealItems.splice(i, 1);
-            }
-          }
-        }
-
-        var ticking = false;
-        function onScroll() {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(function () {
-            reveal();
-            ticking = false;
-          });
-        }
-        window.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", onScroll);
-
-        // 初期表示（ファーストビューをすぐ出す）
-        reveal();
-        requestAnimationFrame(reveal);
-        window.addEventListener("load", reveal);
-      })();
     </script>
   </body>
 </html>

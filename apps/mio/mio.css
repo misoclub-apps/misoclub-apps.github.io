@@ -1,8 +1,9 @@
 /* =====================================================================
-   MIO ランディングページ専用スタイル（Apple 風リニューアル）
-   - style.css の後に読み込む、このページ専用のスタイル。
-   - スクロール演出は <html> の .js（JS有効）と .sc-live（動きOK）でゲート。
-     JS無効／prefers-reduced-motion のときは素直な段組み表示にフォールバック。
+   MIO ランディングページ専用スタイル（このページ専用）
+   - style.css の後に読み込む。
+   - スクロール連動の演出（reveal / ピン留め / 切替）は不採用。完全に静的。
+   - ビューポート高さ（vh/svh/dvh）には依存しない＝URLバーの出入りで
+     レイアウトが動かない（縦方向は px / vw のみ）。
    ===================================================================== */
 
 :root {
@@ -35,25 +36,6 @@ body {
   }
 }
 
-/* ---------- 出現アニメーション（reveal）。動きOK（.sc-live）のときだけ適用。
-   prefers-reduced-motion では .sc-live が付かず、通常表示のまま。 ---------- */
-.sc-live .reveal {
-  opacity: 0;
-  transform: translateY(34px);
-  transition:
-    opacity 0.8s var(--mio-ease),
-    transform 0.8s var(--mio-ease);
-  transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
-}
-.sc-live .reveal.reveal--pop {
-  transform: translateY(42px) scale(0.95);
-}
-.sc-live .reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
 /* ---------- ヘッダー：元の配色（青地・白ナビ）のまま。
    ピン留めショーケースより前面に出すため z-index だけ上げる ---------- */
 .theme-mio .lp-header {
@@ -77,15 +59,13 @@ body {
    ===================================================================== */
 .theme-mio .mio-hero {
   position: relative;
-  min-height: 100svh;
+  /* ビューポート高さ(vh/svh)には一切依存しない＝URLバーの出入りで
+     レイアウトが動かない。余白は px / vw のみ。 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  /* 余白も svh 基準にして URL バーの出入りで位置がズレない（vh はフォールバック） */
-  padding: clamp(90px, 12vh, 140px) 20px clamp(40px, 8vh, 80px);
-  padding: clamp(90px, 12svh, 140px) 20px clamp(40px, 8svh, 80px);
+  padding: clamp(84px, 13vw, 128px) 20px clamp(52px, 9vw, 88px);
   overflow: hidden;
   background:
     radial-gradient(120% 80% at 50% -10%, #eaf2ff 0%, rgba(234, 242, 255, 0) 60%),
@@ -126,8 +106,7 @@ body {
   margin: 0 0 30px;
 }
 .theme-mio .mio-hero-cta {
-  margin-bottom: clamp(36px, 7vh, 70px);
-  margin-bottom: clamp(36px, 7svh, 70px);
+  margin-bottom: clamp(34px, 7vw, 60px);
 }
 .theme-mio .mio-hero-phone {
   width: 100%;
@@ -191,7 +170,7 @@ body {
    PC は画像とテキストを横並び（交互に左右反転）、スマホは縦積み。
    ===================================================================== */
 .theme-mio .mio-features {
-  padding: clamp(60px, 10vh, 120px) 0 clamp(72px, 12vh, 140px);
+  padding: clamp(60px, 10vw, 120px) 0 clamp(72px, 12vw, 140px);
   background: linear-gradient(180deg, var(--mio-bg) 0%, #eef3fb 42%, #eef3fb 58%, var(--mio-bg) 100%);
 }
 .theme-mio .mio-features .section-title,
@@ -200,11 +179,11 @@ body {
 }
 .theme-mio .mio-feature-list {
   max-width: 1000px;
-  margin: clamp(40px, 7vh, 76px) auto 0;
+  margin: clamp(40px, 7vw, 76px) auto 0;
   padding: 0 20px;
   display: flex;
   flex-direction: column;
-  gap: clamp(64px, 11vh, 128px);
+  gap: clamp(64px, 11vw, 128px);
 }
 
 /* --- 1 機能（画像＋テキスト） --- */
@@ -212,7 +191,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(22px, 4vh, 40px);
+  gap: clamp(22px, 4vw, 40px);
   text-align: center;
 }
 @media (min-width: 820px) {
@@ -265,10 +244,10 @@ body {
    仕上げ：安心 / CTA
    ===================================================================== */
 .theme-mio .lp-trust {
-  padding: clamp(60px, 10vh, 120px) 0;
+  padding: clamp(60px, 10vw, 120px) 0;
 }
 .theme-mio .lp-cta {
-  padding: clamp(80px, 14vh, 160px) 0;
+  padding: clamp(80px, 14vw, 160px) 0;
   text-align: center;
   background:
     radial-gradient(90% 120% at 50% 0%, #eaf2ff 0%, rgba(234, 242, 255, 0) 60%),
