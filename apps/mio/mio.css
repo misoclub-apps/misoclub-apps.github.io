@@ -243,14 +243,17 @@ body {
   height: 100vh;
   height: 100svh;
   box-sizing: border-box;
-  /* 上端はヘッダー(約64px)ぶんを避けて中身を収める */
-  padding: 78px 20px 44px;
+  /* 上端はヘッダー(約64px)ぶんを避ける。ラベル・ビート・ドットを
+     ひとまとまりとして縦中央に寄せる */
+  padding: 64px 20px 28px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: clamp(16px, 3vh, 34px);
 }
 
-/* 固定の見出しラベル */
+/* 見出しラベル */
 .theme-mio .mio-stage-label {
   text-align: center;
   font-weight: 900;
@@ -259,10 +262,6 @@ body {
   color: var(--mio-ink);
 }
 .sc-live .mio-stage-label {
-  position: absolute;
-  top: clamp(74px, 9vh, 96px);
-  left: 50%;
-  transform: translateX(-50%);
   margin: 0;
   font-size: clamp(1rem, 2.2vw, 1.3rem);
   letter-spacing: 0.02em;
@@ -276,7 +275,8 @@ body {
 }
 .sc-live .mio-beats {
   position: relative;
-  height: min(80vh, 780px);
+  width: 100%;
+  height: min(66vh, 680px);
 }
 
 /* --- 1 ビート（画像＋テキスト） --- */
@@ -377,10 +377,6 @@ body {
   display: none;
 }
 .sc-live .mio-dots {
-  position: absolute;
-  left: 50%;
-  bottom: clamp(20px, 4.5vh, 44px);
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
