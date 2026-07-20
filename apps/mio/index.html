@@ -30,39 +30,13 @@
       content="MIO（ミオ）は、時間割・課題・出欠・バイト・サークル・イベントまで、学生生活をまるごと管理できる無料アプリ。友達と時間割や予定も共有できます。iOS / Android 対応。"
     />
     <link rel="stylesheet" href="../../css/style.css" />
-    <!-- スクロール連動の出現アニメーション（このページ専用）。
-         JS 無効／prefers-reduced-motion のときは reveal-enabled が付かず、通常表示のまま。 -->
-    <style>
-      .theme-mio.reveal-enabled .reveal {
-        opacity: 0;
-        transform: translateY(32px);
-        transition:
-          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-        transition-delay: var(--reveal-delay, 0ms);
-        will-change: opacity, transform;
-      }
-      .theme-mio.reveal-enabled .reveal.reveal--pop {
-        transform: translateY(38px) scale(0.96);
-      }
-      .theme-mio.reveal-enabled .reveal.is-visible {
-        opacity: 1;
-        transform: none;
-      }
-      /* ヒーローの端末画像はふわっと浮遊させて動きを添える */
-      @keyframes lp-float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-      .theme-mio.reveal-enabled .lp-hero-visual.is-visible .lp-phone {
-        animation: lp-float 6s ease-in-out infinite 1s;
-      }
-    </style>
+    <!-- MIO LP 専用スタイル（Apple 風リニューアル・スクロール演出） -->
+    <link rel="stylesheet" href="./mio.css" />
+    <!-- JS 有効を最速で知らせ、演出用の初期状態を first paint 前に適用する
+         （JS 無効時は .js が付かず、素直な段組み表示のまま） -->
+    <script>
+      document.documentElement.className += " js";
+    </script>
   </head>
   <body class="theme-mio">
     <!--
@@ -91,29 +65,94 @@
       </div>
     </header>
 
-    <!-- ヒーロー -->
-    <section class="hero lp-hero">
-      <div class="container lp-hero-inner">
-        <div class="lp-hero-copy">
-          <img src="./icon.png" alt="MIO アプリアイコン" class="lp-hero-icon" width="96" height="96" />
-          <h1>MIO<span class="lp-hero-sub">学生生活まるごと管理</span></h1>
-          <p class="lp-tagline">みんなと、いっしょに、おくる毎日</p>
-          <p class="lp-lead">
-            時間割・課題・出欠・バイト・サークル・イベントまで、<br />
-            学生生活をこれひとつでまるごと管理。<br />
-            友達と時間割や予定を共有できる、無料の学生生活アプリです。
-          </p>
-          <div class="store-badges">
-            <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
-              <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
-              <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
-            </a>
+    <!-- ヒーロー（全画面・シネマティック） -->
+    <section class="mio-hero" id="top">
+      <div class="mio-hero-inner">
+        <img
+          src="./icon.png"
+          alt="MIO アプリアイコン"
+          class="mio-hero-icon reveal"
+          width="104"
+          height="104"
+        />
+        <h1 class="mio-hero-title reveal">学生生活、<br />これ1つ。</h1>
+        <p class="mio-hero-sub reveal">
+          時間割も、出欠も、バイトも、あそびも。<br />
+          MIO がぜんぶ、まとめて整える。
+        </p>
+        <div class="store-badges mio-hero-cta reveal">
+          <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
+            <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
+            <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
+          </a>
+        </div>
+        <div class="mio-hero-phone reveal reveal--pop">
+          <div class="mio-phone">
+            <div class="mio-phone-screen">
+              <img src="./img/shots/01_current.jpg" alt="MIO ホーム画面" />
+            </div>
           </div>
         </div>
-        <div class="lp-hero-visual">
-          <img src="./img/poster-01.jpg" alt="MIO ができること（学生生活まるごと管理）" class="lp-phone" />
+      </div>
+      <div class="mio-hero-scrollhint">SCROLL</div>
+    </section>
+
+    <!-- スティッキー・ショーケース（端末を固定して中身がスクロールで切り替わる） -->
+    <section class="mio-showcase" aria-label="MIO の主な機能">
+      <div class="mio-stage">
+        <div class="mio-stage-copy">
+          <div class="mio-beat-copy is-active" data-beat="0">
+            <span class="mio-beat-kicker">時間割</span>
+            <h2>手書きの時間割は、もう卒業。</h2>
+            <p>タップで作って、色分けもメモも自由に。今日の授業はホームに自動で並びます。</p>
+          </div>
+          <div class="mio-beat-copy" data-beat="1">
+            <span class="mio-beat-kicker">今週の忙しさ</span>
+            <h2>今週の予定、ぜんぶ見える。</h2>
+            <p>授業もバイトも課題も1画面に。週の詰まり具合がひと目でわかります。</p>
+          </div>
+          <div class="mio-beat-copy" data-beat="2">
+            <span class="mio-beat-kicker">出欠</span>
+            <h2>あと何回、休める？</h2>
+            <p>出席・欠席・遅刻をワンタップで記録。出席率まで自動で計算します。</p>
+          </div>
+          <div class="mio-beat-copy" data-beat="3">
+            <span class="mio-beat-kicker">卒業単位</span>
+            <h2>卒業まで、あと何単位。</h2>
+            <p>取得済みと不足分を区分ごとに集計。「卒業やばい」をいつでも確認。</p>
+          </div>
+          <div class="mio-beat-copy" data-beat="4">
+            <span class="mio-beat-kicker">バイト</span>
+            <h2>今月の給料、自動で計算。</h2>
+            <p>シフトを入れるだけ。深夜・早朝手当も、予想給料もまるっと。</p>
+          </div>
+          <div class="mio-beat-copy" data-beat="5">
+            <span class="mio-beat-kicker">割り勘</span>
+            <h2>割り勘は、1円まで正確に。</h2>
+            <p>誰が誰にいくら払うかも自動。飲み会の精算がサッと終わります。</p>
+          </div>
+        </div>
+
+        <div class="mio-phone mio-stage-phone">
+          <div class="mio-phone-screen">
+            <img class="mio-beat-screen is-active" data-beat="0" src="./img/shots/05_classes.jpg" alt="時間割画面" loading="lazy" />
+            <img class="mio-beat-screen" data-beat="1" src="./img/shots/03_calendar_week.jpg" alt="週間カレンダー画面" loading="lazy" />
+            <img class="mio-beat-screen" data-beat="2" src="./img/shots/06_courses.jpg" alt="出欠画面" loading="lazy" />
+            <img class="mio-beat-screen" data-beat="3" src="./img/shots/09_credits.jpg" alt="卒業単位画面" loading="lazy" />
+            <img class="mio-beat-screen" data-beat="4" src="./img/shots/12_baito.jpg" alt="バイト画面" loading="lazy" />
+            <img class="mio-beat-screen" data-beat="5" src="./img/shots/23_warikan.jpg" alt="割り勘画面" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="mio-stage-progress" aria-hidden="true">
+          <span class="is-active" data-beat="0"></span>
+          <span data-beat="1"></span>
+          <span data-beat="2"></span>
+          <span data-beat="3"></span>
+          <span data-beat="4"></span>
+          <span data-beat="5"></span>
         </div>
       </div>
     </section>
@@ -321,14 +360,16 @@
     </script>
 
     <script>
-      // スクロールに応じて各要素をふわっと出現させる（reveal）。
-      // prefers-reduced-motion のときは何もせず、コンテンツは通常表示のまま。
+      // スクロール演出（reveal と スティッキー・ショーケース）。
+      // prefers-reduced-motion のときは演出せず、コンテンツは通常表示のまま。
       (function () {
         var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (reduce) return;
 
-        document.body.classList.add("reveal-enabled");
+        // 動きOK。CSS の演出（reveal 初期状態・ピン留め）を有効化。
+        document.documentElement.classList.add("sc-live");
 
+        /* ---------- 1) 出現アニメーション（reveal） ---------- */
         function tag(el, pop, delay) {
           if (!el) return;
           el.classList.add("reveal");
@@ -336,9 +377,13 @@
           if (delay) el.style.setProperty("--reveal-delay", delay + "ms");
         }
 
-        // ヒーロー（本文はスライド、端末画像はふわっと拡大）
-        tag(document.querySelector(".lp-hero-copy"), false, 0);
-        tag(document.querySelector(".lp-hero-visual"), true, 120);
+        // ヒーロー内の要素を少しずつ遅らせて登場
+        [".mio-hero-icon", ".mio-hero-title", ".mio-hero-sub", ".mio-hero-cta"].forEach(
+          function (sel, i) {
+            tag(document.querySelector(sel), false, i * 90);
+          }
+        );
+        tag(document.querySelector(".mio-hero-phone"), true, 380);
 
         // 各セクションの見出し・リード（スクショ節は今のまま触らない）
         document
@@ -374,35 +419,74 @@
         // ダウンロード CTA のボタン
         tag(document.querySelector(".lp-cta .store-badges"), false, 120);
 
-        // スクロール位置で判定（IntersectionObserver に依存せず全環境で確実に動く）。
-        var items = [].slice.call(document.querySelectorAll(".reveal"));
-        function check() {
+        var revealItems = [].slice.call(document.querySelectorAll(".reveal"));
+        function reveal() {
           var trigger = window.innerHeight * 0.9;
-          for (var i = items.length - 1; i >= 0; i--) {
-            if (items[i].getBoundingClientRect().top < trigger) {
-              items[i].classList.add("is-visible");
-              items.splice(i, 1);
+          for (var i = revealItems.length - 1; i >= 0; i--) {
+            if (revealItems[i].getBoundingClientRect().top < trigger) {
+              revealItems[i].classList.add("is-visible");
+              revealItems.splice(i, 1);
             }
           }
         }
 
+        /* ---------- 2) スティッキー・ショーケース（端末の中身を切り替え） ---------- */
+        var showcase = document.querySelector(".mio-showcase");
+        var copies = [].slice.call(document.querySelectorAll(".mio-beat-copy"));
+        var screens = [].slice.call(document.querySelectorAll(".mio-beat-screen"));
+        var dots = [].slice.call(document.querySelectorAll(".mio-stage-progress span"));
+        var beats = copies.length;
+        var current = 0;
+
+        function setBeat(idx) {
+          if (idx === current) return;
+          current = idx;
+          [copies, screens, dots].forEach(function (group) {
+            group.forEach(function (el, i) {
+              el.classList.toggle("is-active", i === idx);
+            });
+          });
+        }
+
+        function updateShowcase() {
+          if (!showcase) return;
+          var rect = showcase.getBoundingClientRect();
+          var total = showcase.offsetHeight - window.innerHeight;
+          if (total <= 0) return;
+          var scrolled = Math.min(Math.max(-rect.top, 0), total);
+          var p = scrolled / total;
+          // 端の方が切り替わりやすいよう少しだけ内側に寄せる
+          var idx = Math.floor(p * beats * 0.999);
+          if (idx < 0) idx = 0;
+          if (idx > beats - 1) idx = beats - 1;
+          setBeat(idx);
+        }
+
+        /* ---------- 共通のスクロールループ（rAF で間引き） ---------- */
         var ticking = false;
         function onScroll() {
           if (ticking) return;
           ticking = true;
           requestAnimationFrame(function () {
-            check();
+            reveal();
+            updateShowcase();
             ticking = false;
           });
         }
-
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onScroll);
-        // 初期表示（ファーストビューの要素をすぐ出す）。
-        // 同期実行で確実に出し、画像読み込み後のズレも rAF で拾い直す。
-        check();
-        requestAnimationFrame(check);
-        window.addEventListener("load", check);
+
+        // 初期表示（ファーストビューをすぐ出す＋画像読み込み後のズレを拾い直す）
+        reveal();
+        updateShowcase();
+        requestAnimationFrame(function () {
+          reveal();
+          updateShowcase();
+        });
+        window.addEventListener("load", function () {
+          reveal();
+          updateShowcase();
+        });
       })();
     </script>
   </body>
