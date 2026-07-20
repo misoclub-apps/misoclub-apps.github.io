@@ -30,6 +30,39 @@
       content="MIO（ミオ）は、時間割・課題・出欠・バイト・サークル・イベントまで、学生生活をまるごと管理できる無料アプリ。友達と時間割や予定も共有できます。iOS / Android 対応。"
     />
     <link rel="stylesheet" href="../../css/style.css" />
+    <!-- スクロール連動の出現アニメーション（このページ専用）。
+         JS 無効／prefers-reduced-motion のときは reveal-enabled が付かず、通常表示のまま。 -->
+    <style>
+      .theme-mio.reveal-enabled .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: var(--reveal-delay, 0ms);
+        will-change: opacity, transform;
+      }
+      .theme-mio.reveal-enabled .reveal.reveal--pop {
+        transform: translateY(38px) scale(0.96);
+      }
+      .theme-mio.reveal-enabled .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+      /* ヒーローの端末画像はふわっと浮遊させて動きを添える */
+      @keyframes lp-float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .theme-mio.reveal-enabled .lp-hero-visual.is-visible .lp-phone {
+        animation: lp-float 6s ease-in-out infinite 1s;
+      }
+    </style>
   </head>
   <body class="theme-mio">
     <!--
@@ -285,6 +318,92 @@
     <script>
       // フッターの年号を自動更新
       document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+      // スクロールに応じて各要素をふわっと出現させる（reveal）。
+      // prefers-reduced-motion のときは何もせず、コンテンツは通常表示のまま。
+      (function () {
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce) return;
+
+        document.body.classList.add("reveal-enabled");
+
+        function tag(el, pop, delay) {
+          if (!el) return;
+          el.classList.add("reveal");
+          if (pop) el.classList.add("reveal--pop");
+          if (delay) el.style.setProperty("--reveal-delay", delay + "ms");
+        }
+
+        // ヒーロー（本文はスライド、端末画像はふわっと拡大）
+        tag(document.querySelector(".lp-hero-copy"), false, 0);
+        tag(document.querySelector(".lp-hero-visual"), true, 120);
+
+        // 各セクションの見出し・リード（スクショ節は今のまま触らない）
+        document
+          .querySelectorAll(
+            "section:not(#screenshots) > .container > .section-title, " +
+              "section:not(#screenshots) > .container > .section-lead"
+          )
+          .forEach(function (el) {
+            tag(el, false, 0);
+          });
+
+        // 機能カード：同じ行のカードを少しずつ遅らせて波打たせる
+        var rows = {};
+        [].slice
+          .call(document.querySelectorAll(".lp-feature-grid .lp-feature"))
+          .forEach(function (el) {
+            var key = el.offsetTop;
+            (rows[key] = rows[key] || []).push(el);
+          });
+        Object.keys(rows).forEach(function (key) {
+          rows[key].forEach(function (el, j) {
+            tag(el, true, j * 90);
+          });
+        });
+
+        // 「安心してつかえます」のカード
+        document
+          .querySelectorAll(".lp-trust-list .lp-trust-item")
+          .forEach(function (el, i) {
+            tag(el, false, i * 90);
+          });
+
+        // ダウンロード CTA のボタン
+        tag(document.querySelector(".lp-cta .store-badges"), false, 120);
+
+        // スクロール位置で判定（IntersectionObserver に依存せず全環境で確実に動く）。
+        var items = [].slice.call(document.querySelectorAll(".reveal"));
+        function check() {
+          var trigger = window.innerHeight * 0.9;
+          for (var i = items.length - 1; i >= 0; i--) {
+            if (items[i].getBoundingClientRect().top < trigger) {
+              items[i].classList.add("is-visible");
+              items.splice(i, 1);
+            }
+          }
+        }
+
+        var ticking = false;
+        function onScroll() {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(function () {
+            check();
+            ticking = false;
+          });
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        // 初期表示（ファーストビューの要素をすぐ出す）。
+        // 同期実行で確実に出し、画像読み込み後のズレも rAF で拾い直す。
+        check();
+        requestAnimationFrame(check);
+        window.addEventListener("load", check);
+      })();
     </script>
   </body>
 </html>
