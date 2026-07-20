@@ -21,6 +21,14 @@
   color: var(--mio-ink);
 }
 
+/* style.css は html/body に overflow-x:hidden を指定しているが、これは要素を
+   スクロールコンテナ化して position:sticky（ショーケースのピン留め）を壊す。
+   clip は横はみ出しを防ぎつつスクロールコンテナ化しないので sticky が効く。 */
+html,
+body {
+  overflow-x: clip;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -214,203 +222,191 @@
 }
 
 /* =====================================================================
-   スティッキー・ショーケース（固定した端末の中身がスクロールで切り替わる）
+   機能ショーケース：縦スクロールで 12 機能が1つずつ入れ替わる（画像＋テキスト）
+   - 動きOK（.sc-live）のときだけステージをピン留めし、各ビートを
+     下から入って上へ抜ける（逆方向は逆）フェードで切り替える。
+   - JS無効／reduced-motion では 12 件を素直な縦並びリストとして表示。
    ===================================================================== */
 .theme-mio .mio-showcase {
   position: relative;
-  background: linear-gradient(180deg, var(--mio-bg) 0%, #eef3fb 30%, #eef3fb 70%, var(--mio-bg) 100%);
+  background: linear-gradient(180deg, var(--mio-bg) 0%, #eef3fb 24%, #eef3fb 76%, var(--mio-bg) 100%);
 }
-/* 動きOK（.sc-live）のときだけピン留め用の高さを与える */
+/* 12 ビートぶんのスクロール量（1 ビート約 45vh） */
 .sc-live .mio-showcase {
-  height: 620vh;
+  height: 640vh;
 }
 .theme-mio .mio-stage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(22px, 4vh, 44px);
-  padding: clamp(84px, 12vh, 120px) 20px clamp(48px, 8vh, 90px);
+  padding: clamp(72px, 11vh, 112px) 20px clamp(64px, 9vh, 100px);
 }
 .sc-live .mio-stage {
   position: sticky;
   top: 0;
   height: 100vh;
   height: 100svh;
-}
-@media (min-width: 900px) {
-  .theme-mio .mio-stage {
-    flex-direction: row-reverse;
-    justify-content: center;
-    gap: clamp(48px, 7vw, 110px);
-  }
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* --- 端末（ステージ内） --- */
-.theme-mio .mio-stage-phone {
-  height: min(60vh, 620px);
-  width: auto;
-  flex: none;
-}
-
-/* --- キャプション（ビート） --- */
-.theme-mio .mio-stage-copy {
-  position: relative;
-  width: min(460px, 92vw);
-  min-height: 190px;
+/* 固定の見出しラベル */
+.theme-mio .mio-stage-label {
   text-align: center;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  margin: 0 0 clamp(30px, 6vh, 60px);
+  color: var(--mio-ink);
 }
-@media (min-width: 900px) {
-  .theme-mio .mio-stage-copy {
-    text-align: left;
-    min-height: 260px;
-  }
-}
-.theme-mio .mio-beat-copy {
+.sc-live .mio-stage-label {
   position: absolute;
-  inset: 0;
+  top: clamp(22px, 5vh, 58px);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  letter-spacing: 0.02em;
+}
+
+/* --- ビートの入れ物 --- */
+.theme-mio .mio-beats {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.sc-live .mio-beats {
+  position: relative;
+  height: min(80vh, 780px);
+}
+
+/* --- 1 ビート（画像＋テキスト） --- */
+.theme-mio .mio-beat {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 12px;
-  opacity: 0;
-  transform: translateY(22px);
-  transition:
-    opacity 0.6s var(--mio-ease),
-    transform 0.6s var(--mio-ease);
+  align-items: center;
+  gap: clamp(22px, 4vh, 40px);
 }
-.theme-mio .mio-beat-copy.is-active {
-  opacity: 1;
-  transform: none;
-}
-/* JS 無効時は最初のビートだけを普通に表示（積み重なりを防ぐ） */
-:root:not(.js) .mio-beat-copy {
-  position: relative;
-  opacity: 1;
-  transform: none;
-}
-:root:not(.js) .mio-beat-copy + .mio-beat-copy {
-  display: none;
-}
-.theme-mio .mio-beat-kicker {
-  display: inline-block;
-  align-self: center;
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
-  color: var(--mio-blue-deep);
-  background: rgba(61, 139, 255, 0.12);
-  padding: 5px 14px;
-  border-radius: 999px;
+.theme-mio:not(.sc-live) .mio-beat + .mio-beat {
+  margin-top: clamp(56px, 10vh, 120px);
 }
 @media (min-width: 900px) {
-  .theme-mio .mio-beat-kicker {
-    align-self: flex-start;
+  .theme-mio .mio-beat {
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(48px, 6vw, 96px);
   }
 }
-.theme-mio .mio-beat-copy h2 {
-  font-weight: 900;
-  font-size: clamp(1.7rem, 4.6vw, 3rem);
-  line-height: 1.22;
-  margin: 0;
-}
-.theme-mio .mio-beat-copy p {
-  margin: 0;
-  color: var(--mio-ink-soft);
-  font-size: clamp(0.98rem, 2.2vw, 1.18rem);
-  line-height: 1.7;
-}
-
-/* --- 端末内で切り替わる画面 --- */
-.theme-mio .mio-beat-screen {
+/* 動きOK時：各ビートを重ねて配置し、フェードで切り替え */
+.sc-live .mio-beat {
   position: absolute;
   inset: 0;
+  margin: 0;
+  pointer-events: none;
+}
+.sc-live .mio-beat.is-active {
+  pointer-events: auto;
+}
+/* 画像・テキストは下（translateY +）で待機 → active で中央 → past で上へ抜ける */
+.sc-live .mio-beat-media,
+.sc-live .mio-beat-text {
   opacity: 0;
-  transform: scale(1.05);
   transition:
-    opacity 0.7s var(--mio-ease),
-    transform 0.9s var(--mio-ease);
+    opacity 0.55s var(--mio-ease),
+    transform 0.7s var(--mio-ease);
 }
-.theme-mio .mio-beat-screen.is-active {
+.sc-live .mio-beat-media {
+  transform: translateY(52px) scale(0.98);
+}
+.sc-live .mio-beat-text {
+  transform: translateY(52px);
+  transition-delay: 0.06s;
+}
+.sc-live .mio-beat.is-active .mio-beat-media,
+.sc-live .mio-beat.is-active .mio-beat-text {
   opacity: 1;
   transform: none;
 }
-:root:not(.js) .mio-beat-screen {
-  transition: none;
+.sc-live .mio-beat.is-past .mio-beat-media {
+  transform: translateY(-52px) scale(0.98);
 }
-:root:not(.js) .mio-beat-screen:not(:first-child) {
-  display: none;
-}
-:root:not(.js) .mio-beat-screen:first-child {
-  opacity: 1;
-  transform: none;
+.sc-live .mio-beat.is-past .mio-beat-text {
+  transform: translateY(-52px);
 }
 
-/* --- 進捗ドット --- */
-.theme-mio .mio-stage-progress {
-  display: flex;
-  gap: 9px;
-  justify-content: center;
+/* --- 画像（ポスター） --- */
+.theme-mio .mio-beat-media {
+  flex: none;
 }
-:root:not(.sc-live) .mio-stage-progress {
-  display: none;
-}
-.theme-mio .mio-stage-progress span {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(27, 36, 50, 0.18);
-  transition: all 0.4s var(--mio-ease);
-}
-.theme-mio .mio-stage-progress span.is-active {
-  background: var(--mio-blue);
-  width: 26px;
-}
-@media (min-width: 900px) {
-  .theme-mio .mio-stage-progress {
-    position: absolute;
-    left: 50%;
-    bottom: clamp(28px, 5vh, 54px);
-    transform: translateX(-50%);
-  }
+.theme-mio .mio-beat-media img {
+  display: block;
+  height: min(48vh, 520px);
+  width: auto;
+  max-width: 86vw;
+  border-radius: clamp(16px, 2vw, 24px);
+  box-shadow:
+    0 2px 6px rgba(20, 40, 90, 0.12),
+    0 30px 64px -22px rgba(20, 40, 90, 0.4);
 }
 
-/* =====================================================================
-   機能グリッド（全機能）— カードを上品にリフレッシュ
-   ===================================================================== */
-.theme-mio #features {
-  padding: clamp(70px, 12vh, 140px) 0;
-}
-.theme-mio #features .section-title,
-.theme-mio #features .section-lead {
+/* --- テキスト --- */
+.theme-mio .mio-beat-text {
+  width: min(440px, 92vw);
   text-align: center;
 }
-.theme-mio .lp-feature-grid {
-  margin-top: clamp(34px, 6vh, 64px);
-}
-.theme-mio .app-card.lp-feature {
-  background: var(--mio-card);
-  border-radius: var(--mio-radius);
-  padding: 16px 16px 22px;
-  box-shadow:
-    0 1px 2px rgba(20, 30, 50, 0.05),
-    0 18px 40px -28px rgba(20, 40, 90, 0.4);
-  border: 1px solid rgba(20, 30, 50, 0.05);
-  transition:
-    transform 0.4s var(--mio-ease),
-    box-shadow 0.4s var(--mio-ease);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .theme-mio .app-card.lp-feature:hover {
-    transform: translateY(-6px);
-    box-shadow:
-      0 1px 2px rgba(20, 30, 50, 0.06),
-      0 30px 60px -30px rgba(20, 40, 90, 0.5);
+@media (min-width: 900px) {
+  .theme-mio .mio-beat-text {
+    text-align: left;
   }
 }
-.theme-mio .lp-feature h3 {
+.theme-mio .mio-beat-title {
   font-weight: 900;
-  font-size: 1.18rem;
+  font-size: clamp(1.55rem, 4.2vw, 2.5rem);
+  line-height: 1.28;
+  margin: 0 0 14px;
+}
+.theme-mio .mio-beat-desc {
+  margin: 0;
+  color: var(--mio-ink-soft);
+  font-size: clamp(1rem, 2.2vw, 1.22rem);
+  line-height: 1.85;
+}
+
+/* --- 進捗（バー＋カウンタ）。動きOKのときだけ表示 --- */
+.theme-mio .mio-progress {
+  display: none;
+}
+.sc-live .mio-progress {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(22px, 4.5vh, 46px);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(320px, 76vw);
+}
+.theme-mio .mio-progress-count {
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--mio-ink-soft);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.theme-mio .mio-progress-track {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(27, 36, 50, 0.14);
+  overflow: hidden;
+}
+.theme-mio .mio-progress-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: 999px;
+  background: var(--mio-blue);
+  transition: width 0.2s linear;
 }
 
 /* =====================================================================
