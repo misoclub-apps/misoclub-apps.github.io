@@ -94,13 +94,14 @@
       </div>
     </section>
 
-    <!-- 機能ショーケース：縦スクロールに連動して 12 機能が1つずつ入れ替わる（画像＋テキスト） -->
-    <section class="mio-showcase" id="features" aria-label="MIO でできること">
-      <div class="mio-stage">
-        <p class="mio-stage-label">MIO でできること</p>
-
-        <div class="mio-beats">
-          <article class="mio-beat is-active" data-beat="0">
+    <!-- 機能紹介：普通に縦スクロールすると各機能が順番に（ふわっと）登場 -->
+    <section class="mio-features" id="features" aria-label="MIO でできること">
+      <div class="container">
+        <h2 class="section-title">MIO でできること</h2>
+        <p class="section-lead">授業も、バイトも、あそびも。学生生活のぜんぶをひとつのアプリで。</p>
+      </div>
+      <div class="mio-feature-list">
+          <article class="mio-beat" data-beat="0">
             <div class="mio-beat-media"><img src="./img/poster-03.jpg" alt="時間割" loading="lazy" /></div>
             <div class="mio-beat-text">
               <h2 class="mio-beat-title">📅 時間割</h2>
@@ -195,22 +196,6 @@
               <p class="mio-beat-desc">イベントの費用を1円まで自動で精算。誰が誰にいくら払うかもすぐわかります。</p>
             </div>
           </article>
-        </div>
-
-        <div class="mio-dots" aria-hidden="true">
-          <span class="is-active"></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
       </div>
     </section>
 
@@ -241,75 +226,6 @@
         <img src="./img/shots/22_events_past.jpg" alt="イベント履歴画面" loading="lazy" />
         <img src="./img/shots/23_warikan.jpg" alt="割り勘画面" loading="lazy" />
         <img src="./img/shots/24_diary.jpg" alt="日記画面" loading="lazy" />
-      </div>
-    </section>
-
-    <!-- 全機能一覧（PCはグリッド／スマホは横スクロール） -->
-    <section class="mio-grid-section" aria-label="MIO の全機能一覧">
-      <div class="container">
-        <h2 class="section-title">できること、ぜんぶ</h2>
-      </div>
-      <div class="mio-grid">
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-03.jpg" alt="時間割" loading="lazy" /></div>
-          <h3 class="mio-grid-title">📅 時間割</h3>
-          <p class="mio-grid-desc">タップで作れる時間割。授業の場所・先生・メモも登録でき、出欠もその場で記録できます。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-11.jpg" alt="カレンダー" loading="lazy" /></div>
-          <h3 class="mio-grid-title">🗓 カレンダー</h3>
-          <p class="mio-grid-desc">授業・バイト・サークル・イベントをまとめて管理。月間・週間・リストで切り替えられます。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-04.jpg" alt="今週の忙しさ" loading="lazy" /></div>
-          <h3 class="mio-grid-title">🔥 今週の忙しさ</h3>
-          <p class="mio-grid-desc">今週の予定・課題・バイトをまとめて表示。週の忙しさがひと目で見わたせます。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-12.jpg" alt="出欠" loading="lazy" /></div>
-          <h3 class="mio-grid-title">✅ 出欠</h3>
-          <p class="mio-grid-desc">出席・欠席・遅刻をワンタップで記録。出席率も「あと何回休める？」もひと目でわかります。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-08.jpg" alt="卒業単位" loading="lazy" /></div>
-          <h3 class="mio-grid-title">🎓 卒業単位</h3>
-          <p class="mio-grid-desc">取得した単位と、卒業までに足りない単位を自動集計。「卒業やばい」をいつでも確認できます。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-09.jpg" alt="就活" loading="lazy" /></div>
-          <h3 class="mio-grid-title">💼 就活</h3>
-          <p class="mio-grid-desc">エントリーした企業と選考状況をまとめて管理。「次いつ面接だっけ」をなくします。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-05.jpg" alt="バイト" loading="lazy" /></div>
-          <h3 class="mio-grid-title">💰 バイト</h3>
-          <p class="mio-grid-desc">シフトと給料をまとめて管理。今月の予想給料や勤務時間がひと目でわかります。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-13.jpg" alt="サークル" loading="lazy" /></div>
-          <h3 class="mio-grid-title">🎪 サークル</h3>
-          <p class="mio-grid-desc">おしらせ・イベント・集金・メンバー管理まで。サークル運営がこれひとつで完結します。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-10.jpg" alt="日記" loading="lazy" /></div>
-          <h3 class="mio-grid-title">📖 日記</h3>
-          <p class="mio-grid-desc">今日の気持ちをひとことで記録。ムードだけでも残せる、かんたん日記です。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-06.jpg" alt="飲み会・イベント" loading="lazy" /></div>
-          <h3 class="mio-grid-title">🎉 飲み会・イベント</h3>
-          <p class="mio-grid-desc">飲み会も遊びも、日程・出欠・場所をまとめて調整。幹事の段取りがサクッと片づきます。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-14.jpg" alt="日程調整" loading="lazy" /></div>
-          <h3 class="mio-grid-title">🗳 日程調整</h3>
-          <p class="mio-grid-desc">みんなの空いてる日を○×で集めるだけ。いちばん集まれる日が自動でわかります。</p>
-        </article>
-        <article class="mio-grid-card">
-          <div class="mio-grid-media"><img src="./img/poster-07.jpg" alt="割り勘" loading="lazy" /></div>
-          <h3 class="mio-grid-title">🧾 割り勘</h3>
-          <p class="mio-grid-desc">イベントの費用を1円まで自動で精算。誰が誰にいくら払うかもすぐわかります。</p>
-        </article>
       </div>
     </section>
 
@@ -380,16 +296,14 @@
     </script>
 
     <script>
-      // スクロール演出（reveal と スティッキー・ショーケース）。
+      // スクロールで各要素をふわっと出現させる（reveal）。
       // prefers-reduced-motion のときは演出せず、コンテンツは通常表示のまま。
       (function () {
         var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (reduce) return;
 
-        // 動きOK。CSS の演出（reveal 初期状態・ピン留め）を有効化。
         document.documentElement.classList.add("sc-live");
 
-        /* ---------- 1) 出現アニメーション（reveal） ---------- */
         function tag(el, pop, delay) {
           if (!el) return;
           el.classList.add("reveal");
@@ -405,7 +319,7 @@
         );
         tag(document.querySelector(".mio-hero-phone"), true, 380);
 
-        // 各セクションの見出し・リード（スクショ節は今のまま触らない）
+        // 各セクションの見出し・リード（スクショ節は触らない）
         document
           .querySelectorAll(
             "section:not(#screenshots) > .container > .section-title, " +
@@ -415,19 +329,12 @@
             tag(el, false, 0);
           });
 
-        // 全機能グリッドのカード（同じ行を少しずつ遅らせて波打たせる）
-        var gridRows = {};
-        [].slice
-          .call(document.querySelectorAll(".mio-grid-card"))
+        // 機能リスト：スクロールで各機能が順番にふわっと登場
+        document
+          .querySelectorAll(".mio-feature-list .mio-beat")
           .forEach(function (el) {
-            var key = el.offsetTop;
-            (gridRows[key] = gridRows[key] || []).push(el);
+            tag(el, true, 0);
           });
-        Object.keys(gridRows).forEach(function (key) {
-          gridRows[key].forEach(function (el, j) {
-            tag(el, true, j * 80);
-          });
-        });
 
         // 「安心してつかえます」のカード
         document
@@ -439,6 +346,7 @@
         // ダウンロード CTA のボタン
         tag(document.querySelector(".lp-cta .store-badges"), false, 120);
 
+        // スクロール位置で判定して順番に表示（IntersectionObserver 非依存で確実）。
         var revealItems = [].slice.call(document.querySelectorAll(".reveal"));
         function reveal() {
           var trigger = window.innerHeight * 0.9;
@@ -450,66 +358,22 @@
           }
         }
 
-        /* ---------- 2) スティッキー・ショーケース（端末の中身を切り替え） ---------- */
-        var showcase = document.querySelector(".mio-showcase");
-        var beatEls = [].slice.call(document.querySelectorAll(".mio-beat"));
-        var dotEls = [].slice.call(document.querySelectorAll(".mio-dots span"));
-        var beats = beatEls.length;
-        var current = -1;
-
-        function setBeat(idx) {
-          if (idx === current) return;
-          current = idx;
-          beatEls.forEach(function (el, i) {
-            el.classList.toggle("is-active", i === idx);
-            el.classList.toggle("is-past", i < idx);
-          });
-          dotEls.forEach(function (el, i) {
-            el.classList.toggle("is-active", i === idx);
-          });
-        }
-
-        function updateShowcase() {
-          if (!showcase || !beats) return;
-          var rect = showcase.getBoundingClientRect();
-          var total = showcase.offsetHeight - window.innerHeight;
-          if (total <= 0) {
-            setBeat(0);
-            return;
-          }
-          var scrolled = Math.min(Math.max(-rect.top, 0), total);
-          var p = scrolled / total;
-          var idx = Math.floor(p * beats * 0.999);
-          if (idx < 0) idx = 0;
-          if (idx > beats - 1) idx = beats - 1;
-          setBeat(idx);
-        }
-
-        /* ---------- 共通のスクロールループ（rAF で間引き） ---------- */
         var ticking = false;
         function onScroll() {
           if (ticking) return;
           ticking = true;
           requestAnimationFrame(function () {
             reveal();
-            updateShowcase();
             ticking = false;
           });
         }
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onScroll);
 
-        // 初期表示（ファーストビューをすぐ出す＋画像読み込み後のズレを拾い直す）
+        // 初期表示（ファーストビューをすぐ出す）
         reveal();
-        updateShowcase();
-        requestAnimationFrame(function () {
-          reveal();
-          updateShowcase();
-        });
-        window.addEventListener("load", function () {
-          reveal();
-          updateShowcase();
-        });
+        requestAnimationFrame(reveal);
+        window.addEventListener("load", reveal);
       })();
     </script>
   </body>
