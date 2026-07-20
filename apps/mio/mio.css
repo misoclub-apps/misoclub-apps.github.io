@@ -206,12 +206,12 @@ body {
   box-sizing: border-box;
   /* 上端はヘッダー(約64px)ぶんを避ける。ラベル・ビート・ドットを
      ひとまとまりとして縦中央に寄せる */
-  padding: 64px 20px 24px;
+  padding: 60px 20px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(14px, 2vh, 24px);
+  gap: clamp(10px, 1.6vh, 20px);
 }
 
 /* 見出しラベル */
@@ -241,8 +241,8 @@ body {
   position: relative;
   flex: none;
   width: 100%;
-  height: min(74vh, 740px);
-  height: min(74svh, 740px);
+  height: min(82vh, 820px);
+  height: min(82svh, 820px);
 }
 
 /* --- 1 ビート（画像＋テキスト） ---
@@ -293,8 +293,8 @@ body {
 }
 .sc-live .mio-beat-text {
   position: absolute;
-  top: calc(min(48vh, 540px) + 22px);
-  top: calc(min(48svh, 540px) + 22px);
+  top: calc(min(58vh, 640px) + 16px);
+  top: calc(min(58svh, 640px) + 16px);
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -346,10 +346,10 @@ body {
 }
 .theme-mio .mio-beat-media img {
   display: block;
-  height: min(48vh, 540px);
-  height: min(48svh, 540px);
+  height: min(58vh, 640px);
+  height: min(58svh, 640px);
   width: auto;
-  max-width: 90vw;
+  max-width: 92vw;
   margin: 0 auto;
   border-radius: clamp(16px, 2vw, 24px);
   box-shadow:
