@@ -83,7 +83,9 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  /* 余白も svh 基準にして URL バーの出入りで位置がズレない（vh はフォールバック） */
   padding: clamp(90px, 12vh, 140px) 20px clamp(40px, 8vh, 80px);
+  padding: clamp(90px, 12svh, 140px) 20px clamp(40px, 8svh, 80px);
   overflow: hidden;
   background:
     radial-gradient(120% 80% at 50% -10%, #eaf2ff 0%, rgba(234, 242, 255, 0) 60%),
@@ -125,6 +127,7 @@ body {
 }
 .theme-mio .mio-hero-cta {
   margin-bottom: clamp(36px, 7vh, 70px);
+  margin-bottom: clamp(36px, 7svh, 70px);
 }
 .theme-mio .mio-hero-phone {
   width: 100%;
