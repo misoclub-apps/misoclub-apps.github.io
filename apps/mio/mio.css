@@ -99,6 +99,11 @@ body {
   background-clip: text;
   color: transparent;
 }
+/* 文節ごとに inline-block にして、文節の途中では折り返さない
+   （＝広い画面は1行／狭い画面は「学生生活、」「これ1つ。」のきれいな2行）。 */
+.theme-mio .mio-hero-title span {
+  display: inline-block;
+}
 .theme-mio .mio-hero-sub {
   font-size: clamp(1.05rem, 2.6vw, 1.5rem);
   color: var(--mio-ink-soft);
