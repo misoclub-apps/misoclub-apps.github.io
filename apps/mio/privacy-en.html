@@ -21,91 +21,109 @@
   <body>
     <main class="page">
       <h1>Privacy Policy</h1>
-      <p class="updated">App: MIO — Campus Life Organizer / Effective date: July 13, 2026 / Updated: July 14, 2026</p>
+      <p class="updated">App: MIO — Campus Life Organizer / Effective date: July 26, 2026</p>
 
       <p>
-        “MIO” (the “App”) is a campus-life management app provided by misoclub (“we”, “us”). We respect your privacy and set out this Privacy Policy (the “Policy”) as follows. The App includes features to share information with friends, and uses the cloud (Google Firebase) for that purpose.
+        “MIO” (the “App”) is a campus-life management app provided by misoclub (“we”, “us”). We respect your privacy and set out this Privacy Policy (the “Policy”) as follows. The App includes features to share information with friends, as well as an optional feature to link an account for backup and device migration, and uses the cloud (Google Firebase) for those purposes.
       </p>
 
-      <h2>1. Accounts (anonymous authentication)</h2>
+      <h2>1. Accounts (anonymous authentication and optional account linking)</h2>
       <p>
-        To enable sharing with friends and syncing across devices, the App assigns each user an anonymous identifier (a random ID) using Google Firebase Anonymous Authentication. No sign-up is required, and we do not collect your name, email address, or phone number.
+        To enable sharing with friends and syncing across multiple devices, the App uses Google Firebase anonymous authentication to assign each user an anonymous identifier (a random ID). At this stage no registration of your name, email address, or phone number is required, and we do not collect them.
+      </p>
+      <p>
+        If you wish to back up your data, migrate to a new device, or be able to restore your account, you may optionally <strong>link a Google or Apple account (sign in)</strong>. When you link an account, we obtain the email address and display name provided by that account and store them in our cloud (Cloud Firestore) in order to identify the linked account, provide support, and enable recovery. Linking is optional, and the core features of the App are available without it.
+      </p>
+      <p>
+        If you choose “Hide My Email” with Sign in with Apple, Apple’s private relay address is used. You can link an account at any time from Settings, and you can also unlink it via “Delete all data” described below.
       </p>
 
       <h2>2. Information stored on your device</h2>
       <p>
-        Information you enter or record (timetable, assignments, exams, attendance, schedules, part-time shifts and wage settings, to-dos, diary, job-hunting company notes, circle information, and settings such as notifications and theme) is stored primarily on your device. Summaries and charts are computed from these values on your device.
+        The information you enter or record (timetable, classes, attendance, credits and credit categories, assignments and exams, schedules, part-time job shifts and pay settings, TODOs, diary, job-hunting company notes, circle information, profile, and settings such as notifications, theme, and background) is stored primarily on your device. Summaries and charts such as attendance rate, credits, and pay are calculated on your device from these values.
       </p>
 
       <h2>3. Information stored in the cloud and shared</h2>
       <p>
-        When you use the friends and sharing features, the following information is stored in our cloud (Google Cloud Firestore) and shared with specific people based on your actions. You decide whether and with whom to share.
+        When you use the friends and sharing features, the following information is stored in our cloud (Google Cloud Firestore) and shared with specific people according to your actions. Whether to share, and with whom, is decided by you.
       </p>
       <ul>
         <li>
-          Public profile: display name, avatar image, and friend code (for friend search and display); your birthday if you set one.
+          <strong>Public profile</strong>: display name, avatar image, friend code (for finding and displaying friends), and, if set, your birthday.
         </li>
         <li>
-          Public timetable: class name, day of week, period, and color (visible only to friends you allow, and only when you enable “share timetable”. Room, memo, and instructor names are not shared).
+          <strong>Public timetable</strong>: class name, day of week, period, and color (visible only to friends you have allowed after enabling “Publish timetable”. Room, memo, and instructor names are not shared in this weekly view).
         </li>
         <li>
-          Shared schedules, events, circles, announcement posts, and RSVP replies: shared with the friends/members you invite.
+          <strong>Sharing to “Everyone’s Classes”</strong>: if you enable “Share to Everyone’s Classes” for a class, that class’s name, room, instructor name, number of credits, credit category, and the academic year/term are shown to your friends so they can add it to their own timetable (memo is not shared). You can stop sharing at any time.
         </li>
-        <li>Friend request details (identifiers and display names of sender and recipient).</li>
-        <li>A device token used for push notifications (see below).</li>
+        <li>
+          <strong>Shared schedules, events, circles, board posts, and RSVP replies</strong>: shared with invited friends / circle members. If you use the <strong>bill-splitting (warikan)</strong> feature within an event, details such as member names, amounts, and treats are shared among the members of that event.
+        </li>
+        <li>Circle information (name, members’ display names, roles, board posts, and pinned announcements).</li>
+        <li>Friend request details (the identifiers and display names of the sender and recipient).</li>
+        <li>The device token used for push notifications (see the next section).</li>
       </ul>
       <p>
-        If you remove (block) a friend, that person can no longer retrieve your public information.
+        When you remove (block) a friend, that person can no longer retrieve your shared information from then on.
       </p>
 
       <h2>4. Push notifications</h2>
       <p>
-        The App uses Google Firebase Cloud Messaging (FCM) to notify you of others’ actions, such as friend requests, event/circle invitations, and announcements. For this purpose, a per-device notification token is stored in the cloud. Notification content is generated and sent by our server-side function (Cloud Functions), which references the shared information above only to the extent needed to compose the notification text.
+        The App uses Google Firebase Cloud Messaging (FCM) to notify you of others’ actions, such as friend requests, invitations to events or circles, and announcements. For this purpose we store a per-device notification token in the cloud. The generation and sending of notification content is performed by our server functions (Cloud Functions), which reference the shared information above only to the extent needed to compose the notification text. You can turn notifications on or off, and choose whether to receive notifications from other users, in Settings.
       </p>
       <p>
-        Reminders based on your own data (assignment deadlines, exams, before class, and a morning summary) are local notifications generated on your device.
+        Reminders based on your own schedule — such as assignment deadlines, exams, before class, before a shift, and the morning summary — are local notifications generated on your device.
       </p>
 
       <h2>5. Advertising</h2>
       <p>
-        The App uses Google AdMob to serve ads. AdMob may collect and use advertising identifiers (Advertising ID) and device/usage information to deliver and measure ads. Such information is handled in accordance with Google’s Privacy Policy.
+        The App uses Google AdMob, provided by Google, to display ads. The App currently serves non-personalized ads (ads that are not tailored to your interests); however, AdMob may collect and use the advertising identifier (Advertising ID) and information about your device and usage for ad delivery, fraud prevention, and measurement. The handling of this information is governed by Google’s Privacy Policy.
       </p>
       <ul>
         <li>
           Google Privacy Policy:
-          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener"
-            >https://policies.google.com/privacy</a
-          >
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a>
         </li>
-        <li>You can manage ad personalization and reset your advertising identifier in your device settings.</li>
+        <li>You can manage ad personalization settings and reset your advertising identifier from your device settings.</li>
       </ul>
       <p>
-        The App offers a paid feature (in-app purchase) to remove banner ads. Once purchased, banner ads are no longer shown. Purchases and payments are processed by the App Store (Apple) / Google Play (Google); we never obtain or store your payment information such as credit card numbers.
+        The App offers a paid feature (in-app purchase) to hide banner ads. Once purchased, banner ads are no longer shown. Purchases and payments are processed by the App Store (Apple) / Google Play (Google); we do not obtain or store your payment information such as credit card numbers. For the transaction terms of purchases, please see the <a href="tokushoho.html">Act on Specified Commercial Transactions notice</a>.
       </p>
 
       <h2>6. Third-party services we use</h2>
-      <p>The App uses the following third-party services (all provided by Google LLC):</p>
+      <p>The App uses the following third-party services to provide its features.</p>
       <ul>
-        <li>Firebase Authentication (anonymous auth)</li>
-        <li>Cloud Firestore (storage and sync of shared data)</li>
-        <li>Firebase Cloud Messaging (push notifications)</li>
-        <li>Google AdMob (advertising)</li>
+        <li>Firebase Authentication (anonymous auth and account linking / Google LLC)</li>
+        <li>Cloud Firestore (storage and sync of shared data and linking information / Google LLC)</li>
+        <li>Firebase Cloud Messaging and Cloud Functions (push notifications / Google LLC)</li>
+        <li>Google AdMob (advertising / Google LLC)</li>
+        <li>Sign in with Apple (account linking with an Apple account / Apple Inc.)</li>
+        <li>Google Sign-In (account linking with a Google account / Google LLC)</li>
       </ul>
-      <p>Data handling by these services follows Google’s Privacy Policy above.</p>
-
-      <h2>7. User-generated content, reporting, and blocking</h2>
       <p>
-        For content shared between users, such as circle announcement posts, you can report it to us via “Report content” in Settings. You can also stop receiving a person’s shared content by removing (blocking) them. We review reports and take action as necessary.
+        The handling of data in these services is governed by each company’s privacy policy (Google:
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a>;
+        Apple:
+        <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">https://www.apple.com/legal/privacy/</a>).
       </p>
 
-      <h2>8. Disclosure to third parties</h2>
+      <h2>7. Inquiries, reports, and blocking</h2>
       <p>
-        Except as required by law, we do not disclose your information to third parties without your consent. Sharing with friends and circle members is always based on your own actions.
+        When you contact us via the inquiry form in Settings, we receive the content of your inquiry, the contact address you optionally provide for our reply, any images you attach, and app/device information needed to respond (such as the app version, OS/platform type, and language setting), and use them to provide support.
+      </p>
+      <p>
+        For content shared between users, such as circle board posts, you can report it to us via “Report inappropriate content” in Settings. When you report, we receive the identifier of the target, the reason for the report, and app/device information similar to the above. You can also stop sharing from a person by removing (blocking) a friend. We review reports and take action as necessary.
       </p>
 
-      <h2>9. Deleting your data</h2>
+      <h2>8. Provision to third parties</h2>
       <p>
-        You can delete both the data on your device and your data stored in the cloud via “Delete all data” in Settings. Uninstalling the App removes the data on your device.
+        Except as required by law, we do not provide your information to third parties without your consent. Any sharing with friends or circle members is based on your own actions. The third-party services listed above are processors we use to provide the App’s features and handle information under our instructions.
+      </p>
+
+      <h2>9. Deleting data</h2>
+      <p>
+        You can delete the data on your device and the data stored in our cloud (including linking information) via “Delete all data” in Settings. This operation also releases any linked Google/Apple credential. If you unlink (sign out), the data on your device is erased while the cloud data remains, so you can restore it by signing in again with the same account. Uninstalling the App erases the data on your device.
       </p>
 
       <h2>10. Children’s privacy</h2>
@@ -115,19 +133,21 @@
 
       <h2>11. Security</h2>
       <p>
-        We take appropriate security measures to prevent leakage, loss, or damage of the information we collect and store.
+        We take appropriate security measures to prevent leakage, loss, or damage of the information we obtain and store.
       </p>
 
       <h2>12. Changes to this Policy</h2>
       <p>
-        We may revise this Policy as needed. If there are significant changes, we will announce them on this page. The revised Policy takes effect when posted here.
+        This Policy may be revised as necessary. If there are material changes, we will announce them on this page. The revised Policy takes effect when posted on this page.
       </p>
 
       <h2>13. Contact</h2>
-      <p>For questions about this Policy or the App, please contact us:</p>
+      <p>For inquiries about this Policy or the App, please contact us at:</p>
       <ul>
         <li>Provider: misoclub</li>
-        <li>Email: <a href="mailto:misoclubsupport@gmail.com">misoclubsupport@gmail.com</a></li>
+        <li>
+          Email: <a href="mailto:misoclubsupport@gmail.com">misoclubsupport@gmail.com</a>
+        </li>
       </ul>
     </main>
   </body>
