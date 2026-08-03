@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- favicon / アイコン -->
+    <link rel="icon" href="../../assets/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png" />
+    <link rel="manifest" href="../../site.webmanifest" />
+    <meta name="theme-color" content="#3d8bff" />
+    <!-- 丸ゴシック（ポップな雰囲気・MIO LP 用） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- OGP（アプリのホームページとして共有されるため絶対URL） -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="misoclub" />
+    <meta property="og:title" content="MIO - 学生生活まるごと管理" />
+    <meta property="og:description" content="時間割・課題・出欠・バイト・サークル・イベントまで、学生生活をまるごと管理。友達と時間割や予定も共有できる無料アプリ。" />
+    <meta property="og:url" content="https://misoclub.pro/apps/mio/" />
+    <meta property="og:image" content="https://misoclub.pro/apps/mio/splash.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>MIO - 学生生活まるごと管理 | misoclub</title>
+    <meta
+      name="description"
+      content="MIO（ミオ）は、時間割・課題・出欠・バイト・サークル・イベントまで、学生生活をまるごと管理できる無料アプリ。友達と時間割や予定も共有できます。iOS / Android 対応。"
+    />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <!-- MIO LP 専用スタイル（このページ専用） -->
+    <link rel="stylesheet" href="./mio.css" />
+  </head>
+  <body class="theme-mio">
+    <!--
+      MIO のランディングページ（アプリのホームページとして OAuth 同意画面等に登録するページ）。
+      ・プライバシーポリシーへのリンクはヘッダー / 本文 / フッターに明示的に設置すること（審査要件）。
+      ・img/poster-01〜14.jpg は装飾済みストア用ポスター（ヒーロー/機能セクションで使用）。
+      ・img/shots/*.jpg はスクリーンショットギャラリー用の素画面キャプチャ（装飾なし）。
+        元画像は store/screenshots/source/*.png を長辺960px・JPGに最適化したもの。
+        旧仮画像 img/ph-*.svg は未使用（残置）。
+      ・シェア用のシンプルなDLページは ./download.html にバックアップとして残してあります。
+    -->
+
+    <!-- ヘッダー -->
+    <header class="site-header lp-header">
+      <div class="container">
+        <a href="./" class="brand lp-brand">
+          <img src="./icon.png" alt="MIO アイコン" class="lp-brand-icon" width="36" height="36" />
+          <span class="lp-brand-name">MIO</span>
+        </a>
+        <nav class="nav">
+          <a href="#features">機能</a>
+          <a href="#screenshots">スクショ</a>
+          <a href="#download">ダウンロード</a>
+          <a href="./privacy.html">プライバシーポリシー</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ヒーロー -->
+    <section class="mio-hero" id="top">
+      <div class="mio-hero-inner">
+        <img
+          src="./icon.png"
+          alt="MIO アプリアイコン"
+          class="mio-hero-icon"
+          width="104"
+          height="104"
+        />
+        <h1 class="mio-hero-title"><span>学生生活、</span><span>これ1つ。</span></h1>
+        <p class="mio-hero-sub">
+          時間割も、出欠も、バイトも、あそびも。<br />
+          MIO がぜんぶ、まとめて整える。
+        </p>
+        <div class="store-badges mio-hero-cta">
+          <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
+            <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
+            <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
+          </a>
+        </div>
+        <div class="mio-hero-phone">
+          <img src="./img/poster-01.jpg" alt="MIO — 学生生活、これ1つ。" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 機能紹介：普通に縦スクロールすると各機能が順番に（ふわっと）登場 -->
+    <section class="mio-features" id="features" aria-label="MIO でできること">
+      <div class="container">
+        <h2 class="section-title">MIO でできること</h2>
+        <p class="section-lead">授業も、バイトも、あそびも。学生生活のぜんぶをひとつのアプリで。</p>
+      </div>
+      <div class="mio-feature-list">
+          <article class="mio-beat" data-beat="0">
+            <div class="mio-beat-media"><img src="./img/poster-03.jpg" alt="時間割" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">📅 時間割</h2>
+              <p class="mio-beat-desc">タップで作れる時間割。授業の場所・先生・メモも登録でき、出欠もその場で記録できます。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="1">
+            <div class="mio-beat-media"><img src="./img/poster-11.jpg" alt="カレンダー" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">🗓 カレンダー</h2>
+              <p class="mio-beat-desc">授業・バイト・サークル・イベントをまとめて管理。月間・週間・リストで切り替えられます。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="2">
+            <div class="mio-beat-media"><img src="./img/poster-04.jpg" alt="今週の忙しさ" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">🔥 今週の忙しさ</h2>
+              <p class="mio-beat-desc">今週の予定・課題・バイトをまとめて表示。週の忙しさがひと目で見わたせます。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="3">
+            <div class="mio-beat-media"><img src="./img/poster-12.jpg" alt="出欠" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">✅ 出欠</h2>
+              <p class="mio-beat-desc">出席・欠席・遅刻をワンタップで記録。出席率も「あと何回休める？」もひと目でわかります。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="4">
+            <div class="mio-beat-media"><img src="./img/poster-08.jpg" alt="卒業単位" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">🎓 卒業単位</h2>
+              <p class="mio-beat-desc">取得した単位と、卒業までに足りない単位を自動集計。「卒業やばい」をいつでも確認できます。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="5">
+            <div class="mio-beat-media"><img src="./img/poster-09.jpg" alt="就活" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">💼 就活</h2>
+              <p class="mio-beat-desc">エントリーした企業と選考状況をまとめて管理。「次いつ面接だっけ」をなくします。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="6">
+            <div class="mio-beat-media"><img src="./img/poster-05.jpg" alt="バイト" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">💰 バイト</h2>
+              <p class="mio-beat-desc">シフトと給料をまとめて管理。今月の予想給料や勤務時間がひと目でわかります。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="7">
+            <div class="mio-beat-media"><img src="./img/poster-13.jpg" alt="サークル" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">🎪 サークル</h2>
+              <p class="mio-beat-desc">おしらせ・イベント・集金・メンバー管理まで。サークル運営がこれひとつで完結します。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="8">
+            <div class="mio-beat-media"><img src="./img/poster-10.jpg" alt="日記" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">📖 日記</h2>
+              <p class="mio-beat-desc">今日の気持ちをひとことで記録。ムードだけでも残せる、かんたん日記です。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="9">
+            <div class="mio-beat-media"><img src="./img/poster-06.jpg" alt="飲み会・イベント" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">🎉 飲み会・イベント</h2>
+              <p class="mio-beat-desc">飲み会も遊びも、日程・出欠・場所をまとめて調整。幹事の段取りがサクッと片づきます。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="10">
+            <div class="mio-beat-media"><img src="./img/poster-14.jpg" alt="日程調整" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">🗳 日程調整</h2>
+              <p class="mio-beat-desc">みんなの空いてる日を○×で集めるだけ。いちばん集まれる日が自動でわかります。</p>
+            </div>
+          </article>
+
+          <article class="mio-beat" data-beat="11">
+            <div class="mio-beat-media"><img src="./img/poster-07.jpg" alt="割り勘" loading="lazy" /></div>
+            <div class="mio-beat-text">
+              <h2 class="mio-beat-title">🧾 割り勘</h2>
+              <p class="mio-beat-desc">イベントの費用を1円まで自動で精算。誰が誰にいくら払うかもすぐわかります。</p>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <!-- スクリーンショット -->
+    <section id="screenshots" class="lp-shots-section">
+      <div class="container">
+        <h2 class="section-title">スクリーンショット</h2>
+        <p class="section-lead">実際の画面をチェック。横にスワイプできます。</p>
+      </div>
+      <div class="lp-shots" aria-label="アプリのスクリーンショット一覧">
+        <img src="./img/shots/01_current.jpg" alt="ホーム画面" loading="lazy" />
+        <img src="./img/shots/02_calendar.jpg" alt="月間カレンダー画面" loading="lazy" />
+        <img src="./img/shots/03_calendar_week.jpg" alt="週間カレンダー画面" loading="lazy" />
+        <img src="./img/shots/04_calendar_list.jpg" alt="予定リスト画面" loading="lazy" />
+        <img src="./img/shots/05_classes.jpg" alt="時間割画面" loading="lazy" />
+        <img src="./img/shots/06_courses.jpg" alt="出欠・単位画面" loading="lazy" />
+        <img src="./img/shots/07_assignments.jpg" alt="課題画面" loading="lazy" />
+        <img src="./img/shots/08_exams.jpg" alt="試験画面" loading="lazy" />
+        <img src="./img/shots/09_credits.jpg" alt="卒業単位画面" loading="lazy" />
+        <img src="./img/shots/11_private.jpg" alt="イベント一覧画面" loading="lazy" />
+        <img src="./img/shots/12_baito.jpg" alt="バイト画面" loading="lazy" />
+        <img src="./img/shots/13_todo.jpg" alt="TODO画面" loading="lazy" />
+        <img src="./img/shots/14_shukatsu.jpg" alt="就活画面" loading="lazy" />
+        <img src="./img/shots/15_event_datecoord.jpg" alt="日程調整画面" loading="lazy" />
+        <img src="./img/shots/16_friends.jpg" alt="友達画面" loading="lazy" />
+        <img src="./img/shots/17_friend_list.jpg" alt="友達一覧画面" loading="lazy" />
+        <img src="./img/shots/18_circle_detail.jpg" alt="サークル画面" loading="lazy" />
+        <img src="./img/shots/22_events_past.jpg" alt="イベント履歴画面" loading="lazy" />
+        <img src="./img/shots/23_warikan.jpg" alt="割り勘画面" loading="lazy" />
+        <img src="./img/shots/24_diary.jpg" alt="日記画面" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- 安心・プライバシー -->
+    <section id="privacy" class="lp-trust">
+      <div class="container">
+        <h2 class="section-title">安心してつかえます</h2>
+        <div class="lp-trust-list">
+          <div class="app-card lp-trust-item">
+            <h3>🔐 面倒な登録は不要</h3>
+            <p>
+              メールアドレスやパスワードの登録なしで、すぐに使いはじめられます。
+              共有機能は匿名のアカウントで安全に動作します。
+            </p>
+          </div>
+          <div class="app-card lp-trust-item">
+            <h3>📱 データはあなたのもの</h3>
+            <p>
+              時間割や課題などのデータは基本的に端末内に保存。
+              共有機能で預かる情報も必要最小限にとどめています。
+            </p>
+          </div>
+          <div class="app-card lp-trust-item">
+            <h3>📄 ポリシーを公開しています</h3>
+            <p>
+              取り扱う情報とその目的は
+              <a href="./privacy.html">プライバシーポリシー</a>
+              で詳しく説明しています。（<a href="./privacy-en.html">English version</a>）
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ダウンロード CTA -->
+    <section id="download" class="lp-cta">
+      <div class="container">
+        <h2 class="section-title">さっそくはじめよう</h2>
+        <p class="section-lead">MIO は無料でダウンロードできます。</p>
+        <div class="store-badges">
+          <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
+            <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
+            <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+      <div class="container">
+        <p class="lp-footer-links">
+          <a href="./terms.html">利用規約</a>
+          <a href="./terms-en.html">Terms of Service (English)</a>
+          <a href="./privacy.html">プライバシーポリシー</a>
+          <a href="./privacy-en.html">Privacy Policy (English)</a>
+          <a href="./tokushoho.html">特定商取引法に基づく表記</a>
+          <a href="../../support.html">お問い合わせ</a>
+          <a href="../../">misoclub トップ</a>
+        </p>
+        <p>&copy; <span id="year"></span> misoclub</p>
+      </div>
+    </footer>
+
+    <script>
+      // フッターの年号を自動更新
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
