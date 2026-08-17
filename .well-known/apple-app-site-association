@@ -4,7 +4,10 @@
     "details": [
       {
         "appID": "T4BQ38VVFP.com.misoclub.mio",
-        "paths": [ "/apps/mio/add/*", "/apps/mio/add/" ]
+        "paths": [
+          "/apps/mio/add/*", "/apps/mio/add/",
+          "/apps/mio/join/*", "/apps/mio/join/"
+        ]
       }
     ]
   }
