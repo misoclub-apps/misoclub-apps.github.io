@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" href="../../../../assets/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png" />
+    <meta name="theme-color" content="#171716" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <title>MIO でサークルに参加申請</title>
+    <!--
+      アプリが入っていれば OS がこのページより先に MIO を開く（Universal Links /
+      App Links）。ここに来るのは「MIO が入っていない」ときだけなので、
+      **サーバーには一切問い合わせない**（フレンド追加ページと同じ作り）。
+
+      トークン（?j=）は画面にもコンソールにも出さない。サークル名も出さない
+      ＝ここから漏れる情報を無くしてある。
+    -->
+    <style>
+      :root {
+        --bg: #f5f3fb; --card: #ffffff; --fg: #2a2540; --sub: #6b6580;
+        --accent: #9e8fd6; --accentText: #ffffff; --line: #eceaf3;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #14121c; --card: #1e1b2a; --fg: #ece9f5; --sub: #a49fb8;
+          --accent: #9e8fd6; --accentText: #1a1626; --line: #2b2740;
+        }
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg); color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+          "Noto Sans JP", sans-serif;
+        display: flex; align-items: flex-start; justify-content: center;
+        padding: 20px 20px 32px;
+      }
+      .card {
+        background: var(--card); border-radius: 24px; max-width: 400px;
+        width: 100%; padding: 28px 24px; text-align: center;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      }
+      .icon {
+        width: 88px; height: 88px; border-radius: 20px; object-fit: cover;
+        margin: 0 auto 16px; display: block;
+      }
+      h1 { font-size: 20px; margin: 0 0 6px; }
+      p.sub { color: var(--sub); font-size: 14px; margin: 0 0 24px; line-height: 1.6; }
+      .btn {
+        display: block; width: 100%; padding: 15px; border-radius: 14px;
+        font-size: 16px; font-weight: 600; text-decoration: none;
+        margin-bottom: 12px; border: 1px solid var(--line); color: var(--fg);
+        background: var(--card);
+      }
+      .btn.primary { background: var(--accent); color: var(--accentText); border-color: transparent; }
+      .note { color: var(--sub); font-size: 12px; margin-top: 18px; line-height: 1.6; }
+      .en { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <img class="icon" src="../../icon.png" alt="MIO" />
+      <h1>MIO でサークルに参加申請</h1>
+      <p class="sub">
+        これはサークルの参加申請リンクです。<br />
+        MIO が入っていれば自動でアプリが開きます。<br />
+        入っていない場合は、下からインストールしてください。
+      </p>
+
+      <a class="btn primary" id="storeBtn" href="https://misoclub.pro/apps/mio/">
+        アプリをインストール
+      </a>
+
+      <p class="note">
+        インストールして名前を設定したあと、<strong>このリンクをもう一度開く</strong>と
+        参加申請の画面が出ます。<br />
+        申請を送っても、サークルの管理者が承認するまで参加にはなりません。
+      </p>
+
+      <p class="note">
+        リンクが開けない場合は、MIO を最新版に更新してからもう一度お試しください。
+      </p>
+
+      <div class="en">
+        <p class="note">
+          This is a circle join request link for MIO. If the app is installed it
+          opens automatically. Otherwise install MIO above, set your name, then
+          open this link again. Sending a request does not join the circle —
+          an admin has to approve it.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        // 端末に合わせてストアボタンの遷移先を切り替えるだけ。
+        // **トークンには触れない**（読まない・出さない・保存しない）。
+        var ua = navigator.userAgent || "";
+        var ios = /iPhone|iPad|iPod/.test(ua);
+        var android = /Android/.test(ua);
+        var btn = document.getElementById("storeBtn");
+        if (ios) {
+          btn.href = "https://apps.apple.com/app/id6789859554";
+          btn.textContent = "App Store でインストール";
+        } else if (android) {
+          btn.href =
+            "https://play.google.com/store/apps/details?id=com.misoclub.mio";
+          btn.textContent = "Google Play でインストール";
+        }
+      })();
+    </script>
+  </body>
+</html>
