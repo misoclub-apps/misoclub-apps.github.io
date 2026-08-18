@@ -684,8 +684,11 @@ body {
   width: 100%;
   max-width: 260px;
   height: auto;
-  border-radius: 18px;
-  box-shadow: 0 2px 6px rgba(20, 40, 90, 0.1), 0 20px 40px -24px rgba(20, 40, 90, 0.5);
+  /* **素材は透過PNG（角丸が透明）。** だから box-shadow は使わない。
+     四角い箱に影が落ちて、透明な角の後ろに影の角が見えてしまう。
+     drop-shadow は絵の形（アルファ）に沿うので、角丸のまま影が付く。
+     同じ理由で border-radius も付けない（素材が角丸を持っている）。 */
+  filter: drop-shadow(0 10px 18px rgba(20, 40, 90, 0.22));
 }
 
 /* =====================================================================
