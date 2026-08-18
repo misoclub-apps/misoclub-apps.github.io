@@ -203,7 +203,12 @@ body {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  /* 横は詰めてよいが、**縦は尻尾の分を空ける**。尻尾は ::after で下に9px出るので、
+     行間が9px以下だと折り返した次のタグ（白地＋3pxの枠）が尻尾の先を塗りつぶして
+     「切れている」ように見える。さらにタグは傾けてあるので、回転で角が上下に
+     4pxほど張り出す。9px+回転分+余裕をとる。 */
+  column-gap: 12px;
+  row-gap: 24px;
 }
 .theme-mio .mio-tag {
   --tag: var(--mio-coral);
@@ -495,6 +500,16 @@ body {
   gap: clamp(20px, 4vw, 38px);
   align-items: center;
 }
+/* 縦積み（スマホ）のときは、テキスト → スクショ の順にする。
+   吹き出しはテキストブロックの最後にあるので、この順なら下向きの尻尾が
+   すぐ下の**自分のスクショ**を指す。画像を先に置くと、尻尾が次の機能の
+   スクショを指してしまい、中身と絵が食い違って見える。 */
+.theme-mio .mio-tab-text {
+  order: 1;
+}
+.theme-mio .mio-tab-shots {
+  order: 2;
+}
 .theme-mio .mio-tab-text {
   width: min(480px, 100%);
 }
@@ -697,6 +712,11 @@ body {
   }
   .theme-mio .mio-tab:nth-child(even) {
     flex-direction: row-reverse;
+  }
+  /* 横並びでは画像とテキストが隣同士なので、縦積み用の順番指定は戻す */
+  .theme-mio .mio-tab-text,
+  .theme-mio .mio-tab-shots {
+    order: 0;
   }
   .theme-mio .mio-tab-shots img {
     width: 190px;
