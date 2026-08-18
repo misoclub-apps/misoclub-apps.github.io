@@ -225,7 +225,10 @@ body {
   line-height: 1.45;
   color: var(--mio-ink);
   transform: rotate(var(--tilt, -1.5deg));
-  box-shadow: 0 3px 0 rgba(20, 40, 90, 0.05), 0 14px 26px -18px rgba(20, 40, 90, 0.45);
+  /* べた影（0 3px 0）は入れない。吹き出しの真下に3pxの帯ができるため、
+     尻尾の境界に端数ピクセルの隙間が出たときに、そこから覗いて
+     「口の中に線が入っている」ように見える。ぼかし影だけにする。 */
+  box-shadow: 0 14px 26px -18px rgba(20, 40, 90, 0.45);
 }
 .theme-mio .mio-tag b {
   color: var(--tag);
@@ -264,6 +267,11 @@ body {
   left: 27px;
   border-width: 7px 5px 0 5px;
   border-top-color: #fff;
+  /* **1px 上に食い込ませる。** 枠の下端とぴったり揃えると、端末の
+     ピクセル比が 2〜3 のときに境界がアンチエイリアスされ、髪の毛のような
+     線が口の中に見える。1px 重ねれば端数に関係なく出ない。
+     枠が1px薄くなるが、等倍では見分けられない。 */
+  margin-top: -1px;
 }
 .theme-mio .mio-tag--teal   { --tag: var(--mio-teal); }
 .theme-mio .mio-tag--yellow { --tag: #eab308; }
