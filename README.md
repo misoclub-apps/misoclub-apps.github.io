@@ -64,6 +64,80 @@ rm -f _mc.png _icon.png
 magick logo-source.png -fuzz 10% -trim +repage -resize x440 -background black -gravity center -extent 1200x630 og-image.png
 ```
 
+## MIO の画像を作り直す
+
+MIO のランディングページ（`apps/mio/index.html`）だけは、専用スタイル（`apps/mio/mio.css`）を
+持つ作り込んだページになっている。使っている画像はすべて **`mc-mio` リポジトリの素材から
+機械的に書き出したもの**なので、手で加工しないこと。ストアのスクショを撮り直したら、
+以下を流し直せば追随できる。
+
+| 置き場所 | 中身 | 出所（`mc-mio/`） |
+|---|---|---|
+| `apps/mio/img/hero/` | ヒーローの3テーマ（ゆめかわ・クール・さわやか） | `store/screenshots/old/source/<テーマ>/02_timetable.png` |
+| `apps/mio/img/themes/` | きせかえの6テーマタイル | 同上（6テーマぶん） |
+| `apps/mio/img/screens/` | 機能セクションの実画面（装飾なし） | `store/screenshots/old/source/dreamy/*.png` |
+| `apps/mio/img/widgets/` | ウィジェットの見本 | `assets/widget_previews/*.png` |
+| `apps/mio/img/poster/` | ストア掲載の装飾ポスター11枚 | `store/screenshots/android/*.png` |
+| `apps/mio/og.jpg` / `splash.jpg` | OGP画像 / DLページの上部 | 同じポスターから切り出し |
+
+`mc-mio` のリポジトリを隣に置いた状態で、`mc-mio/` をカレントにして実行する。
+
+```sh
+S=store/screenshots/old/source
+A=store/screenshots/android
+W=assets/widget_previews
+D=LocalPackages/misoclub-site/apps/mio
+j() { magick "$1" -colorspace sRGB -resize "$2" -strip -interlace Plane \
+        -sampling-factor 4:2:0 -quality "$3" "$4"; }
+
+# ヒーローの3台
+j $S/dreamy/02_timetable.png 520x 82 $D/img/hero/tt-dreamy.jpg
+j $S/cool/02_timetable.png   430x 80 $D/img/hero/tt-cool.jpg
+j $S/fresh/02_timetable.png  430x 80 $D/img/hero/tt-fresh.jpg
+
+# きせかえの6テーマ（同じ画面・同じ寸法にすること）
+for t in cute dreamy natural fresh cool simple; do
+  j $S/$t/02_timetable.png 320x 78 $D/img/themes/tt-$t.jpg
+done
+
+# 機能セクションの実画面（すべて dreamy で揃える）
+for pair in "01_home:home" "06_calendar_month:calendar-month" \
+  "07_calendar_week:calendar-week" "04_assignments:assignments" \
+  "03_courses:courses" "11_parttime:parttime" "12_kakeibo:kakeibo" \
+  "13_todo:todo" "20_friend_timetable:friend-timetable" \
+  "23_warikan_detail:warikan" "15_events:events" \
+  "21_settings_design:settings-design" "22_app_icon:app-icon"; do
+  j $S/dreamy/${pair%%:*}.png 440x 80 $D/img/screens/${pair##*:}.jpg
+done
+
+# ウィジェット（**縦横比を変えない**。440x440> は枠に収めるだけ）
+for f in tt_today tt_week sc_month_labeled sc_three_days hm_upcoming hm_oshi; do
+  magick $W/$f.png -colorspace sRGB -resize '440x440>' -strip -quality 84 \
+    $D/img/widgets/$f.jpg
+done
+
+# ストアの装飾ポスター11枚
+for f in $A/*.png; do j "$f" 520x 80 "$D/img/poster/$(basename "$f" .png).jpg"; done
+
+# OGP（1200x630。キャッチとサブコピー2行が収まる位置で切る）
+magick $A/01_timetable.png -colorspace sRGB -resize 1200x -gravity north \
+  -crop 1200x630+0+70 +repage -strip -quality 84 $D/og.jpg
+
+# DLページのスプラッシュ（総覧ポスター＝ロゴとタグラインが入っている）
+j $A/10_overview.png 900x 82 $D/splash.jpg
+
+# ヘッダー用の軽いアイコン（icon.png は 210KB を 36px で出していたので別に持つ。
+# icon.png 自体は site.webmanifest とトップ・一覧が参照しているので消さない）
+magick $D/icon.png -resize 128x128 -strip $D/icon-128.png
+```
+
+書き出したら `apps/mio/index.html` の `width` / `height` 属性を実寸に合わせ直すこと
+（合っていないと読み込み中にレイアウトが飛ぶ）。`magick identify` で確認できる。
+
+**文言の正典は `mc-mio/docs/app-features.md`**、**書いてはいけないことは
+`mc-mio/docs/store-screenshot-shooting-plan.md` §2.5**。種類数（背景150種類以上・
+アプリアイコン220種類・ウィジェット21種）を触るときは必ず両方を見直す。
+
 ## アプリを追加するとき
 
 1. **`apps/_template/` フォルダを `apps/<アプリ>/` にコピー**

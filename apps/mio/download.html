@@ -7,30 +7,53 @@
     <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="manifest" href="site.webmanifest" />
-    <meta name="theme-color" content="#171716" />
-    <!-- OGP -->
+    <meta name="theme-color" content="#ffffff" />
+    <!-- OGP（絶対URL。相対パスだと SNS のプレビューに出ないことがある） -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="misoclub" />
-    <meta property="og:image" content="../../assets/og-image.png" />
+    <meta property="og:title" content="MIO をダウンロード" />
+    <meta property="og:description" content="とにかく、かわいい。時間割もスケジュールも、とにかく便利。" />
+    <meta property="og:url" content="https://misoclub.pro/apps/mio/download.html" />
+    <meta property="og:image" content="https://misoclub.pro/apps/mio/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <title>MIO をダウンロード | misoclub</title>
     <meta
       name="description"
-      content="MIO - 学生生活まるごと管理 を App Store / Google Play からダウンロードできます。"
+      content="MIO（ミオ）— とにかくかわいい時間割＆スケジュールアプリ。App Store / Google Play から無料でダウンロードできます。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap"
+      rel="stylesheet"
     />
     <link rel="stylesheet" href="../../css/style.css" />
+    <style>
+      /* css/style.css の .dl-page は暖色のグラデーション（#fff6ea）を直書きしている。
+         5アプリ共有なので共通ファイルは触らず、このページだけ MIO の白＋青に差し替える。
+         （LP 用の mio.css は読み込まない。このページに必要なのはこの1つだけ。） */
+      .theme-mio .dl-page {
+        background: linear-gradient(180deg, #eaf2ff 0%, #ffffff 100%);
+      }
+    </style>
   </head>
-  <body>
+  <body class="theme-mio">
     <!--
       アプリのシェア機能などから飛ばすダウンロード専用ページ。
       iOS / Android を選んでダウンロードしてもらう。
-      misoclub の他アプリ一覧へのリンク以外は置かない。
-      ↓ ストアの URL を実際のものに差し替えてください（href="#" の箇所）。
+      **misoclub の他アプリ一覧へのリンク以外は置かない**（使い方ガイドも置かない）。
+      紹介の本体は ./index.html（ランディングページ）。
+      splash.jpg は MIO のブランド用スプラッシュ（ロゴ＋タグライン）。
+      **ストアのスクショに差し替えないこと。** シェアから来た人が最初に見る1枚なので、
+      機能を詰め込んだ絵より、静かなブランド画像のほうが合っている。
     -->
     <main class="dl-page">
-      <img src="./splash.jpg" alt="MIO - 学生生活まるごと管理" class="dl-splash" />
+      <img src="./splash.jpg" alt="MIO — みんなと、いっしょに、おくる毎日" class="dl-splash" />
 
       <h1>MIO - 学生生活まるごと管理</h1>
+      <p class="dl-desc">とにかく、かわいい。時間割もスケジュールも、とにかく便利。</p>
       <p class="dl-desc">お使いの端末を選んでダウンロード</p>
 
       <div class="store-badges">

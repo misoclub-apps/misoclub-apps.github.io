@@ -1,20 +1,49 @@
 /* =====================================================================
    MIO ランディングページ専用スタイル（このページ専用）
-   - style.css の後に読み込む。
+   - css/style.css の後に読み込む。共通ファイルには一切手を入れない。
+   - 目指す絵は store/screenshots/android/*.png（ストア掲載のポスター）。
+     アートディレクションの正典は docs/store-screenshot-shooting-plan.md §5。
+     「にぎやかでポップな手描きテイスト」。きれいめ・ミニマル・企業的にしない。
+   - 装飾（ブロブ・ドゥードル・マーカー下線・ステッカー）は**画像を1枚も足さず**
+     CSS とインライン SVG だけで作る。GitHub Pages なので外部リクエストも増やさない。
    - スクロール連動の演出（reveal / ピン留め / 切替）は不採用。完全に静的。
    - ビューポート高さ（vh/svh/dvh）には依存しない＝URLバーの出入りで
-     レイアウトが動かない（縦方向は px / vw のみ）。
+     レイアウトが動かない（縦方向は px / vw / % / em のみ）。
    ===================================================================== */
 
-:root {
-  --mio-blue: #3d8bff;
-  --mio-blue-deep: #2f6fe0;
+.theme-mio {
+  /* ポスターから採った配色。青で通し、コーラルを1語だけ差す */
+  --mio-blue: #2f6bff;
+  --mio-navy: #12307a;
+  --mio-coral: #ff6b62;
+  --mio-yellow: #ffd23f;
+  --mio-teal: #22c2b6;
+  --mio-purple: #8b6ff0;
+  --mio-pink: #ff8fb1;
+
   --mio-ink: #1b2432;
-  --mio-ink-soft: #616b7b;
-  --mio-bg: #f5f7fb;
-  --mio-card: #ffffff;
+  --mio-ink-soft: #5b6577;
+  --mio-bg: #ffffff;      /* §5.4「背景は白ベース」 */
+  --mio-tint: #f4f9ff;    /* 交互に敷く薄い帯 */
   --mio-radius: 26px;
-  --mio-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* style.css の変数も MIO 用に上書きする（.theme-mio スコープなので他アプリに影響しない） */
+  --color-bg: #ffffff;
+  --color-dark: #ffffff;  /* ヘッダーを白地に */
+  --color-fg: var(--mio-ink);
+  --color-muted: var(--mio-ink-soft);
+  --color-accent: var(--mio-blue);
+  --color-accent-dark: var(--mio-navy);
+  --max-width: 1060px;
+}
+
+/* style.css は html/body に overflow-x:hidden を指定しているが、これは要素を
+   スクロールコンテナ化して position:sticky（ヘッダー）を壊す。clip は
+   横はみ出しを防ぎつつスクロールコンテナ化しないので sticky が効く。
+   ここは消さないこと。 */
+html,
+body {
+  overflow-x: clip;
 }
 
 .theme-mio {
@@ -22,239 +51,706 @@
   color: var(--mio-ink);
 }
 
-/* style.css は html/body に overflow-x:hidden を指定しているが、これは要素を
-   スクロールコンテナ化して position:sticky（ショーケースのピン留め）を壊す。
-   clip は横はみ出しを防ぎつつスクロールコンテナ化しないので sticky が効く。 */
-html,
-body {
-  overflow-x: clip;
+/* 読み上げ専用（見出しの階層は保ちつつ、絵で語る節では文字を出さない） */
+.mio-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+/* =====================================================================
+   1. 共通パーツ
+   ===================================================================== */
+
+/* ---------- 節の器。ブロブはここでクリップする ---------- */
+.theme-mio .mio-section {
+  position: relative;
+  overflow: hidden; /* ブロブを外に出さない。中に sticky を置かないこと */
+  padding: clamp(56px, 9vw, 104px) 0;
+}
+.theme-mio .mio-section--tint {
+  background: var(--mio-tint);
+}
+.theme-mio .mio-section > .container {
+  position: relative;
+  z-index: 1;
 }
 
-/* ---------- ヘッダー：元の配色（青地・白ナビ）のまま。
-   ピン留めショーケースより前面に出すため z-index だけ上げる ---------- */
-.theme-mio .lp-header {
-  z-index: 60;
+/* ---------- 四隅の大きなブロブ（画像なし・不定形の border-radius）---------- */
+.theme-mio .mio-blobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.theme-mio .mio-blob {
+  position: absolute;
+  width: clamp(150px, 27vw, 360px);
+  aspect-ratio: 1;
+  border-radius: 58% 42% 63% 37% / 44% 56% 44% 56%;
+  opacity: 0.5;
+  filter: blur(2px);
+}
+.theme-mio .mio-blob--b { border-radius: 38% 62% 44% 56% / 62% 38% 62% 38%; }
+.theme-mio .mio-blob--c { border-radius: 66% 34% 34% 66% / 40% 62% 38% 60%; }
+.theme-mio .mio-blob.is-tl { top: -9%;  left: -11%; }
+.theme-mio .mio-blob.is-tr { top: -12%; right: -10%; }
+.theme-mio .mio-blob.is-bl { bottom: -12%; left: -12%; }
+.theme-mio .mio-blob.is-br { bottom: -10%; right: -11%; }
+
+/* ---------- 手描きドゥードル（インライン SVG のシンボルを置くだけ）---------- */
+.theme-mio .mio-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.theme-mio .mio-doodle {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: clamp(18px, 3.4vw, 42px);
+  height: auto;
+  transform: rotate(var(--r, 0deg)) scale(var(--s, 1));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- 黄色のマーカー下線（定規線に見せない）----------
+   手描き風のパスを背景画像として敷く。上下の辺が平行でなく、両端が細く
+   なっているのが「マーカーで引いた」に見える理由。単純な linear-gradient
+   では帯になってしまうので使わない。 */
+.theme-mio .mio-mark {
+  color: var(--mio-coral);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 30' preserveAspectRatio='none'%3E%3Cpath d='M4 12 C62 3 142 19 236 6 L238 23 C152 31 66 16 5 27 Z' fill='%23ffd23f'/%3E%3C/svg%3E");
+  background-size: 100% 0.34em;
+  background-position: 0 86%;
+  background-repeat: no-repeat;
+  padding: 0 0.08em;
+}
+
+/* サブコピーに添える短い手描きの色下線 */
+.theme-mio .mio-u {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath d='M3 7 C50 2 92 10 140 5 C180 1 212 8 237 4' fill='none' stroke='%23ff6b62' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 100% 0.24em;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 0.12em;
+}
+.theme-mio .mio-u--teal {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath d='M3 6 C48 11 96 2 142 8 C182 13 214 4 237 8' fill='none' stroke='%2322c2b6' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.theme-mio .mio-u--blue {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath d='M3 8 C52 3 94 11 140 6 C182 2 212 9 237 5' fill='none' stroke='%232f6bff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* ---------- 文節ユニット ----------
+   日本語は文節の途中でも折り返せてしまうので、「〜その日か／ら。」のように
+   1〜2文字だけが次の行に落ちることがある。文節を inline-block で包むと
+   文節の中では折り返さなくなり、どの幅でも切れ方が不自然にならない。
+   `text-wrap: pretty` は Safari の対応が読めないので、それには頼らない。 */
+.theme-mio .mio-nb {
+  display: inline-block;
+}
+/* 保険。対応ブラウザでは1語だけ残る行をさらに避けてくれる */
+.theme-mio .section-lead,
+.theme-mio .mio-note,
+.theme-mio .mio-tab-desc,
+.theme-mio .mio-hero-sub,
+.theme-mio .mio-hero-note,
+.theme-mio .mio-trust-item p,
+.theme-mio .mio-faq-body p {
+  text-wrap: pretty;
 }
 
 /* ---------- 大見出し ---------- */
 .theme-mio .section-title {
   font-weight: 900;
-  font-size: clamp(1.7rem, 4.4vw, 3rem);
+  font-size: clamp(1.65rem, 4.6vw, 2.9rem);
+  line-height: 1.24;
   letter-spacing: 0.01em;
-  line-height: 1.18;
+  color: var(--mio-navy);
+  text-align: center;
+  margin: 0 0 14px;
 }
 .theme-mio .section-lead {
   color: var(--mio-ink-soft);
-  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-size: clamp(0.98rem, 2.2vw, 1.16rem);
+  text-align: center;
+  max-width: 40em;
+  margin: 0 auto;
+}
+/* 文節ごとに inline-block にして、文節の途中では折り返さない */
+.theme-mio .section-title span,
+.theme-mio .mio-hero-title span,
+.theme-mio .mio-tab-title span {
+  display: inline-block;
+}
+
+/* ---------- ステッカー風の吹き出しタグ ----------
+   白地＋色の輪郭線＋小さなアイコン＋短い一言。**必ず1行で収まる幅**を取る
+   （幅を詰めて縦長にしたり語の途中で折り返すのは、ストアのプロンプトが
+   繰り返し禁じている失敗パターン）。 */
+.theme-mio .mio-tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.theme-mio .mio-tag {
+  --tag: var(--mio-coral);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #fff;
+  border: 3px solid var(--tag);
+  border-radius: 18px;
+  padding: 9px 15px;
+  font-weight: 700;
+  font-size: clamp(0.86rem, 1.9vw, 1rem);
+  line-height: 1.45;
+  color: var(--mio-ink);
+  transform: rotate(var(--tilt, -1.5deg));
+  box-shadow: 0 3px 0 rgba(20, 40, 90, 0.05), 0 14px 26px -18px rgba(20, 40, 90, 0.45);
+}
+.theme-mio .mio-tag b {
+  color: var(--tag);
+}
+.theme-mio .mio-tag-icon {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  color: var(--tag);
+}
+/* 吹き出しの尻尾。輪郭の2辺だけ描いた正方形を回して継ぎ目を白で隠す */
+.theme-mio .mio-tag::before,
+.theme-mio .mio-tag::after {
+  content: "";
+  position: absolute;
+  left: 26px;
+  bottom: -9px;
+  width: 14px;
+  height: 14px;
+  transform: rotate(45deg);
+}
+.theme-mio .mio-tag::after {
+  background: #fff;
+  border-right: 3px solid var(--tag);
+  border-bottom: 3px solid var(--tag);
+}
+.theme-mio .mio-tag::before {
+  bottom: -4px;
+  left: 29px;
+  width: 16px;
+  height: 10px;
+  background: #fff;
+  transform: none;
+  z-index: 1;
+}
+.theme-mio .mio-tag--teal   { --tag: var(--mio-teal); }
+.theme-mio .mio-tag--yellow { --tag: #eab308; }
+.theme-mio .mio-tag--blue   { --tag: var(--mio-blue); }
+.theme-mio .mio-tag--purple { --tag: var(--mio-purple); }
+.theme-mio .mio-tag--pink   { --tag: var(--mio-pink); }
+
+/* ---------- 数字チップ（「背景150種類以上」など）---------- */
+.theme-mio .mio-chips {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.theme-mio .mio-chip {
+  background: #fff;
+  border: 2px solid #dbe7fb;
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+  font-weight: 700;
+  color: var(--mio-navy);
+}
+.theme-mio .mio-chip b {
+  color: var(--mio-coral);
+  font-size: 1.12em;
+}
+
+/* ---------- 端末のスラブ（Android 向けの絵に iPhone の筐体は描かない）---------- */
+.theme-mio .mio-screen {
+  display: block;
+  border-radius: clamp(16px, 2.2vw, 26px);
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(20, 40, 90, 0.1), 0 28px 56px -26px rgba(20, 40, 90, 0.45);
+  transform: rotate(var(--tilt, 0deg));
 }
 
 /* =====================================================================
-   ヒーロー（全画面・シネマティック）
+   2. ヘッダー（白地・濃紺の文字）
+   ===================================================================== */
+.theme-mio .site-header {
+  border-bottom: 1px solid #e8f0fd;
+  box-shadow: 0 2px 14px rgba(47, 107, 255, 0.08);
+  z-index: 60; /* ブロブより前面 */
+}
+.theme-mio .lp-brand {
+  color: var(--mio-navy);
+  font-weight: 900;
+  gap: 10px;
+}
+.theme-mio .lp-brand-name {
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+}
+.theme-mio .nav a {
+  color: var(--mio-navy);
+  font-weight: 700;
+}
+.theme-mio .nav a:hover {
+  color: var(--mio-blue);
+  text-decoration: none;
+}
+
+/* =====================================================================
+   3. ヒーロー
    ===================================================================== */
 .theme-mio .mio-hero {
   position: relative;
-  /* ビューポート高さ(vh/svh)には一切依存しない＝URLバーの出入りで
-     レイアウトが動かない。余白は px / vw のみ。 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: clamp(84px, 13vw, 128px) 20px clamp(52px, 9vw, 88px);
   overflow: hidden;
+  padding: clamp(40px, 7vw, 76px) 20px clamp(48px, 8vw, 92px);
+  text-align: center;
   background:
-    radial-gradient(120% 80% at 50% -10%, #eaf2ff 0%, rgba(234, 242, 255, 0) 60%),
-    radial-gradient(90% 60% at 90% 10%, #fff0f4 0%, rgba(255, 240, 244, 0) 55%),
-    radial-gradient(80% 60% at 10% 20%, #eafaf3 0%, rgba(234, 250, 243, 0) 55%),
+    radial-gradient(120% 70% at 50% -8%, #eaf2ff 0%, rgba(234, 242, 255, 0) 62%),
+    radial-gradient(80% 55% at 88% 6%, #ffeeec 0%, rgba(255, 238, 236, 0) 58%),
+    radial-gradient(80% 55% at 10% 14%, #eafaf5 0%, rgba(234, 250, 245, 0) 58%),
     var(--mio-bg);
 }
 .theme-mio .mio-hero-inner {
   position: relative;
   z-index: 1;
-  max-width: 900px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 940px;
+  margin: 0 auto;
 }
 .theme-mio .mio-hero-icon {
-  width: clamp(72px, 12vw, 104px);
+  width: clamp(66px, 11vw, 92px);
   height: auto;
-  border-radius: 24px;
-  box-shadow: 0 18px 40px rgba(61, 139, 255, 0.28);
-  margin-bottom: 26px;
+  border-radius: 24%;
+  box-shadow: 0 16px 36px rgba(47, 107, 255, 0.26);
+  margin: 0 0 20px;
 }
 .theme-mio .mio-hero-title {
   font-weight: 900;
-  font-size: clamp(2.6rem, 9vw, 5.5rem);
-  line-height: 1.05;
+  font-size: clamp(2.3rem, 8.4vw, 4.6rem);
+  line-height: 1.1;
   letter-spacing: 0.01em;
-  margin: 0 0 20px;
-  background: linear-gradient(180deg, #223049 0%, #3d8bff 130%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-/* 文節ごとに inline-block にして、文節の途中では折り返さない
-   （＝広い画面は1行／狭い画面は「学生生活、」「これ1つ。」のきれいな2行）。 */
-.theme-mio .mio-hero-title span {
-  display: inline-block;
+  color: var(--mio-navy);
+  margin: 0 0 18px;
+  /* ポスターのステッカー文字と同じ「白フチ」。CJK は本文サイズだと潰れるので
+     この特大の見出しだけに使う。-webkit-text-stroke は内側に食い込むので使わない */
+  text-shadow:
+    0 3px 0 #fff, 0 -3px 0 #fff, 3px 0 0 #fff, -3px 0 0 #fff,
+    2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff,
+    0 14px 26px rgba(20, 40, 90, 0.14);
 }
 .theme-mio .mio-hero-sub {
-  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+  font-size: clamp(1rem, 2.6vw, 1.35rem);
+  font-weight: 700;
+  color: var(--mio-ink);
+  line-height: 1.85;
+  margin: 0 0 22px;
+}
+.theme-mio .mio-hero-tags {
+  justify-content: center;
+  margin: 0 0 26px;
+}
+.theme-mio .mio-hero .store-badges {
+  margin-bottom: 10px;
+}
+.theme-mio .mio-hero-note {
   color: var(--mio-ink-soft);
-  line-height: 1.7;
-  margin: 0 0 30px;
+  font-size: 0.92rem;
+  margin: 0 0 clamp(26px, 5vw, 46px);
 }
-.theme-mio .mio-hero-cta {
-  margin-bottom: clamp(34px, 7vw, 60px);
-}
-.theme-mio .mio-hero-phone {
-  width: 100%;
+
+/* ---------- 3テーマを扇状に重ねる（中央のゆめかわを主役に）---------- */
+.theme-mio .mio-fan {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 100%);
+  margin: 0 auto;
   display: flex;
+  align-items: flex-end;
   justify-content: center;
 }
-/* ---------- 端末フレーム（ヒーロー＆ショーケース共通） ---------- */
-.theme-mio .mio-phone {
-  position: relative;
-  aspect-ratio: 1080 / 2232;
-  background: #0c1220;
-  border-radius: clamp(28px, 4vw, 42px);
-  padding: clamp(7px, 1vw, 11px);
-  box-shadow:
-    0 2px 4px rgba(12, 18, 32, 0.4),
-    0 30px 70px -20px rgba(20, 40, 90, 0.45);
+.theme-mio .mio-fan-item {
+  flex: none;
+  text-align: center;
 }
-.theme-mio .mio-phone::before {
-  content: "";
-  position: absolute;
-  top: clamp(10px, 1.4vw, 16px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 34%;
-  height: clamp(5px, 0.7vw, 7px);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.22);
+.theme-mio .mio-fan-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.theme-mio .mio-fan-item--main {
+  width: 44%;
   z-index: 2;
 }
-.theme-mio .mio-phone-screen {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: clamp(22px, 3vw, 34px);
-  overflow: hidden;
+.theme-mio .mio-fan-item--side {
+  width: 34%;
+  z-index: 1;
+}
+/* 3台の合計を 100% に収める（44 + 34 + 34 - 6 - 6 = 100）。
+   はみ出させると端の端末が切れて「崩れている」に見える。 */
+.theme-mio .mio-fan-item--left  { --tilt: -7deg; margin-right: -6%; }
+.theme-mio .mio-fan-item--right { --tilt: 7deg;  margin-left: -6%; }
+/* テーマ名のラベル（ポスターと同じ位置づけ） */
+.theme-mio .mio-fan-label {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 5px 16px;
+  border-radius: 999px;
   background: #fff;
+  border: 2.5px solid var(--label, var(--mio-pink));
+  color: var(--mio-navy);
+  font-weight: 900;
+  font-size: clamp(0.76rem, 1.7vw, 0.98rem);
+  box-shadow: 0 8px 18px -12px rgba(20, 40, 90, 0.5);
 }
-.theme-mio .mio-phone-screen img {
+.theme-mio .mio-fan-item--main .mio-fan-label { --label: var(--mio-pink); }
+.theme-mio .mio-fan-item--left .mio-fan-label { --label: var(--mio-navy); }
+.theme-mio .mio-fan-item--right .mio-fan-label { --label: var(--mio-blue); }
+
+/* =====================================================================
+   4. きせかえ（6テーマ＋設定画面）
+   ===================================================================== */
+/* タイルは色を見比べるためのもの。時間割を読むためではないので、
+   狭い画面でも3列にして節が縦に伸びすぎないようにする。 */
+.theme-mio .mio-themes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 2.2vw, 20px);
+  max-width: 900px;
+  margin: clamp(30px, 5vw, 52px) auto 0;
+}
+.theme-mio .mio-theme {
+  text-align: center;
+}
+.theme-mio .mio-theme img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-}
-/* ヒーローのメインビジュアル（MIO の装飾ポスター poster-01 をそのまま表示）。
-   高さを vh で決めると URL バーの出入りでサイズが変わるため、
-   他の画像と同じく幅（vw）基準にして大きさを一定にする。 */
-.theme-mio .mio-hero-phone img {
-  display: block;
-  width: min(320px, 82vw);
   height: auto;
-  border-radius: clamp(18px, 2.4vw, 28px);
-  box-shadow:
-    0 2px 6px rgba(20, 40, 90, 0.12),
-    0 34px 70px -20px rgba(20, 40, 90, 0.42);
+}
+.theme-mio .mio-theme-name {
+  display: block;
+  margin-top: 9px;
+  font-weight: 900;
+  font-size: clamp(0.72rem, 1.7vw, 0.96rem);
+  color: var(--mio-navy);
+}
+
+/* 設定画面とアイコン一覧は、片方を添え物にせず対等に並べる（§4.2） */
+.theme-mio .mio-pair {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 3vw, 34px);
+  max-width: 620px;
+  margin: clamp(34px, 6vw, 60px) auto 0;
+}
+.theme-mio .mio-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.theme-mio .mio-note {
+  color: var(--mio-ink-soft);
+  font-size: 0.94rem;
+  text-align: center;
+  max-width: 34em;
+  margin: 22px auto 0;
 }
 
 /* =====================================================================
-   機能紹介：普通に縦スクロールすると各機能を順番に紹介（画像＋テキスト）。
-   ピン留め・切替・ドットはやめ、各機能はスクロールでふわっと登場（reveal）。
-   PC は画像とテキストを横並び（交互に左右反転）、スマホは縦積み。
+   5. 機能（5つのタブごとに1ブロック）
    ===================================================================== */
-.theme-mio .mio-features {
-  padding: clamp(60px, 10vw, 120px) 0 clamp(72px, 12vw, 140px);
-  background: linear-gradient(180deg, var(--mio-bg) 0%, #eef3fb 42%, #eef3fb 58%, var(--mio-bg) 100%);
-}
-.theme-mio .mio-features .section-title,
-.theme-mio .mio-features .section-lead {
-  text-align: center;
-}
-.theme-mio .mio-feature-list {
+.theme-mio .mio-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 9vw, 104px);
+  margin: clamp(38px, 6vw, 68px) auto 0;
   max-width: 1000px;
-  margin: clamp(40px, 7vw, 76px) auto 0;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(64px, 11vw, 128px);
 }
-
-/* --- 1 機能（画像＋テキスト） --- */
-.theme-mio .mio-beat {
+.theme-mio .mio-tab {
   display: flex;
   flex-direction: column;
+  gap: clamp(20px, 4vw, 38px);
   align-items: center;
-  gap: clamp(22px, 4vw, 40px);
-  text-align: center;
 }
-@media (min-width: 820px) {
-  .theme-mio .mio-beat {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(44px, 6vw, 90px);
-    text-align: left;
-  }
-  /* 偶数番は画像を右に（交互レイアウトで単調にしない） */
-  .theme-mio .mio-beat:nth-child(even) {
-    flex-direction: row-reverse;
-  }
+.theme-mio .mio-tab-text {
+  width: min(480px, 100%);
 }
-
-/* --- 画像（ポスター） --- */
-.theme-mio .mio-beat-media {
-  flex: none;
-}
-.theme-mio .mio-beat-media img {
-  display: block;
-  width: min(280px, 70vw);
-  height: auto;
-  margin: 0 auto;
-  border-radius: clamp(16px, 2vw, 24px);
-  box-shadow:
-    0 2px 6px rgba(20, 40, 90, 0.12),
-    0 24px 56px -22px rgba(20, 40, 90, 0.4);
-}
-
-/* --- テキスト --- */
-.theme-mio .mio-beat-text {
-  width: min(460px, 92vw);
-}
-.theme-mio .mio-beat-title {
+.theme-mio .mio-tab-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--mio-navy);
+  color: #fff;
   font-weight: 900;
-  font-size: clamp(1.5rem, 4vw, 2.3rem);
-  line-height: 1.3;
-  margin: 0 0 14px;
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  padding: 5px 14px;
+  margin: 0 0 12px;
 }
-.theme-mio .mio-beat-desc {
+.theme-mio .mio-tab-title {
+  font-weight: 900;
+  font-size: clamp(1.38rem, 3.8vw, 2.1rem);
+  line-height: 1.3;
+  color: var(--mio-navy);
+  margin: 0 0 12px;
+}
+.theme-mio .mio-tab-desc {
+  margin: 0 0 20px;
+  color: var(--mio-ink-soft);
+  font-size: clamp(0.98rem, 2.1vw, 1.12rem);
+  line-height: 1.9;
+}
+.theme-mio .mio-tab-shots {
+  display: flex;
+  gap: clamp(12px, 2.4vw, 22px);
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0;
+}
+.theme-mio .mio-tab-shots img {
+  display: block;
+  width: min(200px, 42vw);
+  height: auto;
+}
+
+/* =====================================================================
+   6. ウィジェット（それぞれ元の縦横比のまま並べる）
+   ===================================================================== */
+.theme-mio .mio-widgets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 3vw, 26px);
+  max-width: 860px;
+  margin: clamp(32px, 5vw, 54px) auto 0;
+  align-items: center;
+  justify-items: center;
+}
+.theme-mio .mio-widgets img {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 2px 6px rgba(20, 40, 90, 0.1), 0 20px 40px -24px rgba(20, 40, 90, 0.5);
+}
+
+/* =====================================================================
+   7. 横スワイプのギャラリー（ストア掲載のポスター11枚）
+   ===================================================================== */
+.theme-mio .mio-gallery {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: clamp(26px, 4vw, 40px) max(20px, env(safe-area-inset-left)) 30px;
+  margin: 0;
+  scrollbar-width: thin;
+}
+.theme-mio .mio-gallery img {
+  flex: none;
+  width: min(260px, 66vw);
+  height: auto;
+  scroll-snap-align: center;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(20, 40, 90, 0.1), 0 22px 44px -26px rgba(20, 40, 90, 0.5);
+}
+
+/* =====================================================================
+   8. 安心・よくある質問・CTA
+   ===================================================================== */
+.theme-mio .mio-trust {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 2.6vw, 22px);
+  margin: clamp(30px, 5vw, 50px) auto 0;
+  max-width: 1000px;
+}
+.theme-mio .mio-trust-item {
+  background: #fff;
+  border: 2px solid #e6effd;
+  border-radius: var(--mio-radius);
+  padding: 22px 24px;
+  box-shadow: 0 14px 30px -26px rgba(20, 40, 90, 0.5);
+}
+.theme-mio .mio-trust-item h3 {
+  margin: 0 0 8px;
+  font-size: 1.06rem;
+  font-weight: 900;
+  color: var(--mio-navy);
+}
+.theme-mio .mio-trust-item p {
   margin: 0;
   color: var(--mio-ink-soft);
-  font-size: clamp(1rem, 2.2vw, 1.2rem);
-  line-height: 1.85;
+  font-size: 0.98rem;
+}
+
+.theme-mio .mio-faq {
+  max-width: 760px;
+  margin: clamp(28px, 4vw, 44px) auto 0;
+}
+.theme-mio .mio-faq details {
+  background: #fff;
+  border: 2px solid #e6effd;
+  border-radius: 18px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.theme-mio .mio-faq summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 15px 46px 15px 20px;
+  font-weight: 700;
+  color: var(--mio-navy);
+  position: relative;
+}
+.theme-mio .mio-faq summary::-webkit-details-marker {
+  display: none;
+}
+.theme-mio .mio-faq summary::after {
+  content: "＋";
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  color: var(--mio-blue);
+  font-weight: 900;
+}
+.theme-mio .mio-faq details[open] summary::after {
+  content: "－";
+}
+.theme-mio .mio-faq .mio-faq-body {
+  padding: 0 20px 18px;
+  color: var(--mio-ink-soft);
+  font-size: 0.98rem;
+}
+.theme-mio .mio-faq .mio-faq-body p {
+  margin: 0;
+}
+.theme-mio .mio-guide-link {
+  text-align: center;
+  margin: 24px 0 0;
+  font-weight: 700;
+}
+
+.theme-mio .mio-cta {
+  text-align: center;
+  background:
+    radial-gradient(90% 110% at 50% 0%, #eaf2ff 0%, rgba(234, 242, 255, 0) 62%),
+    var(--mio-bg);
+}
+.theme-mio .mio-tagline {
+  margin: clamp(22px, 4vw, 34px) 0 0;
+  font-weight: 900;
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  color: var(--mio-navy);
 }
 
 /* =====================================================================
-   仕上げ：安心 / CTA
+   9. レスポンシブ
    ===================================================================== */
-.theme-mio .lp-trust {
-  padding: clamp(60px, 10vw, 120px) 0;
+@media (min-width: 620px) {
+  .theme-mio .mio-widgets {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .theme-mio .mio-trust {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-.theme-mio .lp-cta {
-  padding: clamp(80px, 14vw, 160px) 0;
-  text-align: center;
-  background:
-    radial-gradient(90% 120% at 50% 0%, #eaf2ff 0%, rgba(234, 242, 255, 0) 60%),
-    var(--mio-bg);
+@media (min-width: 900px) {
+  .theme-mio .mio-themes {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .theme-mio .mio-trust {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  /* 機能ブロックは画像とテキストを左右に。偶数番は反転して単調にしない */
+  .theme-mio .mio-tab {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(34px, 5vw, 72px);
+  }
+  .theme-mio .mio-tab:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+  .theme-mio .mio-tab-shots img {
+    width: 190px;
+  }
+}
+
+/* 320px 級（現行 iPhone より狭い Android 小型機）では、文節ユニットが
+   数pxだけ収まらずに「〜ます。」の3文字が次行に落ちることがある。
+   文言を削るのではなく本文を少し詰めて、文節が1行に収まるようにする。 */
+@media (max-width: 360px) {
+  .theme-mio .section-lead,
+  .theme-mio .mio-note,
+  .theme-mio .mio-tab-desc,
+  .theme-mio .mio-trust-item p,
+  .theme-mio .mio-faq-body {
+    font-size: 0.9rem;
+  }
+}
+
+/* 狭い画面では飾りを減らす（にぎやかさより読めることを優先） */
+@media (max-width: 600px) {
+  .theme-mio .mio-blob.is-extra,
+  .theme-mio .mio-doodle.is-extra {
+    display: none;
+  }
+  .theme-mio .mio-hero-title {
+    text-shadow:
+      0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff,
+      0 10px 20px rgba(20, 40, 90, 0.14);
+  }
+}
+
+/* =====================================================================
+   10. モーションの配慮
+   ドゥードルのゆらぎだけがアニメーション。静止した傾き（transform）は
+   モーションではないので残す。
+   ===================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  .theme-mio .mio-doodle {
+    animation: mio-float 7s ease-in-out infinite alternate;
+  }
+}
+@keyframes mio-float {
+  from { transform: rotate(var(--r, 0deg)) scale(var(--s, 1)) translateY(0); }
+  to   { transform: rotate(var(--r, 0deg)) scale(var(--s, 1)) translateY(-7px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-mio .mio-doodle,
+  .theme-mio .mio-tag,
+  .theme-mio .mio-screen {
+    animation: none !important;
+    transition: none !important;
+  }
 }

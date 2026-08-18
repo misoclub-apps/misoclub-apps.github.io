@@ -7,8 +7,10 @@
     <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="manifest" href="site.webmanifest" />
-    <meta name="theme-color" content="#3d8bff" />
-    <!-- 丸ゴシック（ポップな雰囲気・MIO LP 用） -->
+    <meta name="theme-color" content="#ffffff" />
+    <!-- 丸ゴシック（ポップな雰囲気・MIO LP 用）。900 はキャッチの特大見出しで使う。
+         ここに新しいウェイトを足さないこと（このページはアプリのホームページとして
+         OAuth 同意画面に登録されているので、外部リクエストは最小に保つ）。 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,16 +20,23 @@
     <!-- OGP（アプリのホームページとして共有されるため絶対URL） -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="misoclub" />
-    <meta property="og:title" content="MIO - 学生生活まるごと管理" />
-    <meta property="og:description" content="時間割・課題・出欠・バイト・サークル・イベントまで、学生生活をまるごと管理。友達と時間割や予定も共有できる無料アプリ。" />
+    <meta property="og:title" content="MIO - とにかくかわいい時間割＆スケジュール" />
+    <meta
+      property="og:description"
+      content="時間割もスケジュールも、とにかく便利。背景も色もアプリアイコンも、気分で着せ替え。授業・課題・出欠・バイト・イベントまで、学生生活をまるごと。会員登録なしで無料。"
+    />
     <meta property="og:url" content="https://misoclub.pro/apps/mio/" />
-    <meta property="og:image" content="https://misoclub.pro/apps/mio/splash.jpg" />
+    <meta property="og:image" content="https://misoclub.pro/apps/mio/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="時間割、気分で着せ替え。同じ時間割を、ゆめかわ・クール・さわやかに。" />
     <meta name="twitter:card" content="summary_large_image" />
-    <title>MIO - 学生生活まるごと管理 | misoclub</title>
+    <title>MIO - とにかくかわいい時間割＆スケジュール | misoclub</title>
     <meta
       name="description"
-      content="MIO（ミオ）は、時間割・課題・出欠・バイト・サークル・イベントまで、学生生活をまるごと管理できる無料アプリ。友達と時間割や予定も共有できます。iOS / Android 対応。"
+      content="MIO（ミオ）は、大学生のための時間割＆スケジュールアプリ。背景150種類以上・アプリアイコン220種類で、毎日開くのが楽しくなる見た目に着せ替えできます。授業・課題・出欠・単位・バイト・家計簿・イベント・割り勘まで。会員登録なしで無料。iOS / Android 対応。"
     />
+    <link rel="canonical" href="https://misoclub.pro/apps/mio/" />
     <link rel="stylesheet" href="../../css/style.css" />
     <!-- MIO LP 専用スタイル（このページ専用） -->
     <link rel="stylesheet" href="./mio.css" />
@@ -35,230 +44,141 @@
   <body class="theme-mio">
     <!--
       MIO のランディングページ（アプリのホームページとして OAuth 同意画面等に登録するページ）。
+
       ・プライバシーポリシーへのリンクはヘッダー / 本文 / フッターに明示的に設置すること（審査要件）。
-      ・img/poster-01〜14.jpg は装飾済みストア用ポスター（ヒーロー/機能セクションで使用）。
-      ・img/shots/*.jpg はスクリーンショットギャラリー用の素画面キャプチャ（装飾なし）。
-        元画像は store/screenshots/source/*.png を長辺960px・JPGに最適化したもの。
-        旧仮画像 img/ph-*.svg は未使用（残置）。
+      ・**文言の正典は mc-mio/docs/app-features.md。** 機能を変えたら両方直すこと。
+        種類数（背景150種類以上・アプリアイコン220種類・ウィジェット21種）も同ファイル §7 が出所。
+      ・**書いてはいけないこと**は mc-mio/docs/store-screenshot-shooting-plan.md §2.5 にまとまっている。
+        （時間割の画像取り込み／サークルの集金・会計／「あと何回休める？」＝残り欠席可能回数／
+         個人予定への参加者追加／割り勘のカンパ・男気／推し活を独立機能として扱う／
+         保存容量をプレミアム特典として書く）
+      ・画像の出所:
+        - img/hero/, img/themes/, img/screens/  … mc-mio/store/screenshots/old/source/<テーマ>/*.png
+          （装飾なしの素画面。6テーマ×25画面。撮影は tools/take-store-screenshots.sh）
+        - img/widgets/                          … mc-mio/assets/widget_previews/*.png
+        - img/poster/                           … mc-mio/store/screenshots/android/*.png
+          （ストア掲載用の装飾済みポスター11枚。キャッチが焼き込まれている）
+        - og.jpg / splash.jpg                   … 同じポスターから切り出し
+        再生成のコマンドは ../../README.md の「MIO の画像を作り直す」節。
+      ・**ポスターの焼き込み文字と HTML の見出しをぶつけない。** 装飾ポスターは
+        #gallery（横スワイプ）にだけ置き、そこには見出しも本文も添えない。
+        機能を説明する節では装飾なしの素画面だけを使う。
       ・シェア用のシンプルなDLページは ./download.html にバックアップとして残してあります。
     -->
+
+    <!-- 手描きドゥードルとタグのアイコン。ここでシンボルを定義して <use> で置く -->
+    <svg class="mio-sprite" aria-hidden="true" focusable="false">
+      <symbol id="d-star" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 7 L40 25 L59 27 L45 40 L49 58 L32 48 L14 58 L18 40 L5 26 L24 25 Z" />
+      </symbol>
+      <symbol id="d-sparkle" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+        <path d="M32 5 C34 22 42 30 59 32 C42 34 34 42 32 59 C30 42 22 34 5 32 C22 30 30 22 32 5 Z" />
+      </symbol>
+      <symbol id="d-ring" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round">
+        <path d="M32 7 C46 7 57 18 57 32 C57 46 46 57 32 57 C18 57 7 46 7 32 C7 19 17 8 30 7" />
+      </symbol>
+      <symbol id="d-wave" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round">
+        <path d="M4 40 C13 22 21 22 30 39 C39 56 47 55 60 34" />
+      </symbol>
+      <symbol id="d-dots" viewBox="0 0 64 64" fill="currentColor">
+        <circle cx="12" cy="16" r="5" /><circle cx="34" cy="9" r="4" /><circle cx="52" cy="21" r="5" />
+        <circle cx="21" cy="40" r="4" /><circle cx="45" cy="48" r="5" /><circle cx="9" cy="55" r="4" />
+      </symbol>
+      <symbol id="d-arc" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-dasharray="7 9">
+        <path d="M6 52 C10 18 36 4 60 14" />
+      </symbol>
+
+      <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="3" /><circle cx="8.5" cy="9.5" r="1.6" /><path d="M4 17l5-5 4 4 3-3 4 4" />
+      </symbol>
+      <symbol id="i-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a9 9 0 100 18c1.4 0 2-1 2-2s-.8-2-.8-3c0-1.2 1-2 2.3-2H19a2 2 0 002-2 9 9 0 00-9-9z" /><circle cx="8" cy="10" r="1.2" /><circle cx="12" cy="7.5" r="1.2" />
+      </symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <rect x="3" y="3" width="7" height="7" rx="2" /><rect x="14" y="3" width="7" height="7" rx="2" />
+        <rect x="3" y="14" width="7" height="7" rx="2" /><rect x="14" y="14" width="7" height="7" rx="2" />
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9" /><path d="M8 12.5l2.8 2.8L16.5 9.5" />
+      </symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="5" width="18" height="16" rx="3" /><path d="M3 10h18M8 3v4M16 3v4" />
+      </symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9" /><path d="M12 7.5V12l3.5 2" />
+      </symbol>
+      <symbol id="i-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="8" r="3.2" /><path d="M2.5 20c0-3.6 2.9-5.6 6.5-5.6s6.5 2 6.5 5.6" /><path d="M16 5.5a3 3 0 010 6M18 20c0-2.2-.6-3.8-1.7-4.9" />
+      </symbol>
+      <symbol id="i-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9" /><path d="M8.5 8.5L12 13m3.5-4.5L12 13v3.5M9.5 13h5M9.5 15.4h5" />
+      </symbol>
+      <symbol id="i-widget" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <rect x="3" y="3" width="8.5" height="8.5" rx="2" /><rect x="14" y="3" width="7" height="18" rx="2" /><rect x="3" y="14" width="8.5" height="7" rx="2" />
+      </symbol>
+      <symbol id="i-receipt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 3h14v18l-3.5-2-3.5 2-3.5-2L5 21z" /><path d="M9 8h6M9 12h6M9 16h3" />
+      </symbol>
+    </svg>
 
     <!-- ヘッダー -->
     <header class="site-header lp-header">
       <div class="container">
         <a href="./" class="brand lp-brand">
-          <img src="./icon.png" alt="MIO アイコン" class="lp-brand-icon" width="36" height="36" />
+          <img src="./icon-128.png" alt="" class="lp-brand-icon" width="36" height="36" />
           <span class="lp-brand-name">MIO</span>
         </a>
         <nav class="nav">
+          <a href="#kisekae">きせかえ</a>
           <a href="#features">機能</a>
-          <a href="#screenshots">スクショ</a>
           <a href="#download">ダウンロード</a>
           <a href="./privacy.html">プライバシーポリシー</a>
         </nav>
       </div>
     </header>
 
-    <!-- ヒーロー -->
+    <!-- ==================== ヒーロー ==================== -->
     <section class="mio-hero" id="top">
+      <div class="mio-blobs" aria-hidden="true">
+        <span class="mio-blob is-tl" style="background: #b9d2ff"></span>
+        <span class="mio-blob mio-blob--b is-tr" style="background: #ffc3bd"></span>
+        <span class="mio-blob mio-blob--c is-bl is-extra" style="background: #ffe9a3"></span>
+        <span class="mio-blob is-br is-extra" style="background: #c8bdf5"></span>
+      </div>
+      <svg class="mio-doodle" style="--x: 6%; --y: 16%; --r: -12deg; color: #ffd23f" aria-hidden="true"><use href="#d-star" /></svg>
+      <svg class="mio-doodle is-extra" style="--x: 90%; --y: 12%; --r: 8deg; color: #22c2b6" aria-hidden="true"><use href="#d-sparkle" /></svg>
+      <svg class="mio-doodle is-extra" style="--x: 12%; --y: 62%; --r: -6deg; color: #8b6ff0" aria-hidden="true"><use href="#d-ring" /></svg>
+      <svg class="mio-doodle" style="--x: 86%; --y: 56%; --r: 10deg; color: #ff8fb1" aria-hidden="true"><use href="#d-wave" /></svg>
+
       <div class="mio-hero-inner">
         <img
-          src="./icon.png"
+          src="./icon-128.png"
           alt="MIO アプリアイコン"
           class="mio-hero-icon"
-          width="104"
-          height="104"
+          width="92"
+          height="92"
         />
-        <h1 class="mio-hero-title"><span>学生生活、</span><span>これ1つ。</span></h1>
+        <h1 class="mio-hero-title">
+          <span>時間割も、</span><span><em class="mio-mark">わたし色</em>に。</span>
+        </h1>
         <p class="mio-hero-sub">
-          時間割も、出欠も、バイトも、あそびも。<br />
-          MIO がぜんぶ、まとめて整える。
+          とにかく、かわいい。<br />
+          <span class="mio-nb">時間割もスケジュールも、</span><span class="mio-nb"><span class="mio-u mio-u--teal">とにかく便利。</span></span>
         </p>
-        <div class="store-badges mio-hero-cta">
-          <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
-            <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
-            <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
-          </a>
-        </div>
-        <div class="mio-hero-phone">
-          <img src="./img/poster-01.jpg" alt="MIO — 学生生活、これ1つ。" />
-        </div>
-      </div>
-    </section>
-
-    <!-- 機能紹介：普通に縦スクロールすると各機能が順番に（ふわっと）登場 -->
-    <section class="mio-features" id="features" aria-label="MIO でできること">
-      <div class="container">
-        <h2 class="section-title">MIO でできること</h2>
-        <p class="section-lead">授業も、バイトも、あそびも。学生生活のぜんぶをひとつのアプリで。</p>
-      </div>
-      <div class="mio-feature-list">
-          <article class="mio-beat" data-beat="0">
-            <div class="mio-beat-media"><img src="./img/poster-03.jpg" alt="時間割" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">📅 時間割</h2>
-              <p class="mio-beat-desc">タップで作れる時間割。授業の場所・先生・メモも登録でき、出欠もその場で記録できます。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="1">
-            <div class="mio-beat-media"><img src="./img/poster-11.jpg" alt="カレンダー" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">🗓 カレンダー</h2>
-              <p class="mio-beat-desc">授業・バイト・サークル・イベントをまとめて管理。月間・週間・リストで切り替えられます。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="2">
-            <div class="mio-beat-media"><img src="./img/poster-04.jpg" alt="今週の忙しさ" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">🔥 今週の忙しさ</h2>
-              <p class="mio-beat-desc">今週の予定・課題・バイトをまとめて表示。週の忙しさがひと目で見わたせます。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="3">
-            <div class="mio-beat-media"><img src="./img/poster-12.jpg" alt="出欠" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">✅ 出欠</h2>
-              <p class="mio-beat-desc">出席・欠席・遅刻をワンタップで記録。出席率も「あと何回休める？」もひと目でわかります。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="4">
-            <div class="mio-beat-media"><img src="./img/poster-08.jpg" alt="卒業単位" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">🎓 卒業単位</h2>
-              <p class="mio-beat-desc">取得した単位と、卒業までに足りない単位を自動集計。「卒業やばい」をいつでも確認できます。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="5">
-            <div class="mio-beat-media"><img src="./img/poster-09.jpg" alt="就活" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">💼 就活</h2>
-              <p class="mio-beat-desc">エントリーした企業と選考状況をまとめて管理。「次いつ面接だっけ」をなくします。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="6">
-            <div class="mio-beat-media"><img src="./img/poster-05.jpg" alt="バイト" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">💰 バイト</h2>
-              <p class="mio-beat-desc">シフトと給料をまとめて管理。今月の予想給料や勤務時間がひと目でわかります。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="7">
-            <div class="mio-beat-media"><img src="./img/poster-13.jpg" alt="サークル" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">🎪 サークル</h2>
-              <p class="mio-beat-desc">おしらせ・イベント・集金・メンバー管理まで。サークル運営がこれひとつで完結します。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="8">
-            <div class="mio-beat-media"><img src="./img/poster-10.jpg" alt="日記" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">📖 日記</h2>
-              <p class="mio-beat-desc">今日の気持ちをひとことで記録。ムードだけでも残せる、かんたん日記です。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="9">
-            <div class="mio-beat-media"><img src="./img/poster-06.jpg" alt="飲み会・イベント" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">🎉 飲み会・イベント</h2>
-              <p class="mio-beat-desc">飲み会も遊びも、日程・出欠・場所をまとめて調整。幹事の段取りがサクッと片づきます。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="10">
-            <div class="mio-beat-media"><img src="./img/poster-14.jpg" alt="日程調整" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">🗳 日程調整</h2>
-              <p class="mio-beat-desc">みんなの空いてる日を○×で集めるだけ。いちばん集まれる日が自動でわかります。</p>
-            </div>
-          </article>
-
-          <article class="mio-beat" data-beat="11">
-            <div class="mio-beat-media"><img src="./img/poster-07.jpg" alt="割り勘" loading="lazy" /></div>
-            <div class="mio-beat-text">
-              <h2 class="mio-beat-title">🧾 割り勘</h2>
-              <p class="mio-beat-desc">イベントの費用を1円まで自動で精算。誰が誰にいくら払うかもすぐわかります。</p>
-            </div>
-          </article>
-      </div>
-    </section>
-
-    <!-- スクリーンショット -->
-    <section id="screenshots" class="lp-shots-section">
-      <div class="container">
-        <h2 class="section-title">スクリーンショット</h2>
-        <p class="section-lead">実際の画面をチェック。横にスワイプできます。</p>
-      </div>
-      <div class="lp-shots" aria-label="アプリのスクリーンショット一覧">
-        <img src="./img/shots/01_current.jpg" alt="ホーム画面" loading="lazy" />
-        <img src="./img/shots/02_calendar.jpg" alt="月間カレンダー画面" loading="lazy" />
-        <img src="./img/shots/03_calendar_week.jpg" alt="週間カレンダー画面" loading="lazy" />
-        <img src="./img/shots/04_calendar_list.jpg" alt="予定リスト画面" loading="lazy" />
-        <img src="./img/shots/05_classes.jpg" alt="時間割画面" loading="lazy" />
-        <img src="./img/shots/06_courses.jpg" alt="出欠・単位画面" loading="lazy" />
-        <img src="./img/shots/07_assignments.jpg" alt="課題画面" loading="lazy" />
-        <img src="./img/shots/08_exams.jpg" alt="試験画面" loading="lazy" />
-        <img src="./img/shots/09_credits.jpg" alt="卒業単位画面" loading="lazy" />
-        <img src="./img/shots/11_private.jpg" alt="イベント一覧画面" loading="lazy" />
-        <img src="./img/shots/12_baito.jpg" alt="バイト画面" loading="lazy" />
-        <img src="./img/shots/13_todo.jpg" alt="TODO画面" loading="lazy" />
-        <img src="./img/shots/14_shukatsu.jpg" alt="就活画面" loading="lazy" />
-        <img src="./img/shots/15_event_datecoord.jpg" alt="日程調整画面" loading="lazy" />
-        <img src="./img/shots/16_friends.jpg" alt="友達画面" loading="lazy" />
-        <img src="./img/shots/17_friend_list.jpg" alt="友達一覧画面" loading="lazy" />
-        <img src="./img/shots/18_circle_detail.jpg" alt="サークル画面" loading="lazy" />
-        <img src="./img/shots/22_events_past.jpg" alt="イベント履歴画面" loading="lazy" />
-        <img src="./img/shots/23_warikan.jpg" alt="割り勘画面" loading="lazy" />
-        <img src="./img/shots/24_diary.jpg" alt="日記画面" loading="lazy" />
-      </div>
-    </section>
-
-    <!-- 安心・プライバシー -->
-    <section id="privacy" class="lp-trust">
-      <div class="container">
-        <h2 class="section-title">安心してつかえます</h2>
-        <div class="lp-trust-list">
-          <div class="app-card lp-trust-item">
-            <h3>🔐 面倒な登録は不要</h3>
-            <p>
-              メールアドレスやパスワードの登録なしで、すぐに使いはじめられます。
-              共有機能は匿名のアカウントで安全に動作します。
-            </p>
-          </div>
-          <div class="app-card lp-trust-item">
-            <h3>📱 データはあなたのもの</h3>
-            <p>
-              時間割や課題などのデータは基本的に端末内に保存。
-              共有機能で預かる情報も必要最小限にとどめています。
-            </p>
-          </div>
-          <div class="app-card lp-trust-item">
-            <h3>📄 ポリシーを公開しています</h3>
-            <p>
-              取り扱う情報とその目的は
-              <a href="./privacy.html">プライバシーポリシー</a>
-              で詳しく説明しています。（<a href="./privacy-en.html">English version</a>）
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ダウンロード CTA -->
-    <section id="download" class="lp-cta">
-      <div class="container">
-        <h2 class="section-title">さっそくはじめよう</h2>
-        <p class="section-lead">MIO は無料でダウンロードできます。</p>
+        <ul class="mio-tags mio-hero-tags">
+          <li class="mio-tag" style="--tilt: -2deg">
+            <svg class="mio-tag-icon" aria-hidden="true"><use href="#i-image" /></svg>
+            <span>背景は<b>150種類以上</b>！</span>
+          </li>
+          <li class="mio-tag mio-tag--teal" style="--tilt: 1.5deg">
+            <svg class="mio-tag-icon" aria-hidden="true"><use href="#i-grid" /></svg>
+            <span>アプリアイコン<b>220種類</b>！</span>
+          </li>
+          <li class="mio-tag mio-tag--purple" style="--tilt: -1deg">
+            <svg class="mio-tag-icon" aria-hidden="true"><use href="#i-check" /></svg>
+            <span>会員登録なしで、<b>すぐ使える</b></span>
+          </li>
+        </ul>
         <div class="store-badges">
           <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
             <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
@@ -267,6 +187,338 @@
             <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
           </a>
         </div>
+        <p class="mio-hero-note"><span class="mio-nb">MIO は無料。</span><span class="mio-nb">iOS / Android 対応。</span></p>
+
+        <!-- 同じ時間割を3つのテーマで。中央のゆめかわだけ大きく置く -->
+        <div class="mio-fan">
+          <div class="mio-fan-item mio-fan-item--side mio-fan-item--left">
+            <img class="mio-screen" src="./img/hero/tt-cool.jpg" alt="クールのテーマで表示した時間割の画面" width="430" height="891" fetchpriority="high" />
+            <span class="mio-fan-label">クール</span>
+          </div>
+          <div class="mio-fan-item mio-fan-item--main">
+            <img class="mio-screen" src="./img/hero/tt-dreamy.jpg" alt="ゆめかわのテーマで表示した時間割の画面" width="520" height="1078" fetchpriority="high" />
+            <span class="mio-fan-label">ゆめかわ</span>
+          </div>
+          <div class="mio-fan-item mio-fan-item--side mio-fan-item--right">
+            <img class="mio-screen" src="./img/hero/tt-fresh.jpg" alt="さわやかのテーマで表示した時間割の画面" width="430" height="891" fetchpriority="high" />
+            <span class="mio-fan-label">さわやか</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== きせかえ ==================== -->
+    <section class="mio-section mio-section--tint" id="kisekae">
+      <div class="mio-blobs" aria-hidden="true">
+        <span class="mio-blob mio-blob--b is-tr" style="background: #ffd7e4"></span>
+        <span class="mio-blob mio-blob--c is-bl is-extra" style="background: #bfe9ff"></span>
+      </div>
+      <svg class="mio-doodle is-extra" style="--x: 8%; --y: 10%; --r: 14deg; color: #ff6b62" aria-hidden="true"><use href="#d-dots" /></svg>
+      <svg class="mio-doodle" style="--x: 91%; --y: 74%; --r: -10deg; color: #ffd23f" aria-hidden="true"><use href="#d-star" /></svg>
+
+      <div class="container">
+        <h2 class="section-title"><span>気分で着替える、</span><span><em class="mio-mark">6つ</em>のプリセット。</span></h2>
+        <p class="section-lead">
+          色と背景をまるごと切り替え。ライトとダークで、別々のきせかえにすることもできます。
+        </p>
+
+        <div class="mio-themes">
+          <div class="mio-theme"><img class="mio-screen" src="./img/themes/tt-dreamy.jpg" alt="ゆめかわのテーマの時間割" width="320" height="663" loading="lazy" decoding="async" /><span class="mio-theme-name">ゆめかわ</span></div>
+          <div class="mio-theme"><img class="mio-screen" src="./img/themes/tt-cool.jpg" alt="クールのテーマの時間割" width="320" height="663" loading="lazy" decoding="async" /><span class="mio-theme-name">クール</span></div>
+          <div class="mio-theme"><img class="mio-screen" src="./img/themes/tt-cute.jpg" alt="かわいいのテーマの時間割" width="320" height="663" loading="lazy" decoding="async" /><span class="mio-theme-name">かわいい</span></div>
+          <div class="mio-theme"><img class="mio-screen" src="./img/themes/tt-fresh.jpg" alt="さわやかのテーマの時間割" width="320" height="663" loading="lazy" decoding="async" /><span class="mio-theme-name">さわやか</span></div>
+          <div class="mio-theme"><img class="mio-screen" src="./img/themes/tt-natural.jpg" alt="ナチュラルのテーマの時間割" width="320" height="663" loading="lazy" decoding="async" /><span class="mio-theme-name">ナチュラル</span></div>
+          <div class="mio-theme"><img class="mio-screen" src="./img/themes/tt-simple.jpg" alt="シンプルのテーマの時間割" width="320" height="663" loading="lazy" decoding="async" /><span class="mio-theme-name">シンプル</span></div>
+        </div>
+
+        <div class="mio-pair">
+          <img class="mio-screen" src="./img/screens/settings-design.jpg" alt="背景・テーマカラー・フォント・カードの濃さを選ぶデザイン設定の画面" width="440" height="912" loading="lazy" decoding="async" />
+          <img class="mio-screen" src="./img/screens/app-icon.jpg" alt="ホーム画面のアプリアイコンを選ぶ画面" width="440" height="912" loading="lazy" decoding="async" />
+        </div>
+
+        <ul class="mio-chips">
+          <li class="mio-chip">背景 <b>150種類以上</b></li>
+          <li class="mio-chip">好きな写真も背景に</li>
+          <li class="mio-chip">テーマカラー <b>12色</b>＋自由な色</li>
+          <li class="mio-chip">書体 <b>10種</b></li>
+          <li class="mio-chip">アプリアイコン <b>220種類</b></li>
+        </ul>
+        <p class="mio-note">
+          6つのプリセットを選ぶのは、はじめて開いたときだけ。そのあとも、背景・色・書体・カードの濃さ・アプリアイコンは、いつでも1つずつ変えられます。
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== 機能（5つのタブ） ==================== -->
+    <section class="mio-section" id="features">
+      <div class="mio-blobs" aria-hidden="true">
+        <span class="mio-blob is-tl" style="background: #d8e5ff"></span>
+        <span class="mio-blob mio-blob--c is-br is-extra" style="background: #ffe0dc"></span>
+      </div>
+      <div class="container">
+        <h2 class="section-title"><span>下のタブは<em class="mio-mark">5つ</em>。</span><span>これで、ぜんぶ。</span></h2>
+        <p class="section-lead">
+          <span class="mio-nb">ホーム・カレンダー・学校・くらし・友達。</span><span class="mio-nb">どこに何があるか、迷いません。</span>
+        </p>
+      </div>
+
+      <div class="container">
+        <div class="mio-tabs">
+          <!-- ホーム -->
+          <article class="mio-tab">
+            <div class="mio-tab-shots">
+              <img class="mio-screen" src="./img/screens/home.jpg" alt="今日の授業・予定・気分がならぶホーム画面" width="440" height="912" loading="lazy" decoding="async" />
+            </div>
+            <div class="mio-tab-text">
+              <p class="mio-tab-eyebrow">ホーム</p>
+              <h3 class="mio-tab-title"><span>開くだけで、</span><span>今日がわかる。</span></h3>
+              <p class="mio-tab-desc">
+                今日の授業、今日と明日の予定、締切が近い課題、直近の試験、やること、今日の気分。ぜんぶ1画面に集まります。
+              </p>
+              <ul class="mio-tags">
+                <li class="mio-tag" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>授業と予定を<b>まとめて</b></span></li>
+                <li class="mio-tag mio-tag--teal" style="--tilt: 1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-check" /></svg><span>出欠は<b>ワンタップ</b></span></li>
+                <li class="mio-tag mio-tag--pink" style="--tilt: -1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-image" /></svg><span>気分だけの日記もOK</span></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- カレンダー -->
+          <article class="mio-tab">
+            <div class="mio-tab-shots">
+              <img class="mio-screen" src="./img/screens/calendar-month.jpg" alt="予定が色分けされた月間カレンダー" width="440" height="912" loading="lazy" decoding="async" />
+              <img class="mio-screen" src="./img/screens/calendar-week.jpg" alt="時間軸で予定がならぶ週間カレンダー" width="440" height="912" loading="lazy" decoding="async" style="--tilt: 2deg" />
+            </div>
+            <div class="mio-tab-text">
+              <p class="mio-tab-eyebrow">カレンダー</p>
+              <h3 class="mio-tab-title"><span>授業もバイトも、</span><span>1つのカレンダーに。</span></h3>
+              <p class="mio-tab-desc">
+                リスト・月間・週間・3日・日の5表示。空いている時間をドラッグすれば、掴んだ範囲がそのまま予定になります。日本の祝日つき。
+              </p>
+              <ul class="mio-tags">
+                <li class="mio-tag mio-tag--blue" style="--tilt: -1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-calendar" /></svg><span><b>5つの表示</b>を切り替え</span></li>
+                <li class="mio-tag mio-tag--yellow" style="--tilt: 2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>繰り返しとリマインダー</span></li>
+                <li class="mio-tag mio-tag--purple" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-image" /></svg><span>予定の色も<b>自分で決める</b></span></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 学校 -->
+          <article class="mio-tab">
+            <div class="mio-tab-shots">
+              <img class="mio-screen" src="./img/screens/assignments.jpg" alt="締切が近い順にならぶ課題の一覧" width="440" height="912" loading="lazy" decoding="async" />
+              <img class="mio-screen" src="./img/screens/courses.jpg" alt="出席率が表示される授業の一覧" width="440" height="912" loading="lazy" decoding="async" style="--tilt: -2deg" />
+            </div>
+            <div class="mio-tab-text">
+              <p class="mio-tab-eyebrow">学校</p>
+              <h3 class="mio-tab-title"><span>締切も出欠も、</span><span>ためこまない。</span></h3>
+              <p class="mio-tab-desc">
+                時間割・授業・課題・試験を、年度と学期ごとに管理。課題は「未着手 → 進行中 → 提出準備済み → 提出済み」の4段階で、どこまで進んだかがひと目でわかります。
+              </p>
+              <ul class="mio-tags">
+                <li class="mio-tag" style="--tilt: 1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>締切が<b>近い順</b>にならぶ</span></li>
+                <li class="mio-tag mio-tag--teal" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-check" /></svg><span><b>出席率</b>を自動で計算</span></li>
+                <li class="mio-tag mio-tag--blue" style="--tilt: 1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-grid" /></svg><span>卒業単位の進捗も（設定でON）</span></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- くらし -->
+          <article class="mio-tab">
+            <div class="mio-tab-shots">
+              <img class="mio-screen" src="./img/screens/parttime.jpg" alt="今月の予想給料と勤務時間が出るバイトの画面" width="440" height="912" loading="lazy" decoding="async" />
+              <img class="mio-screen" src="./img/screens/kakeibo.jpg" alt="月ごとの収入・支出・収支がならぶ家計簿の画面" width="440" height="912" loading="lazy" decoding="async" style="--tilt: 2deg" />
+            </div>
+            <div class="mio-tab-text">
+              <p class="mio-tab-eyebrow">くらし</p>
+              <h3 class="mio-tab-title"><span>シフトも、お金も、</span><span>やることも。</span></h3>
+              <p class="mio-tab-desc">
+                バイト・タスク・就活・家計簿。時給と深夜手当を入れておけば、給料は自動で計算されます。ここにあるものは、ぜんぶ自分だけの記録です。
+              </p>
+              <ul class="mio-tags">
+                <li class="mio-tag mio-tag--yellow" style="--tilt: -1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-coin" /></svg><span>今月の見込みが<b>すぐわかる</b></span></li>
+                <li class="mio-tag" style="--tilt: 2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>深夜・早朝手当にも対応</span></li>
+                <li class="mio-tag mio-tag--purple" style="--tilt: -1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-receipt" /></svg><span>家計簿は<b>設定でON</b></span></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 友達 -->
+          <article class="mio-tab">
+            <div class="mio-tab-shots">
+              <img class="mio-screen" src="./img/screens/friend-timetable.jpg" alt="友達の時間割と自分の時間割を並べた画面" width="440" height="912" loading="lazy" decoding="async" />
+              <img class="mio-screen" src="./img/screens/warikan.jpg" alt="誰が誰にいくら払うかまで出る割り勘の画面" width="440" height="912" loading="lazy" decoding="async" style="--tilt: -2deg" />
+            </div>
+            <div class="mio-tab-text">
+              <p class="mio-tab-eyebrow">友達</p>
+              <h3 class="mio-tab-title"><span>友達と使うと、</span><span>もっと楽になる。</span></h3>
+              <p class="mio-tab-desc">
+                時間割を見せ合えば、かぶってる授業も空きコマもすぐ見つかります。飲み会の日程調整、当日の割り勘、サークルの連絡まで、ここにまとまっています。
+              </p>
+              <ul class="mio-tags">
+                <li class="mio-tag mio-tag--pink" style="--tilt: 1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-people" /></svg><span>友達の<b>空きコマ</b>がわかる</span></li>
+                <li class="mio-tag mio-tag--teal" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-calendar" /></svg><span>日程調整は<b>○△×</b>だけ</span></li>
+                <li class="mio-tag" style="--tilt: 1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-receipt" /></svg><span>割り勘は<b>1円まで</b>自動</span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <ul class="mio-chips">
+          <li class="mio-chip">イベントの幹事ツール</li>
+          <li class="mio-chip">サークル（おしらせ・募集）</li>
+          <li class="mio-chip">就活の選考管理</li>
+          <li class="mio-chip">ひとこと日記</li>
+          <li class="mio-chip">卒業単位</li>
+          <li class="mio-chip">友達に Touch</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==================== ウィジェット ==================== -->
+    <section class="mio-section mio-section--tint" id="widgets">
+      <div class="mio-blobs" aria-hidden="true">
+        <span class="mio-blob is-tr" style="background: #cfe0ff"></span>
+        <span class="mio-blob mio-blob--b is-bl is-extra" style="background: #ffe4bd"></span>
+      </div>
+      <svg class="mio-doodle" style="--x: 7%; --y: 18%; --r: -8deg; color: #8b6ff0" aria-hidden="true"><use href="#d-sparkle" /></svg>
+      <svg class="mio-doodle is-extra" style="--x: 92%; --y: 68%; --r: 12deg; color: #22c2b6" aria-hidden="true"><use href="#d-arc" /></svg>
+
+      <div class="container">
+        <h2 class="section-title"><span>ホーム画面にも、</span><span><em class="mio-mark">MIO</em>を。</span></h2>
+        <p class="section-lead">
+          アプリを開かなくても、今日の授業と予定がすぐ見えます。時間割・カレンダー・今後の予定・推しの写真まで、全21種（Android 18種 / iOS 19種）。
+        </p>
+        <div class="mio-widgets">
+          <img src="./img/widgets/tt_today.jpg" alt="今日の授業を出す小さめのウィジェット" width="306" height="440" loading="lazy" decoding="async" />
+          <img src="./img/widgets/tt_week.jpg" alt="1週間の時間割を出す大きいウィジェット" width="440" height="438" loading="lazy" decoding="async" />
+          <img src="./img/widgets/sc_month_labeled.jpg" alt="予定名つきの月間カレンダーのウィジェット" width="314" height="440" loading="lazy" decoding="async" />
+          <img src="./img/widgets/sc_three_days.jpg" alt="3日間の予定を出す横長のウィジェット" width="440" height="300" loading="lazy" decoding="async" />
+          <img src="./img/widgets/hm_upcoming.jpg" alt="今後の予定を出すウィジェット" width="438" height="440" loading="lazy" decoding="async" />
+          <img src="./img/widgets/hm_oshi.jpg" alt="好きな写真を飾れる推し活ウィジェット" width="440" height="440" loading="lazy" decoding="async" />
+        </div>
+        <ul class="mio-chips">
+          <li class="mio-chip">無料でも <b>Android 9種 / iOS 10種</b></li>
+          <li class="mio-chip">小・中・大から選べる</li>
+          <li class="mio-chip">背景も文字色も自分好みに</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==================== ポスターギャラリー ====================
+         ここは装飾ポスター（キャッチが焼き込まれている）だけを置く節。
+         画像が言葉を持っているので、見出しも本文も添えない。 -->
+    <section class="mio-section" id="gallery">
+      <div class="container">
+        <h2 class="section-title"><span>ぜんぶ、</span><span><em class="mio-mark">見せます</em>。</span></h2>
+        <p class="section-lead"><span class="mio-nb">ストアに載せている11枚。</span><span class="mio-nb">横にスワイプできます。</span></p>
+      </div>
+      <div class="mio-gallery" aria-label="MIO の紹介画像">
+        <img src="./img/poster/01_timetable.jpg" alt="時間割、気分で着せ替え。同じ時間割を、ゆめかわ・クール・さわやかに。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/02_calendar.jpg" alt="授業もバイトも、予定はひとつ。リスト・月・週・3日・日の5表示。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/03_customize.jpg" alt="背景も色もアイコンも、ぜんぶ自由。背景150種類以上。好きな写真も背景にできる。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/04_home.jpg" alt="今日なにやるっけ？が、一瞬で。予定・授業・気分メモを、ホームに集合。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/05_assignments.jpg" alt="「提出、明日じゃん」を回避。締切も出欠も、まとめて記録。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/06_todo.jpg" alt="「あれやってない」をゼロに。チェックするだけ。期限も優先度も、ひと目でわかる。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/07_friends.jpg" alt="友達とつながると、もっと便利。時間割を共有、日程調整も割り勘も。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/08_widgets.jpg" alt="ホーム画面まで、かわいく。時間割も予定も、ウィジェットで。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/09_parttime.jpg" alt="「今月いくら？」がすぐ分かる。シフトも給料も自動で計算。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/10_overview.jpg" alt="学生生活、これ1つ。時間割・出席・課題・バイト・サークル・イベント・日記まで、ぜんぶ。" width="520" height="924" loading="lazy" decoding="async" />
+        <img src="./img/poster/11_credits.jpg" alt="「卒業やばい」を今すぐ確認。区分ごとに単位の進捗が見える。" width="520" height="924" loading="lazy" decoding="async" />
+      </div>
+    </section>
+
+    <!-- ==================== 安心 ==================== -->
+    <section class="mio-section mio-section--tint" id="privacy">
+      <div class="container">
+        <h2 class="section-title">安心してつかえます</h2>
+        <div class="mio-trust">
+          <div class="mio-trust-item">
+            <h3>🔐 会員登録は不要</h3>
+            <p>
+              メールアドレスもパスワードも登録なし。入れたその日から使えます。共有機能は匿名のアカウントで動きます。
+            </p>
+          </div>
+          <div class="mio-trust-item">
+            <h3>📱 データは基本、端末の中</h3>
+            <p>
+              時間割・課題・出欠などは端末に保存。クラウドに送るのは、端末間の同期と友達への共有に必要なぶんだけです。
+            </p>
+          </div>
+          <div class="mio-trust-item">
+            <h3>🙅 家計簿は共有されません</h3>
+            <p>
+              家計簿と「欲しいもの」は、友達にも1行も渡りません。割り勘と金額をやりとりしても、家計簿の数字は相手に届きません。
+            </p>
+          </div>
+          <div class="mio-trust-item">
+            <h3>📄 何を預かるか公開しています</h3>
+            <p>
+              取り扱う情報とその目的は
+              <a href="./privacy.html">プライバシーポリシー</a>
+              で説明しています。（<a href="./privacy-en.html">English version</a>）
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== よくある質問 ==================== -->
+    <section class="mio-section" id="faq">
+      <div class="container">
+        <h2 class="section-title">よくある質問</h2>
+        <div class="mio-faq">
+          <details>
+            <summary>会員登録は必要ですか？</summary>
+            <div class="mio-faq-body"><p>いりません。はじめの設定で「アカウントなしではじめる」を選べば、そのまま使えます。あとから Google / Apple と連携しておけば、機種変更のときも引き継げます。</p></div>
+          </details>
+          <details>
+            <summary>無料でどこまで使えますか？</summary>
+            <div class="mio-faq-body"><p>ほとんどの機能が無料です。画面の下にバナー広告が1枚出ます（カレンダーには出しません）。MIOプレミアムに入ると広告が消えて、ウィジェットが21種に増え、通知キャラクターが6種になり、CSV書き出しも使えます。</p></div>
+          </details>
+          <details>
+            <summary>ネットにつながっていなくても使えますか？</summary>
+            <div class="mio-faq-body"><p>使えます。時間割・出欠・課題・予定・バイトなどは端末の中で動きます。友達への共有とクラウドへの反映だけ、電波が戻ったときに自動でやり直されます。</p></div>
+          </details>
+          <details>
+            <summary>家計簿が見つかりません。</summary>
+            <div class="mio-faq-body"><p>家計簿は、はじめは出さないようにしてあります。設定でONにすると「くらし」タブにあらわれます。</p></div>
+          </details>
+          <details>
+            <summary>見た目はあとから変えられますか？</summary>
+            <div class="mio-faq-body"><p>変えられます。6つのプリセットを選ぶのは、はじめて開いたときだけですが、背景・テーマカラー・書体・カードの濃さ・アプリアイコンは、いつでも1つずつ変えられます。ライトとダークで別の見た目にもできます。</p></div>
+          </details>
+          <details>
+            <summary>iPhone と Android で違いはありますか？</summary>
+            <div class="mio-faq-body"><p>ほとんど同じです。ウィジェットの数だけ違います（iOS 19種 / Android 18種）。iOS では「リマインダー」アプリとタスクを双方向で同期できます。</p></div>
+          </details>
+        </div>
+        <p class="mio-guide-link">
+          <a href="./guide.html">MIO の使い方をもっと詳しく見る →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== ダウンロード ==================== -->
+    <section class="mio-section mio-cta" id="download">
+      <div class="mio-blobs" aria-hidden="true">
+        <span class="mio-blob is-tl is-extra" style="background: #ffd7e4"></span>
+        <span class="mio-blob mio-blob--c is-br" style="background: #cfe0ff"></span>
+      </div>
+      <svg class="mio-doodle" style="--x: 10%; --y: 22%; --r: -14deg; color: #ffd23f" aria-hidden="true"><use href="#d-star" /></svg>
+      <svg class="mio-doodle is-extra" style="--x: 88%; --y: 20%; --r: 10deg; color: #ff8fb1" aria-hidden="true"><use href="#d-sparkle" /></svg>
+      <div class="container">
+        <h2 class="section-title"><span>さっそく、</span><span><em class="mio-mark">はじめよう</em>。</span></h2>
+        <p class="section-lead"><span class="mio-nb">MIO は無料。</span><span class="mio-nb">会員登録なしで、</span><span class="mio-nb">入れたその日から。</span></p>
+        <div class="store-badges">
+          <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
+            <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
+            <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
+          </a>
+        </div>
+        <p class="mio-tagline"><span class="mio-nb">みんなと、</span><span class="mio-nb">いっしょに、</span><span class="mio-nb">おくる毎日。</span></p>
       </div>
     </section>
 
@@ -274,6 +526,7 @@
     <footer class="site-footer">
       <div class="container">
         <p class="lp-footer-links">
+          <a href="./guide.html">使い方ガイド</a>
           <a href="./terms.html">利用規約</a>
           <a href="./terms-en.html">Terms of Service (English)</a>
           <a href="./privacy.html">プライバシーポリシー</a>

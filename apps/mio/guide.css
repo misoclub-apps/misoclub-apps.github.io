@@ -1,0 +1,143 @@
+/* =====================================================================
+   使い方ガイド（guide.html）専用スタイル
+   - css/style.css の後に読み込む。共通ファイルには手を入れない。
+   - body に class="theme-mio" が付いているので、色は style.css の
+     .theme-mio ブロックが定義した青系の変数をそのまま使う。
+   - 元は guide.html 内の <style> ブロックだったものを切り出した（差分が読めるように）。
+   ===================================================================== */
+
+.page h2 {
+  scroll-margin-top: 16px;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.4em;
+  margin-top: 1.8em;
+  font-weight: 900;
+  color: var(--color-accent-dark);
+}
+.page h3 {
+  font-size: 1.08rem;
+  margin: 1.5em 0 0.5em;
+  color: var(--color-accent-dark);
+}
+.lead {
+  color: var(--color-muted);
+  font-size: 1.02rem;
+  line-height: 1.9;
+}
+
+/* 目次 */
+.g-toc {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 24px 0 8px;
+  box-shadow: var(--shadow);
+}
+.g-toc h2 {
+  border: none;
+  padding: 0;
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+.g-toc ol {
+  margin: 0;
+  padding-left: 1.2em;
+  columns: 2;
+  column-gap: 28px;
+}
+.g-toc li {
+  margin: 6px 0;
+  break-inside: avoid;
+}
+@media (max-width: 560px) {
+  .g-toc ol {
+    columns: 1;
+  }
+}
+
+/* コールアウト（ヒント・メモ・注意） */
+.callout {
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 14px 0;
+  border: 1px solid var(--color-border);
+  background: #f4f9ff;
+}
+.callout p { margin: 0.3em 0; }
+.callout p:first-child { margin-top: 0; }
+.callout p:last-child { margin-bottom: 0; }
+.callout ul { margin: 0.4em 0 0.2em; }
+.callout.tip  { background: #fff8e6; border-color: #f5e0ad; }
+.callout.note { background: #f2f7ff; border-color: #d7e4f8; }
+.callout.warn { background: #fdeeed; border-color: #f6c9c6; }
+.callout .label {
+  display: inline-block;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+/* 小さなチップ（ラベル風） */
+.chip {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: #e6effd;
+  color: #33477a;
+  font-size: 0.86em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.chip.chip--premium { background: #ffe9c9; color: #8a5a08; }
+.chip.chip--os { background: #e4f6f4; color: #146b64; }
+
+/* Q&A アコーディオン */
+details.qa {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  margin: 10px 0;
+  background: var(--color-card);
+  overflow: hidden;
+}
+details.qa > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 44px 14px 16px;
+  font-weight: 700;
+  position: relative;
+}
+details.qa > summary::-webkit-details-marker { display: none; }
+details.qa > summary::after {
+  content: "＋";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-accent);
+  font-weight: 700;
+}
+details.qa[open] > summary::after { content: "−"; }
+details.qa .qa-body {
+  padding: 0 16px 14px;
+  color: #3a4356;
+}
+details.qa .qa-body p:first-child { margin-top: 0; }
+
+/* 手順リスト */
+.page ol.steps { padding-left: 1.3em; }
+.page ol.steps > li { margin: 8px 0; }
+
+/* トップへ戻る */
+.to-top {
+  display: inline-block;
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+}
+.page .updated { margin-bottom: 0.4em; }
+
+/* 旧URLのアンカー（#courses / #private）を生かすための目印。表示はしない */
+.anchor-alias {
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
