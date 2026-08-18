@@ -236,30 +236,34 @@ body {
   height: 22px;
   color: var(--tag);
 }
-/* 吹き出しの尻尾。輪郭の2辺だけ描いた正方形を回して継ぎ目を白で隠す */
+/* ---------- 吹き出しの尻尾 ----------
+   **枠色の三角の上に、少し小さい白の三角を重ねる**方式。
+   以前は「45度回した正方形＋継ぎ目を隠す白い当て板」で作っていたが、タグを
+   傾けてあるぶん当て板の位置がずれて、**吹き出しの下枠を白く削ってしまう**
+   （拡大すると枠線が途切れて見える）。この方式なら下枠に一切触らないので、
+   幅や傾きが変わっても崩れない。
+   top:100% を基準にして、枠の外側の縁からぶら下げる。 */
 .theme-mio .mio-tag::before,
 .theme-mio .mio-tag::after {
   content: "";
   position: absolute;
-  left: 26px;
-  bottom: -9px;
-  width: 14px;
-  height: 14px;
-  transform: rotate(45deg);
+  top: 100%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent;
 }
-.theme-mio .mio-tag::after {
-  background: #fff;
-  border-right: 3px solid var(--tag);
-  border-bottom: 3px solid var(--tag);
-}
+/* 外側＝枠の色 */
 .theme-mio .mio-tag::before {
-  bottom: -4px;
-  left: 29px;
-  width: 16px;
-  height: 10px;
-  background: #fff;
-  transform: none;
-  z-index: 1;
+  left: 24px;
+  border-width: 11px 8px 0 8px;
+  border-top-color: var(--tag);
+}
+/* 内側＝白。左右と先端に枠色が3pxほど残るように一段小さくする */
+.theme-mio .mio-tag::after {
+  left: 27px;
+  border-width: 7px 5px 0 5px;
+  border-top-color: #fff;
 }
 .theme-mio .mio-tag--teal   { --tag: var(--mio-teal); }
 .theme-mio .mio-tag--yellow { --tag: #eab308; }
