@@ -564,6 +564,80 @@ body {
   height: auto;
 }
 
+/* ---------- 機能ブロックのタグは左右に散らす ----------
+   3つを左寄せで縦に積むと、ただのリストに見えて面白くない。ストアのポスターと
+   同じように、1つずつ左右にずらして貼ったように見せる。
+   **スクショに少しかぶせる**ことで、平らに積んだ感じが消える（重ねてよい、と
+   いう判断はユーザー了解済み。ストアの画像では画面の上に何も重ねない決まりだが、
+   あれは縮小されるサムネイルの話なので、Webのこのページには当てはまらない）。
+   ヒーローのタグには効かせない（あちらは横一列で中央寄せのままにする）。 */
+.theme-mio .mio-tab-text .mio-tags {
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 18px;
+  position: relative;
+  z-index: 2;
+}
+/* 1つ目＝左、2つ目＝右、3つ目＝少し内側の左。傾きは HTML 側の --tilt のまま */
+.theme-mio .mio-tab-text .mio-tags .mio-tag:nth-child(2) {
+  align-self: flex-end;
+}
+.theme-mio .mio-tab-text .mio-tags .mio-tag:nth-child(3) {
+  margin-left: 9%;
+}
+/* 右に寄せたタグは、尻尾も右側に付け替える（左端に残ると変な向きを指す） */
+.theme-mio .mio-tab-text .mio-tags .mio-tag:nth-child(2)::before {
+  left: auto;
+  right: 24px;
+}
+.theme-mio .mio-tab-text .mio-tags .mio-tag:nth-child(2)::after {
+  left: auto;
+  right: 27px;
+}
+
+/* 縦積み（スマホ）のときだけ、タグの列をスクショに食い込ませる */
+@media (max-width: 899px) {
+  .theme-mio .mio-tab-text {
+    margin-bottom: -26px;
+  }
+}
+
+/* ---------- 画面に入ったらタグをふわっと出す ----------
+   **body.mio-reveal-on が付いたときだけ効く。** JS が動かないときや
+   「動きを減らす」設定のときはこの class が付かないので、最初から普通に見える
+   （＝演出のために内容が消えることが絶対にない）。
+   このページで動きを付けるのはここだけ。以前ページ全体の reveal を入れて
+   やめた経緯があるので、広げないこと。
+   .mio-tag は transform で傾けてあるので、**両方の状態に rotate を書く**
+   （書き忘れると出現後に傾きが消える）。 */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-mio.mio-reveal-on .mio-tab-text .mio-tags .mio-tag {
+    opacity: 0;
+    transform: translateY(12px) rotate(var(--tilt, -1.5deg));
+    transition: opacity 0.5s ease, transform 0.5s var(--mio-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  .theme-mio.mio-reveal-on .mio-tab-text .mio-tags.is-in .mio-tag {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--tilt, -1.5deg));
+  }
+  /* **保険。** トランジションは、裏タブ・省電力・スクロール慣性中などで
+     レンダラがアニメーションを間引くと**進まないことがある**。その場合
+     opacity:0 のまま残ってタグが消えてしまうので、少し経ったら
+     トランジションを使わずに確実に見える状態へ倒す（JS が is-shown を付ける）。 */
+  .theme-mio.mio-reveal-on .mio-tab-text .mio-tags.is-shown .mio-tag {
+    opacity: 1;
+    transform: rotate(var(--tilt, -1.5deg));
+    transition: none;
+  }
+  /* 3つが順番に出るように少しずつ遅らせる */
+  .theme-mio.mio-reveal-on .mio-tab-text .mio-tags .mio-tag:nth-child(2) {
+    transition-delay: 90ms;
+  }
+  .theme-mio.mio-reveal-on .mio-tab-text .mio-tags .mio-tag:nth-child(3) {
+    transition-delay: 180ms;
+  }
+}
+
 /* =====================================================================
    6. ウィジェット（それぞれ元の縦横比のまま並べる）
    ===================================================================== */

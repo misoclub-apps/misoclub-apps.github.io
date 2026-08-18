@@ -542,6 +542,58 @@
     <script>
       // フッターの年号を自動更新
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      // 機能ブロックのステッカーだけ、画面に入ったタイミングでふわっと出す。
+      // **内容が消えたままになる事故を作らないこと。** 守りは3段構え:
+      //  1) class を付けるのは JS が動いたときだけ（動かなければ普通に表示）
+      //  2) 画面に入って一定時間たったら、トランジションに頼らず確実に見える状態へ倒す
+      //     （裏タブ・省電力・スクロール慣性中はトランジションが進まないことがあり、
+      //      opacity:0 のまま固まる。class を足すだけの保険では効かない）
+      //  3) observer がそもそも発火しなければ、演出ごと降ろす
+      // 演出を入れるのはここだけ。以前ページ全体の reveal を入れてやめた
+      // 経緯があるので、広げないこと。
+      (function () {
+        if (!("IntersectionObserver" in window)) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var lists = document.querySelectorAll(".mio-tab-text .mio-tags");
+        if (!lists.length) return;
+        var body = document.body;
+        body.classList.add("mio-reveal-on");
+
+        // observer が生きているかの確認には、**交差したかどうかではなく
+        // コールバックが呼ばれたかどうか**を使う。IntersectionObserver は
+        // observe した直後に（画面外なら isIntersecting=false で）1回呼ぶので、
+        // これが来なければ実装が働いていない。
+        // 「まだ下までスクロールしていない」を故障と誤判定しないための区別。
+        var callbackSeen = false;
+        var settle = function (el) {
+          // 2) アニメーションが動いていなくても、ここで必ず見える状態にする
+          setTimeout(function () {
+            el.classList.add("is-shown");
+          }, 900);
+        };
+        var io = new IntersectionObserver(
+          function (entries) {
+            callbackSeen = true;
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              e.target.classList.add("is-in");
+              settle(e.target);
+              io.unobserve(e.target);
+            });
+          },
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.25 }
+        );
+        Array.prototype.forEach.call(lists, function (el) {
+          io.observe(el);
+        });
+
+        // 3) observer からの応答が3秒来なければ働いていないと判断し、
+        //    演出を丸ごと降ろす（＝最初から見えていたのと同じ状態に戻す）
+        setTimeout(function () {
+          if (!callbackSeen) body.classList.remove("mio-reveal-on");
+        }, 3000);
+      })();
     </script>
   </body>
 </html>
