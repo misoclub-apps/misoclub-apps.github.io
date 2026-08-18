@@ -602,6 +602,9 @@ body {
   position: absolute;
   /* 箱の外へは出さない。中で1行に収まる余地はある */
   max-width: 100%;
+  /* 親（.mio-tags）は pointer-events:none で敷いてあるので、
+     文字が選べるようにタグ側だけ戻す */
+  pointer-events: auto;
 }
 /* 1つ目：スクショの外・少し上（padding-top の中に収まる） */
 .theme-mio .mio-tab-visual .mio-tag:nth-child(1) {
