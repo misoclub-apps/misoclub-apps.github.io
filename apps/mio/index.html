@@ -266,8 +266,15 @@
         <div class="mio-tabs">
           <!-- ホーム -->
           <article class="mio-tab">
-            <div class="mio-tab-shots">
-              <img class="mio-screen" src="./img/screens/home.jpg" alt="今日の授業・予定・気分がならぶホーム画面" width="440" height="912" loading="lazy" decoding="async" />
+            <div class="mio-tab-visual">
+              <div class="mio-tab-shots">
+                <img class="mio-screen" src="./img/screens/home.jpg" alt="今日の授業・予定・気分がならぶホーム画面" width="440" height="912" loading="lazy" decoding="async" />
+              </div>
+            <ul class="mio-tags">
+              <li class="mio-tag" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>授業と予定を<b>まとめて</b></span></li>
+              <li class="mio-tag mio-tag--teal" style="--tilt: 1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-check" /></svg><span>出欠は<b>ワンタップ</b></span></li>
+              <li class="mio-tag mio-tag--pink" style="--tilt: -1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-image" /></svg><span>気分だけの日記もOK</span></li>
+            </ul>
             </div>
             <div class="mio-tab-text">
               <p class="mio-tab-eyebrow">ホーム</p>
@@ -275,19 +282,21 @@
               <p class="mio-tab-desc">
                 今日の授業、今日と明日の予定、締切が近い課題、直近の試験、やること、今日の気分。ぜんぶ1画面に集まります。
               </p>
-              <ul class="mio-tags">
-                <li class="mio-tag" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>授業と予定を<b>まとめて</b></span></li>
-                <li class="mio-tag mio-tag--teal" style="--tilt: 1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-check" /></svg><span>出欠は<b>ワンタップ</b></span></li>
-                <li class="mio-tag mio-tag--pink" style="--tilt: -1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-image" /></svg><span>気分だけの日記もOK</span></li>
-              </ul>
             </div>
           </article>
 
           <!-- カレンダー -->
           <article class="mio-tab">
-            <div class="mio-tab-shots">
-              <img class="mio-screen" src="./img/screens/calendar-month.jpg" alt="予定が色分けされた月間カレンダー" width="440" height="912" loading="lazy" decoding="async" />
-              <img class="mio-screen" src="./img/screens/calendar-week.jpg" alt="時間軸で予定がならぶ週間カレンダー" width="440" height="912" loading="lazy" decoding="async" style="--tilt: 2deg" />
+            <div class="mio-tab-visual">
+              <div class="mio-tab-shots">
+                <img class="mio-screen" src="./img/screens/calendar-month.jpg" alt="予定が色分けされた月間カレンダー" width="440" height="912" loading="lazy" decoding="async" />
+                <img class="mio-screen" src="./img/screens/calendar-week.jpg" alt="時間軸で予定がならぶ週間カレンダー" width="440" height="912" loading="lazy" decoding="async" style="--tilt: 2deg" />
+              </div>
+            <ul class="mio-tags">
+              <li class="mio-tag mio-tag--blue" style="--tilt: -1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-calendar" /></svg><span><b>5つの表示</b>を切り替え</span></li>
+              <li class="mio-tag mio-tag--yellow" style="--tilt: 2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>繰り返しとリマインダー</span></li>
+              <li class="mio-tag mio-tag--purple" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-image" /></svg><span>予定の色も<b>自分で決める</b></span></li>
+            </ul>
             </div>
             <div class="mio-tab-text">
               <p class="mio-tab-eyebrow">カレンダー</p>
@@ -295,19 +304,21 @@
               <p class="mio-tab-desc">
                 リスト・月間・週間・3日・日の5表示。空いている時間をドラッグすれば、掴んだ範囲がそのまま予定になります。日本の祝日つき。
               </p>
-              <ul class="mio-tags">
-                <li class="mio-tag mio-tag--blue" style="--tilt: -1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-calendar" /></svg><span><b>5つの表示</b>を切り替え</span></li>
-                <li class="mio-tag mio-tag--yellow" style="--tilt: 2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>繰り返しとリマインダー</span></li>
-                <li class="mio-tag mio-tag--purple" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-image" /></svg><span>予定の色も<b>自分で決める</b></span></li>
-              </ul>
             </div>
           </article>
 
           <!-- 学校 -->
           <article class="mio-tab">
-            <div class="mio-tab-shots">
-              <img class="mio-screen" src="./img/screens/assignments.jpg" alt="締切が近い順にならぶ課題の一覧" width="440" height="912" loading="lazy" decoding="async" />
-              <img class="mio-screen" src="./img/screens/courses.jpg" alt="出席率が表示される授業の一覧" width="440" height="912" loading="lazy" decoding="async" style="--tilt: -2deg" />
+            <div class="mio-tab-visual">
+              <div class="mio-tab-shots">
+                <img class="mio-screen" src="./img/screens/assignments.jpg" alt="締切が近い順にならぶ課題の一覧" width="440" height="912" loading="lazy" decoding="async" />
+                <img class="mio-screen" src="./img/screens/courses.jpg" alt="出席率が表示される授業の一覧" width="440" height="912" loading="lazy" decoding="async" style="--tilt: -2deg" />
+              </div>
+            <ul class="mio-tags">
+              <li class="mio-tag" style="--tilt: 1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>締切が<b>近い順</b>にならぶ</span></li>
+              <li class="mio-tag mio-tag--teal" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-check" /></svg><span><b>出席率</b>を自動で計算</span></li>
+              <li class="mio-tag mio-tag--blue" style="--tilt: 1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-grid" /></svg><span>卒業単位の進捗も（設定でON）</span></li>
+            </ul>
             </div>
             <div class="mio-tab-text">
               <p class="mio-tab-eyebrow">学校</p>
@@ -315,19 +326,21 @@
               <p class="mio-tab-desc">
                 時間割・授業・課題・試験を、年度と学期ごとに管理。課題は「未着手 → 着手中 → 完成済（未提出）→ 提出済」の4段階。「書き終わったけどまだ出していない」を分けて持てます。
               </p>
-              <ul class="mio-tags">
-                <li class="mio-tag" style="--tilt: 1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>締切が<b>近い順</b>にならぶ</span></li>
-                <li class="mio-tag mio-tag--teal" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-check" /></svg><span><b>出席率</b>を自動で計算</span></li>
-                <li class="mio-tag mio-tag--blue" style="--tilt: 1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-grid" /></svg><span>卒業単位の進捗も（設定でON）</span></li>
-              </ul>
             </div>
           </article>
 
           <!-- くらし -->
           <article class="mio-tab">
-            <div class="mio-tab-shots">
-              <img class="mio-screen" src="./img/screens/parttime.jpg" alt="今月の予想給料と勤務時間が出るバイトの画面" width="440" height="912" loading="lazy" decoding="async" />
-              <img class="mio-screen" src="./img/screens/kakeibo.jpg" alt="月ごとの収入・支出・収支がならぶ家計簿の画面" width="440" height="912" loading="lazy" decoding="async" style="--tilt: 2deg" />
+            <div class="mio-tab-visual">
+              <div class="mio-tab-shots">
+                <img class="mio-screen" src="./img/screens/parttime.jpg" alt="今月の予想給料と勤務時間が出るバイトの画面" width="440" height="912" loading="lazy" decoding="async" />
+                <img class="mio-screen" src="./img/screens/kakeibo.jpg" alt="月ごとの収入・支出・収支がならぶ家計簿の画面" width="440" height="912" loading="lazy" decoding="async" style="--tilt: 2deg" />
+              </div>
+            <ul class="mio-tags">
+              <li class="mio-tag mio-tag--yellow" style="--tilt: -1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-coin" /></svg><span>今月の見込みが<b>すぐわかる</b></span></li>
+              <li class="mio-tag" style="--tilt: 2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>深夜・早朝手当にも対応</span></li>
+              <li class="mio-tag mio-tag--purple" style="--tilt: -1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-receipt" /></svg><span>家計簿は<b>設定でON</b></span></li>
+            </ul>
             </div>
             <div class="mio-tab-text">
               <p class="mio-tab-eyebrow">くらし</p>
@@ -335,19 +348,21 @@
               <p class="mio-tab-desc">
                 バイト・タスク・就活・家計簿。時給と深夜手当を入れておけば、給料は自動で計算されます。ここにあるものは、ぜんぶ自分だけの記録です。
               </p>
-              <ul class="mio-tags">
-                <li class="mio-tag mio-tag--yellow" style="--tilt: -1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-coin" /></svg><span>今月の見込みが<b>すぐわかる</b></span></li>
-                <li class="mio-tag" style="--tilt: 2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>深夜・早朝手当にも対応</span></li>
-                <li class="mio-tag mio-tag--purple" style="--tilt: -1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-receipt" /></svg><span>家計簿は<b>設定でON</b></span></li>
-              </ul>
             </div>
           </article>
 
           <!-- 友達 -->
           <article class="mio-tab">
-            <div class="mio-tab-shots">
-              <img class="mio-screen" src="./img/screens/friend-timetable.jpg" alt="友達の時間割と自分の時間割を並べた画面" width="440" height="912" loading="lazy" decoding="async" />
-              <img class="mio-screen" src="./img/screens/warikan.jpg" alt="誰が誰にいくら払うかまで出る割り勘の画面" width="440" height="912" loading="lazy" decoding="async" style="--tilt: -2deg" />
+            <div class="mio-tab-visual">
+              <div class="mio-tab-shots">
+                <img class="mio-screen" src="./img/screens/friend-timetable.jpg" alt="友達の時間割と自分の時間割を並べた画面" width="440" height="912" loading="lazy" decoding="async" />
+                <img class="mio-screen" src="./img/screens/warikan.jpg" alt="誰が誰にいくら払うかまで出る割り勘の画面" width="440" height="912" loading="lazy" decoding="async" style="--tilt: -2deg" />
+              </div>
+            <ul class="mio-tags">
+              <li class="mio-tag mio-tag--pink" style="--tilt: 1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-people" /></svg><span>友達の<b>空きコマ</b>がわかる</span></li>
+              <li class="mio-tag mio-tag--teal" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-calendar" /></svg><span>日程調整は<b>○△×</b>だけ</span></li>
+              <li class="mio-tag" style="--tilt: 1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-receipt" /></svg><span>割り勘は<b>1円まで</b>自動</span></li>
+            </ul>
             </div>
             <div class="mio-tab-text">
               <p class="mio-tab-eyebrow">友達</p>
@@ -355,11 +370,6 @@
               <p class="mio-tab-desc">
                 時間割を見せ合えば、かぶってる授業も空きコマもすぐ見つかります。飲み会の日程調整、当日の割り勘、サークルの連絡まで、ここにまとまっています。
               </p>
-              <ul class="mio-tags">
-                <li class="mio-tag mio-tag--pink" style="--tilt: 1deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-people" /></svg><span>友達の<b>空きコマ</b>がわかる</span></li>
-                <li class="mio-tag mio-tag--teal" style="--tilt: -2deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-calendar" /></svg><span>日程調整は<b>○△×</b>だけ</span></li>
-                <li class="mio-tag" style="--tilt: 1.5deg"><svg class="mio-tag-icon" aria-hidden="true"><use href="#i-receipt" /></svg><span>割り勘は<b>1円まで</b>自動</span></li>
-              </ul>
             </div>
           </article>
         </div>
@@ -555,7 +565,7 @@
       (function () {
         if (!("IntersectionObserver" in window)) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        var lists = document.querySelectorAll(".mio-tab-text .mio-tags");
+        var lists = document.querySelectorAll(".mio-tab-visual .mio-tags");
         if (!lists.length) return;
         var body = document.body;
         body.classList.add("mio-reveal-on");
