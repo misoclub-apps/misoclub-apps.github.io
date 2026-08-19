@@ -43,32 +43,55 @@
       .code {
         font-size: 26px; font-weight: 700; letter-spacing: 3px;
         background: var(--bg); border: 1px solid var(--line);
-        border-radius: 14px; padding: 14px; margin: 0 0 24px;
+        border-radius: 14px; padding: 14px; margin: 0 0 12px;
         font-variant-numeric: tabular-nums;
       }
       .btn {
         display: block; width: 100%; padding: 15px; border-radius: 14px;
         font-size: 16px; font-weight: 600; text-decoration: none;
         margin-bottom: 12px; border: 1px solid var(--line); color: var(--fg);
-        background: var(--card);
+        background: var(--card); font-family: inherit; cursor: pointer;
+        text-align: center;
       }
       .btn.primary { background: var(--accent); color: var(--accentText); border-color: transparent; }
       .note { color: var(--sub); font-size: 12px; margin-top: 18px; line-height: 1.6; }
       .hidden { display: none; }
+      /* インストールから戻ってきた人に、次にやることだけを最上部で見せる。 */
+      .resume {
+        border: 1px solid var(--accent); border-radius: 16px;
+        padding: 16px 14px 6px; margin: 0 0 20px; text-align: left;
+      }
+      .resume h2 { font-size: 15px; margin: 0 0 8px; }
+      .resume p { color: var(--sub); font-size: 13px; line-height: 1.7; margin: 0 0 12px; }
+      .en { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
     </style>
   </head>
   <body>
     <div class="card">
+      <!--
+        インストール後に戻ってきた人だけに出すブロック。
+        Android は intent:// でそのままアプリを開ける。
+        iOS は Universal Links が**同一ドメイン内の遷移では発火しない**ので、
+        ここからアプリを開くことはできない。元のメッセージに戻って
+        リンクをもう一度タップしてもらう（そちらは別オリジンなので開く）。
+      -->
+      <div id="resume" class="resume hidden">
+        <h2 id="resumeTitle">インストールは終わりましたか？</h2>
+        <p id="resumeBody"></p>
+        <a class="btn primary hidden" id="openBtn" href="#">MIO で開く</a>
+      </div>
+
       <img class="icon" src="../icon.png" alt="MIO" />
       <h1>MIO でともだち追加</h1>
       <p class="sub">
-        アプリが入っていれば自動でアプリが開きます。<br />
+        MIO が入っていれば、自動でアプリが開きます。<br />
         入っていない場合は、下からインストールしてください。
       </p>
 
       <div id="codeBlock" class="hidden">
         <p class="code-label">ともだちコード</p>
         <div class="code" id="code">--------</div>
+        <button class="btn" id="copyBtn" type="button">コードをコピー</button>
       </div>
 
       <a class="btn primary" id="storeBtn" href="https://misoclub.pro/apps/mio/">
@@ -76,34 +99,106 @@
       </a>
 
       <p class="note">
-        インストール後、アプリの「ともだち追加」で上のコードを入力（または
-        再度QRをカメラで読み取り）すると追加できます。
+        インストールしたら、送られてきたメッセージに戻って
+        <strong>このリンクをもう一度タップ</strong>すると、そのまま追加できます。<br />
+        うまくいかないときは、アプリの「ともだち追加」で上のコードを入力してください。
       </p>
+
+      <div class="en">
+        <p class="note">
+          This is a friend link for MIO. If the app is installed it opens
+          automatically. Otherwise install MIO above, then tap the original
+          link again — or enter the friend code shown above in the app.
+        </p>
+      </div>
     </div>
 
     <script>
       (function () {
+        var STORE_TAPPED_KEY = "mio_store_tapped";
+
         // ?c= のコードを表示（XXXX-XXXX 整形）。
         var params = new URLSearchParams(location.search);
-        var c = (params.get("c") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
-        if (c.length === 8) {
-          document.getElementById("code").textContent =
-            c.slice(0, 4) + "-" + c.slice(4);
+        var raw = (params.get("c") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+        var pretty = "";
+        if (raw.length === 8) {
+          pretty = raw.slice(0, 4) + "-" + raw.slice(4);
+          document.getElementById("code").textContent = pretty;
           document.getElementById("codeBlock").classList.remove("hidden");
         }
-        // 端末に合わせてストアボタンの遷移先を切り替える。
+
         var ua = navigator.userAgent || "";
         var ios = /iPhone|iPad|iPod/.test(ua);
         var android = /Android/.test(ua);
-        var btn = document.getElementById("storeBtn");
+
+        var storeBtn = document.getElementById("storeBtn");
         if (ios) {
-          btn.href = "https://apps.apple.com/app/id6789859554";
-          btn.textContent = "App Store でインストール";
+          storeBtn.href = "https://apps.apple.com/app/id6789859554";
+          storeBtn.textContent = "App Store でインストール";
         } else if (android) {
-          btn.href =
+          storeBtn.href =
             "https://play.google.com/store/apps/details?id=com.misoclub.mio";
-          btn.textContent = "Google Play でインストール";
+          storeBtn.textContent = "Google Play でインストール";
         }
+        // ストアへ出たことを覚えておき、戻ってきたときに続きを案内する。
+        storeBtn.addEventListener("click", function () {
+          try { sessionStorage.setItem(STORE_TAPPED_KEY, "1"); } catch (e) {}
+        });
+
+        var copyBtn = document.getElementById("copyBtn");
+        if (copyBtn) {
+          copyBtn.addEventListener("click", function () {
+            if (!pretty) return;
+            var done = function () {
+              copyBtn.textContent = "コピーしました";
+              setTimeout(function () {
+                copyBtn.textContent = "コードをコピー";
+              }, 2000);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(pretty).then(done, function () {});
+            }
+          });
+        }
+
+        // インストールから戻ってきた人向けの案内。
+        function showResume() {
+          var tapped = false;
+          try { tapped = sessionStorage.getItem(STORE_TAPPED_KEY) === "1"; } catch (e) {}
+          if (!tapped) return;
+          var resume = document.getElementById("resume");
+          var body = document.getElementById("resumeBody");
+          var openBtn = document.getElementById("openBtn");
+          if (android) {
+            // App Links の検証が済んでいない端末や、既定でブラウザを選んだ人でも
+            // 明示 Intent なら MIO が開く。開けなければ Play へ落ちる。
+            var target =
+              "intent://misoclub.pro" + location.pathname + location.search +
+              "#Intent;scheme=https;package=com.misoclub.mio;" +
+              "S.browser_fallback_url=" +
+              encodeURIComponent(
+                "https://play.google.com/store/apps/details?id=com.misoclub.mio"
+              ) + ";end";
+            openBtn.href = target;
+            openBtn.classList.remove("hidden");
+            body.textContent =
+              "下のボタンで MIO が開きます。開かないときは、送られてきたメッセージのリンクをもう一度タップしてください。";
+          } else {
+            body.innerHTML =
+              "送られてきたメッセージ（LINE など）に戻って、<strong>同じリンクをもう一度タップ</strong>してください。そのまま追加の画面が開きます。" +
+              (pretty
+                ? "<br />うまくいかないときは、下のコードをコピーしてアプリの「ともだち追加」に貼り付けてください。"
+                : "");
+          }
+          resume.classList.remove("hidden");
+        }
+
+        showResume();
+        // ストアから戻ったときは bfcache 復帰になることが多いので、そこでも出す。
+        window.addEventListener("pageshow", showResume);
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) showResume();
+        });
       })();
     </script>
   </body>

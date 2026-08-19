@@ -56,11 +56,32 @@
       }
       .btn.primary { background: var(--accent); color: var(--accentText); border-color: transparent; }
       .note { color: var(--sub); font-size: 12px; margin-top: 18px; line-height: 1.6; }
+      .hidden { display: none; }
+      /* インストールから戻ってきた人に、次にやることだけを最上部で見せる。 */
+      .resume {
+        border: 1px solid var(--accent); border-radius: 16px;
+        padding: 16px 14px 6px; margin: 0 0 20px; text-align: left;
+      }
+      .resume h2 { font-size: 15px; margin: 0 0 8px; }
+      .resume p { color: var(--sub); font-size: 13px; line-height: 1.7; margin: 0 0 12px; }
       .en { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
     </style>
   </head>
   <body>
     <div class="card">
+      <!--
+        インストール後に戻ってきた人だけに出すブロック。
+        Android は intent:// でそのままアプリを開ける。
+        iOS は Universal Links が**同一ドメイン内の遷移では発火しない**ので、
+        ここからアプリを開くことはできない。元のメッセージ・QR に戻って
+        もう一度開いてもらう（そちらは別オリジンなので発火する）。
+      -->
+      <div id="resume" class="resume hidden">
+        <h2>インストールは終わりましたか？</h2>
+        <p id="resumeBody"></p>
+        <a class="btn primary hidden" id="openBtn" href="#">MIO で開く</a>
+      </div>
+
       <img class="icon" src="../icon.png" alt="MIO" />
       <h1>MIO でサークルに参加申請</h1>
       <p class="sub">
@@ -74,8 +95,8 @@
       </a>
 
       <p class="note">
-        インストールして名前を設定したあと、<strong>このリンクをもう一度開く</strong>と
-        参加申請の画面が出ます。<br />
+        インストールして名前を決めたら、送られてきたメッセージやQRに戻って
+        <strong>このリンクをもう一度開く</strong>と、参加申請の画面が出ます。<br />
         申請を送っても、サークルの管理者が承認するまで参加にはなりません。
       </p>
 
@@ -109,6 +130,47 @@
             "https://play.google.com/store/apps/details?id=com.misoclub.mio";
           btn.textContent = "Google Play でインストール";
         }
+
+        var STORE_TAPPED_KEY = "mio_store_tapped";
+        btn.addEventListener("click", function () {
+          try { sessionStorage.setItem(STORE_TAPPED_KEY, "1"); } catch (e) {}
+        });
+
+        function showResume() {
+          var tapped = false;
+          try { tapped = sessionStorage.getItem(STORE_TAPPED_KEY) === "1"; } catch (e) {}
+          if (!tapped) return;
+          var resume = document.getElementById("resume");
+          var body = document.getElementById("resumeBody");
+          var openBtn = document.getElementById("openBtn");
+          if (android) {
+            // App Links の検証が済んでいない端末や、既定でブラウザを選んだ人でも
+            // 明示 Intent なら MIO が開く。開けなければ Play へ落ちる。
+            // location.search をそのまま渡すだけで、**トークンは読まない**。
+            openBtn.href =
+              "intent://misoclub.pro" + location.pathname + location.search +
+              "#Intent;scheme=https;package=com.misoclub.mio;" +
+              "S.browser_fallback_url=" +
+              encodeURIComponent(
+                "https://play.google.com/store/apps/details?id=com.misoclub.mio"
+              ) + ";end";
+            openBtn.classList.remove("hidden");
+            body.textContent =
+              "アプリで名前を決めたあと、下のボタンで参加申請の画面が開きます。";
+          } else {
+            body.innerHTML =
+              "アプリを開いて名前を決めたら、送られてきたメッセージやQRに戻って" +
+              "<strong>このリンクをもう一度開いて</strong>ください。参加申請の画面が出ます。";
+          }
+          resume.classList.remove("hidden");
+        }
+
+        showResume();
+        // ストアから戻ったときは bfcache 復帰になることが多いので、そこでも出す。
+        window.addEventListener("pageshow", showResume);
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) showResume();
+        });
       })();
     </script>
   </body>
