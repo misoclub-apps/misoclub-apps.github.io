@@ -183,7 +183,9 @@ body {
   color: var(--mio-ink-soft);
   font-size: clamp(0.98rem, 2.2vw, 1.16rem);
   text-align: center;
-  max-width: 40em;
+  /* 40em だと PC でまだ横に余白があるのに折り返してしまい、
+     「〜できます。」の数文字だけが次行に落ちる。少し広げる。 */
+  max-width: 46em;
   margin: 0 auto;
 }
 /* 文節ごとに inline-block にして、文節の途中では折り返さない */
@@ -639,6 +641,19 @@ body {
      drop-shadow は絵の形（アルファ）に沿うので、角丸のまま影が付く。
      同じ理由で border-radius も付けない（素材が角丸を持っている）。 */
   filter: drop-shadow(0 10px 18px rgba(20, 40, 90, 0.22));
+}
+
+/* 推しの写真の押し出し。ウィジェット節のもう一段の見せ場。
+   **独立した機能としては書かないこと。** 画面は存在せず、写真を出す
+   ウィジェットが5種あるだけ（mc-mio/docs/store-screenshot-shooting-plan.md §2.5）。 */
+.theme-mio .mio-oshi {
+  margin: clamp(26px, 4vw, 40px) auto 0;
+  text-align: center;
+  font-weight: 900;
+  font-size: clamp(1.05rem, 2.6vw, 1.45rem);
+  line-height: 1.6;
+  color: var(--mio-navy);
+  max-width: 30em;
 }
 
 /* =====================================================================
