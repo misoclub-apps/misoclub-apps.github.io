@@ -62,7 +62,6 @@
         border: 1px solid var(--accent); border-radius: 16px;
         padding: 16px 14px 6px; margin: 0 0 20px; text-align: left;
       }
-      .resume h2 { font-size: 15px; margin: 0 0 8px; }
       .resume p { color: var(--sub); font-size: 13px; line-height: 1.7; margin: 0 0 12px; }
       .en { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
     </style>
@@ -77,18 +76,13 @@
         もう一度開いてもらう（そちらは別オリジンなので発火する）。
       -->
       <div id="resume" class="resume hidden">
-        <h2>インストールは終わりましたか？</h2>
-        <p id="resumeBody"></p>
-        <a class="btn primary hidden" id="openBtn" href="#">MIO で開く</a>
+        <p>アプリを入れて名前を決めたら、下のボタンで参加申請が開きます。</p>
+        <a class="btn primary" id="openBtn" href="#">MIO で開く</a>
       </div>
 
       <img class="icon" src="../icon.png" alt="MIO" />
       <h1>MIO でサークルに参加申請</h1>
-      <p class="sub">
-        これはサークルの参加申請リンクです。<br />
-        MIO が入っていれば自動でアプリが開きます。<br />
-        入っていない場合は、下からインストールしてください。
-      </p>
+      <p class="sub">これはサークルの参加申請リンクです。</p>
 
       <a class="btn primary" id="storeBtn" href="https://misoclub.pro/apps/mio/">
         アプリをインストール
@@ -106,14 +100,14 @@
 
       <div class="en">
         <p class="note">
-          This is a circle join request link for MIO. If the app is installed it
-          opens automatically. Otherwise install MIO above, set your name, then
-          open this link again. Sending a request does not join the circle —
-          an admin has to approve it.
+          This is a circle join request link for MIO. Install MIO above, set
+          your name, then open this link again. Sending a request does not join
+          the circle — an admin has to approve it.
         </p>
       </div>
     </div>
 
+    <script src="../invite-analytics.js"></script>
     <script>
       (function () {
         // 端末に合わせてストアボタンの遷移先を切り替えるだけ。
@@ -140,29 +134,32 @@
           var tapped = false;
           try { tapped = sessionStorage.getItem(STORE_TAPPED_KEY) === "1"; } catch (e) {}
           if (!tapped) return;
-          var resume = document.getElementById("resume");
-          var body = document.getElementById("resumeBody");
-          var openBtn = document.getElementById("openBtn");
-          if (android) {
+          // 開けなかったときの逃げ道は下の注意書きが持っているので、
+          // ここでは行き先を差し替えるだけにする（案内を厚くしない）。
+          // どちらも location.search をそのまま渡すだけで、**トークンは読まない**。
+          document.getElementById("openBtn").href = android
             // App Links の検証が済んでいない端末や、既定でブラウザを選んだ人でも
             // 明示 Intent なら MIO が開く。開けなければ Play へ落ちる。
-            // location.search をそのまま渡すだけで、**トークンは読まない**。
-            openBtn.href =
-              "intent://misoclub.pro" + location.pathname + location.search +
+            ? "intent://misoclub.pro" + location.pathname + location.search +
               "#Intent;scheme=https;package=com.misoclub.mio;" +
               "S.browser_fallback_url=" +
               encodeURIComponent(
                 "https://play.google.com/store/apps/details?id=com.misoclub.mio"
-              ) + ";end";
-            openBtn.classList.remove("hidden");
-            body.textContent =
-              "アプリで名前を決めたあと、下のボタンで参加申請の画面が開きます。";
-          } else {
-            body.innerHTML =
-              "アプリを開いて名前を決めたら、送られてきたメッセージやQRに戻って" +
-              "<strong>このリンクをもう一度開いて</strong>ください。参加申請の画面が出ます。";
-          }
-          resume.classList.remove("hidden");
+              ) + ";end"
+            // iOS の Universal Links は**同一ドメイン内の遷移では発火しない**ので、
+            // このページから招待URLを開いてもアプリは起動しない。custom scheme
+            // なら起動する。
+            : "mio://join" + location.search;
+          document.getElementById("resume").classList.remove("hidden");
+        }
+
+        // 招待ページが開かれたことを1件だけ送る。
+        // **トークンの値は渡さない**。有無だけを bool にする。
+        if (window.mioInviteAnalytics) {
+          window.mioInviteAnalytics.invitePageViewed(
+            "circle",
+            new URLSearchParams(location.search).has("j")
+          );
         }
 
         showResume();

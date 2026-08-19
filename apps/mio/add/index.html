@@ -37,8 +37,10 @@
         width: 88px; height: 88px; border-radius: 20px; object-fit: cover;
         margin: 0 auto 16px; display: block;
       }
-      h1 { font-size: 20px; margin: 0 0 6px; }
-      p.sub { color: var(--sub); font-size: 14px; margin: 0 0 24px; line-height: 1.6; }
+      /* 説明文を置いていないので、見出し自身が下の余白を持つ。
+         「入っていれば自動で開きます」は、このページが開かれている時点で
+         たいてい入っていないので書かない。 */
+      h1 { font-size: 20px; margin: 0 0 24px; }
       .code-label { color: var(--sub); font-size: 12px; margin: 0 0 6px; }
       .code {
         font-size: 26px; font-weight: 700; letter-spacing: 3px;
@@ -61,7 +63,6 @@
         border: 1px solid var(--accent); border-radius: 16px;
         padding: 16px 14px 6px; margin: 0 0 20px; text-align: left;
       }
-      .resume h2 { font-size: 15px; margin: 0 0 8px; }
       .resume p { color: var(--sub); font-size: 13px; line-height: 1.7; margin: 0 0 12px; }
       .en { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
     </style>
@@ -76,17 +77,12 @@
         リンクをもう一度タップしてもらう（そちらは別オリジンなので開く）。
       -->
       <div id="resume" class="resume hidden">
-        <h2 id="resumeTitle">インストールは終わりましたか？</h2>
-        <p id="resumeBody"></p>
-        <a class="btn primary hidden" id="openBtn" href="#">MIO で開く</a>
+        <p>アプリを入れたら、下のボタンでともだち追加が開きます。</p>
+        <a class="btn primary" id="openBtn" href="#">MIO で開く</a>
       </div>
 
       <img class="icon" src="../icon.png" alt="MIO" />
       <h1>MIO でともだち追加</h1>
-      <p class="sub">
-        MIO が入っていれば、自動でアプリが開きます。<br />
-        入っていない場合は、下からインストールしてください。
-      </p>
 
       <div id="codeBlock" class="hidden">
         <p class="code-label">ともだちコード</p>
@@ -106,13 +102,13 @@
 
       <div class="en">
         <p class="note">
-          This is a friend link for MIO. If the app is installed it opens
-          automatically. Otherwise install MIO above, then tap the original
-          link again — or enter the friend code shown above in the app.
+          This is a friend link for MIO. Install MIO above, then tap the
+          original link again — or enter the friend code shown above in the app.
         </p>
       </div>
     </div>
 
+    <script src="../invite-analytics.js"></script>
     <script>
       (function () {
         var STORE_TAPPED_KEY = "mio_store_tapped";
@@ -166,31 +162,28 @@
           var tapped = false;
           try { tapped = sessionStorage.getItem(STORE_TAPPED_KEY) === "1"; } catch (e) {}
           if (!tapped) return;
-          var resume = document.getElementById("resume");
-          var body = document.getElementById("resumeBody");
-          var openBtn = document.getElementById("openBtn");
-          if (android) {
+          // 開けなかったときの逃げ道は下の注意書きが持っているので、
+          // ここでは行き先を差し替えるだけにする（案内を厚くしない）。
+          document.getElementById("openBtn").href = android
             // App Links の検証が済んでいない端末や、既定でブラウザを選んだ人でも
             // 明示 Intent なら MIO が開く。開けなければ Play へ落ちる。
-            var target =
-              "intent://misoclub.pro" + location.pathname + location.search +
+            ? "intent://misoclub.pro" + location.pathname + location.search +
               "#Intent;scheme=https;package=com.misoclub.mio;" +
               "S.browser_fallback_url=" +
               encodeURIComponent(
                 "https://play.google.com/store/apps/details?id=com.misoclub.mio"
-              ) + ";end";
-            openBtn.href = target;
-            openBtn.classList.remove("hidden");
-            body.textContent =
-              "下のボタンで MIO が開きます。開かないときは、送られてきたメッセージのリンクをもう一度タップしてください。";
-          } else {
-            body.innerHTML =
-              "送られてきたメッセージ（LINE など）に戻って、<strong>同じリンクをもう一度タップ</strong>してください。そのまま追加の画面が開きます。" +
-              (pretty
-                ? "<br />うまくいかないときは、下のコードをコピーしてアプリの「ともだち追加」に貼り付けてください。"
-                : "");
-          }
-          resume.classList.remove("hidden");
+              ) + ";end"
+            // iOS の Universal Links は**同一ドメイン内の遷移では発火しない**ので、
+            // このページから招待URLを開いてもアプリは起動しない。custom scheme
+            // なら起動する。クエリは中身を見ずにそのまま渡す。
+            : "mio://add" + location.search;
+          document.getElementById("resume").classList.remove("hidden");
+        }
+
+        // 招待ページが開かれたことを1件だけ送る（コードそのものは送らない）。
+        // **コードそのものは渡さない**。8桁が付いていたかだけを bool にする。
+        if (window.mioInviteAnalytics) {
+          window.mioInviteAnalytics.invitePageViewed("friend", raw.length === 8);
         }
 
         showResume();
