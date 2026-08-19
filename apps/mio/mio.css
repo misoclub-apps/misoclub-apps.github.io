@@ -588,6 +588,12 @@ body {
    （＝演出のために内容が消えることが絶対にない）。
    このページで動きを付けるのはここだけ。以前ページ全体の reveal を入れて
    やめた経緯があるので、広げないこと。
+
+   **3つは1枚ずつ監視する。** 箱の中で高さが違う（上・38%・下）ので、
+   スクロール位置そのものが間隔になり、1つ目 → 少し進んで2つ目 → 3つ目、
+   と出る。まとめて監視して transition-delay でずらす方式だと、
+   0.2秒ほどで3つとも出てしまい「一瞬で全部出た」ように見える。
+
    .mio-tag は transform で傾けてあるので、**両方の状態に rotate を書く**
    （書き忘れると出現後に傾きが消える）。 */
 @media (prefers-reduced-motion: no-preference) {
@@ -596,7 +602,7 @@ body {
     transform: translateY(12px) rotate(var(--tilt, -1.5deg));
     transition: opacity 0.5s ease, transform 0.5s var(--mio-ease, cubic-bezier(0.22, 1, 0.36, 1));
   }
-  .theme-mio.mio-reveal-on .mio-tab-visual .mio-tags.is-in .mio-tag {
+  .theme-mio.mio-reveal-on .mio-tab-visual .mio-tags .mio-tag.is-in {
     opacity: 1;
     transform: translateY(0) rotate(var(--tilt, -1.5deg));
   }
@@ -604,17 +610,10 @@ body {
      レンダラがアニメーションを間引くと**進まないことがある**。その場合
      opacity:0 のまま残ってタグが消えてしまうので、少し経ったら
      トランジションを使わずに確実に見える状態へ倒す（JS が is-shown を付ける）。 */
-  .theme-mio.mio-reveal-on .mio-tab-visual .mio-tags.is-shown .mio-tag {
+  .theme-mio.mio-reveal-on .mio-tab-visual .mio-tags .mio-tag.is-shown {
     opacity: 1;
     transform: rotate(var(--tilt, -1.5deg));
     transition: none;
-  }
-  /* 3つが順番に出るように少しずつ遅らせる */
-  .theme-mio.mio-reveal-on .mio-tab-visual .mio-tags .mio-tag:nth-child(2) {
-    transition-delay: 90ms;
-  }
-  .theme-mio.mio-reveal-on .mio-tab-visual .mio-tags .mio-tag:nth-child(3) {
-    transition-delay: 180ms;
   }
 }
 
@@ -770,7 +769,7 @@ body {
     grid-template-columns: repeat(6, 1fr);
   }
   .theme-mio .mio-trust {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   /* 機能ブロックは画像とテキストを左右に。偶数番は反転して単調にしない */
   .theme-mio .mio-tab {
