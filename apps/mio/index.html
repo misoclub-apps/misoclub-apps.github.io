@@ -553,7 +553,7 @@
       // フッターの年号を自動更新
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // 機能ブロックのステッカーだけ、画面に入ったタイミングでふわっと出す。
+      // 機能ブロックのステッカーだけ、少しスクロールしてからふわっと出す。
       // **内容が消えたままになる事故を作らないこと。** 守りは3段構え:
       //  1) class を付けるのは JS が動いたときだけ（動かなければ普通に表示）
       //  2) 画面に入って一定時間たったら、トランジションに頼らず確実に見える状態へ倒す
@@ -592,7 +592,9 @@
               io.unobserve(e.target);
             });
           },
-          { rootMargin: "0px 0px -10% 0px", threshold: 0.25 }
+          // もう少しスクロールしてから出す。下辺を大きく内側へ寄せると、
+          // タグが画面のかなり上まで来ないと「入った」と見なされない。
+          { rootMargin: "0px 0px -32% 0px", threshold: 0.35 }
         );
         Array.prototype.forEach.call(lists, function (el) {
           io.observe(el);
