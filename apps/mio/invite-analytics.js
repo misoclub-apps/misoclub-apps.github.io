@@ -23,7 +23,7 @@
   // ▼ PostHog の Project settings にある Project API key を入れる。
   //    アプリ側の GitHub Secret `POSTHOG_PROJECT_TOKEN` と同じ値。
   //    未設定（プレースホルダのまま）なら、何も送らない。
-  var TOKEN = "phc_REPLACE_ME";
+  var TOKEN = "phc_CGiF9NUekhBgRG2En7ChDAYfZRRBdHY8vSfbHnqcpaZ9";
   var HOST = "https://us.i.posthog.com";
 
   function platform() {
