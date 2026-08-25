@@ -58,12 +58,12 @@
 
       <div class="store-badges">
         <!-- iOS / App Store -->
-        <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
+        <a href="https://apps.apple.com/app/id6789859554" data-store="ios" aria-label="App Store でダウンロード">
           <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
         </a>
 
         <!-- Android / Google Play -->
-        <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
+        <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" data-store="android" aria-label="Google Play で手に入れよう">
           <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
         </a>
       </div>
@@ -72,5 +72,31 @@
         <a href="../">misoclub の他のアプリを見る →</a>
       </p>
     </main>
+
+    <!--
+      ストアのバッジが押されたことだけを PostHog へ1件送る。
+      SNS のプロフィールに置いたリンク（?s=x / ?s=threads）が実際にストアまで
+      運べたかを見るため。流入元は invite-analytics.js 側で**知っている名前だけに
+      丸めて**送る（自由文は送らない）。方針は docs/analytics.md と同じ。
+
+      **リンクの動作は変えない。** 送信は sendBeacon なので、ここで遷移を
+      止めたり遅らせたりする必要はない。送信に失敗してもストアへは飛ぶ。
+    -->
+    <script src="invite-analytics.js"></script>
+    <script>
+      (function () {
+        var badges = document.querySelectorAll(".store-badges a[data-store]");
+        for (var i = 0; i < badges.length; i++) {
+          badges[i].addEventListener("click", function () {
+            if (window.mioInviteAnalytics) {
+              window.mioInviteAnalytics.storeLinkClicked(
+                this.getAttribute("data-store"),
+                "download"
+              );
+            }
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

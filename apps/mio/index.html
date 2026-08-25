@@ -181,10 +181,10 @@
           </li>
         </ul>
         <div class="store-badges">
-          <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
+          <a data-store="ios" data-slot="hero" href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
             <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
           </a>
-          <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
+          <a data-store="android" data-slot="hero" href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
             <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
           </a>
         </div>
@@ -521,10 +521,10 @@
         <h2 class="section-title"><span>さっそく、</span><span><em class="mio-mark">はじめよう</em>。</span></h2>
         <p class="section-lead"><span class="mio-nb">MIO は無料。</span><span class="mio-nb">会員登録なしで、</span><span class="mio-nb">入れたその日から。</span></p>
         <div class="store-badges">
-          <a href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
+          <a data-store="ios" data-slot="footer" href="https://apps.apple.com/app/id6789859554" aria-label="App Store でダウンロード">
             <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
           </a>
-          <a href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
+          <a data-store="android" data-slot="footer" href="https://play.google.com/store/apps/details?id=com.misoclub.mio" aria-label="Google Play で手に入れよう">
             <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
           </a>
         </div>
@@ -548,6 +548,32 @@
         <p>&copy; <span id="year"></span> misoclub</p>
       </div>
     </footer>
+
+    <!--
+      ストアのバッジが押されたことだけを PostHog へ1件送る。
+      SNS のプロフィール／投稿に置いたリンク（?s=x / ?s=x_post）が、実際にストアまで
+      運べたかを見るため。ページ内のどのボタンか（hero / footer）も分けて送る。
+      値は invite-analytics.js 側で**知っている名前だけに丸めて**から送る。
+      方針はアプリ側 docs/analytics.md と同じで、SDK も Cookie も使わない。
+
+      **リンクの動作は変えない。** 送信は sendBeacon なので遷移を止めなくてよい。
+    -->
+    <script src="invite-analytics.js"></script>
+    <script>
+      (function () {
+        var badges = document.querySelectorAll("a[data-store][data-slot]");
+        for (var i = 0; i < badges.length; i++) {
+          badges[i].addEventListener("click", function () {
+            if (window.mioInviteAnalytics) {
+              window.mioInviteAnalytics.storeLinkClicked(
+                this.getAttribute("data-store"),
+                this.getAttribute("data-slot")
+              );
+            }
+          });
+        }
+      })();
+    </script>
 
     <script>
       // フッターの年号を自動更新
