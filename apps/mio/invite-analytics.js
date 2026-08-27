@@ -2,7 +2,7 @@
  * MIO のサイトから PostHog へ「1ページにつき1イベントだけ」送る。
  *
  * 送るのは2種類だけ:
- * - `invite_page_viewed` … 招待リンクのランディングページ（add / join）
+ * - `invite_page_viewed` … 招待リンクのランディングページ（add / join / invite）
  *   K（1人が何人連れてくるか）の「招待→インストール率」の**分母**。
  *   分子はアプリ側の `first_open_attributed`（lib/core/app_analytics.dart）。
  * - `store_link_clicked` … ストアのバッジを押した数（LP の index.html と download.html）
@@ -15,7 +15,7 @@
  *   autocapture もセッション記録も Cookie も無い。
  * - **人物プロファイルを作らない**（`$process_person_profile: false`）。
  *   distinct_id は毎回その場で捨てる乱数。ページをまたいで同じ人を追わない。
- * - **トークン（?c= / ?j=）と ?r= の値は絶対に送らない。** 有無だけを bool にする。
+ * - **トークン（?c= / ?j= / ?i=）と ?r= の値は絶対に送らない。** 有無だけを bool にする。
  * - **?s= も値をそのまま送らない。** 知っている名前だけを通し、
  *   知らない値は `other` に丸める（アプリ側 `touch_error` と同じ作法）。
  * - 送信に失敗しても、ページの動作は一切変えない。
