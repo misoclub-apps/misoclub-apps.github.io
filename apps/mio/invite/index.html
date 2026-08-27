@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/png" href="../favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+    <meta name="theme-color" content="#171716" />
+    <meta name="robots" content="noindex" />
+    <title>MIO への招待</title>
+    <style>
+      :root {
+        --bg: #f5f3fb; --card: #ffffff; --fg: #2a2540; --sub: #6b6580;
+        --accent: #9e8fd6; --accentText: #ffffff; --line: #eceaf3;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #14121c; --card: #1e1b2a; --fg: #ece9f5; --sub: #a49fb8;
+          --accent: #9e8fd6; --accentText: #1a1626; --line: #2b2740;
+        }
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg); color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+          "Noto Sans JP", sans-serif;
+        display: flex; align-items: flex-start; justify-content: center;
+        padding: 20px 20px 32px;
+      }
+      .card {
+        background: var(--card); border-radius: 24px; max-width: 400px;
+        width: 100%; padding: 28px 24px; text-align: center;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      }
+      .icon {
+        width: 88px; height: 88px; border-radius: 20px; object-fit: cover;
+        margin: 0 auto 16px; display: block;
+      }
+      h1 { font-size: 20px; margin: 0 0 10px; }
+      .lead { color: var(--sub); font-size: 14px; line-height: 1.7; margin: 0 0 22px; }
+      .code-label { color: var(--sub); font-size: 12px; margin: 0 0 6px; }
+      .code {
+        font-size: 26px; font-weight: 700; letter-spacing: 3px;
+        background: var(--bg); border: 1px solid var(--line);
+        border-radius: 14px; padding: 14px; margin: 0 0 12px;
+        font-variant-numeric: tabular-nums;
+      }
+      .btn {
+        display: block; width: 100%; padding: 15px; border-radius: 14px;
+        font-size: 16px; font-weight: 600; text-decoration: none;
+        margin-bottom: 12px; border: 1px solid var(--line); color: var(--fg);
+        background: var(--card); font-family: inherit; cursor: pointer;
+        text-align: center;
+      }
+      .btn.primary { background: var(--accent); color: var(--accentText); border-color: transparent; }
+      .note { color: var(--sub); font-size: 12px; margin-top: 18px; line-height: 1.6; }
+      .hidden { display: none; }
+      .resume {
+        border: 1px solid var(--accent); border-radius: 16px;
+        padding: 16px 14px 6px; margin: 0 0 20px; text-align: left;
+      }
+      .resume p { color: var(--sub); font-size: 13px; line-height: 1.7; margin: 0 0 12px; }
+      .en { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <!--
+        インストール後に戻ってきた人だけに出すブロック。
+        Android は intent:// でそのままアプリを開ける。
+        iOS は Universal Links が**同一ドメイン内の遷移では発火しない**ので、
+        custom scheme（mio://invite）で開く。
+      -->
+      <div id="resume" class="resume hidden">
+        <p>アプリを入れたら、下のボタンで招待コードが引き継がれます。</p>
+        <a class="btn primary" id="openBtn" href="#">MIO で開く</a>
+      </div>
+
+      <img class="icon" src="../icon.png" alt="MIO" />
+      <h1>MIO に招待されています</h1>
+      <!--
+        **招待した人の名前は出さない。** 招待では友達関係を作らないので、
+        リンクを受け取っただけの人に相手の情報を渡さない（docs/invite.md）。
+        だからこのページはサーバーに何も問い合わせない＝プレビューAPIも要らない。
+      -->
+      <p class="lead">
+        MIO は、時間割・出席・課題・家計簿・イベントの割り勘まで、
+        学生生活をまとめて置いておけるアプリです。<br />
+        この招待からはじめると、ふたりともアイコンフレームの交換チケットがもらえます。
+      </p>
+
+      <div id="codeBlock" class="hidden">
+        <p class="code-label">招待コード</p>
+        <div class="code" id="code">--------</div>
+        <button class="btn" id="copyBtn" type="button">コードをコピー</button>
+      </div>
+
+      <a class="btn primary" id="storeBtn" href="https://misoclub.pro/apps/mio/">
+        アプリをインストール
+      </a>
+
+      <p class="note">
+        インストールしたら、送られてきたメッセージに戻って
+        <strong>このリンクをもう一度タップ</strong>してください。<br />
+        うまくいかないときは、アプリの「友達を招待」から上のコードを入力しても
+        受け取れます（あとからでも大丈夫です）。
+      </p>
+
+      <div class="en">
+        <p class="note">
+          You've been invited to MIO. Install it above, then tap the original
+          link again — or enter the invite code shown above in the app. You can
+          do it any time.
+        </p>
+      </div>
+    </div>
+
+    <script src="../invite-analytics.js"></script>
+    <script>
+      (function () {
+        var STORE_TAPPED_KEY = "mio_store_tapped";
+
+        // ?i= のコードを表示（XXXX-XXXX 整形）。フレンド追加の `?c=` とは
+        // 別のクエリ名。招待コードとフレンドコードは別物なので混ぜない。
+        var params = new URLSearchParams(location.search);
+        var raw = (params.get("i") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+        var pretty = "";
+        if (raw.length === 8) {
+          pretty = raw.slice(0, 4) + "-" + raw.slice(4);
+          document.getElementById("code").textContent = pretty;
+          document.getElementById("codeBlock").classList.remove("hidden");
+        }
+
+        var ua = navigator.userAgent || "";
+        var ios = /iPhone|iPad|iPod/.test(ua);
+        var android = /Android/.test(ua);
+
+        var storeBtn = document.getElementById("storeBtn");
+        if (ios) {
+          storeBtn.href = "https://apps.apple.com/app/id6789859554";
+          storeBtn.textContent = "App Store でインストール";
+        } else if (android) {
+          storeBtn.href =
+            "https://play.google.com/store/apps/details?id=com.misoclub.mio";
+          storeBtn.textContent = "Google Play でインストール";
+        }
+        storeBtn.addEventListener("click", function () {
+          try { sessionStorage.setItem(STORE_TAPPED_KEY, "1"); } catch (e) {}
+        });
+
+        var copyBtn = document.getElementById("copyBtn");
+        if (copyBtn) {
+          copyBtn.addEventListener("click", function () {
+            if (!pretty) return;
+            var done = function () {
+              copyBtn.textContent = "コピーしました";
+              setTimeout(function () {
+                copyBtn.textContent = "コードをコピー";
+              }, 2000);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(pretty).then(done, function () {});
+            }
+          });
+        }
+
+        function showResume() {
+          var tapped = false;
+          try { tapped = sessionStorage.getItem(STORE_TAPPED_KEY) === "1"; } catch (e) {}
+          if (!tapped) return;
+          document.getElementById("openBtn").href = android
+            // App Links の検証が済んでいない端末や、既定でブラウザを選んだ人でも
+            // 明示 Intent なら MIO が開く。開けなければ Play へ落ちる。
+            ? "intent://misoclub.pro" + location.pathname + location.search +
+              "#Intent;scheme=https;package=com.misoclub.mio;" +
+              "S.browser_fallback_url=" +
+              encodeURIComponent(
+                "https://play.google.com/store/apps/details?id=com.misoclub.mio"
+              ) + ";end"
+            // iOS はここからしかアプリを開けない。クエリは中身を見ずにそのまま渡す。
+            : "mio://invite" + location.search;
+          document.getElementById("resume").classList.remove("hidden");
+        }
+
+        // **コードそのものは送らない**。8桁が付いていたかだけを bool にする。
+        if (window.mioInviteAnalytics) {
+          window.mioInviteAnalytics.invitePageViewed("invite", raw.length === 8);
+        }
+
+        showResume();
+        window.addEventListener("pageshow", showResume);
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) showResume();
+        });
+      })();
+    </script>
+  </body>
+</html>

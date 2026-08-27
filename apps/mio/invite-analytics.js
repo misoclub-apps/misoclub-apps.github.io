@@ -117,7 +117,7 @@
 
   /**
    * 招待ページが開かれたことを1件だけ送る。
-   * @param {string} kind "friend" | "circle"
+   * @param {string} kind "friend" | "circle" | "invite"
    * @param {boolean} hasToken リンクにトークンが付いていたか（値は送らない）
    */
   function invitePageViewed(kind, hasToken) {
