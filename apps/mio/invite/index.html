@@ -6,22 +6,28 @@
     <link rel="icon" type="image/png" href="../favicon-32.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
     <meta name="theme-color" content="#171716" />
-    <meta name="robots" content="noindex" />
-    <meta name="description" content="友達から届いたMIOのともだち追加リンクです。MIOでつながって学生生活をもっと楽しく。" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="description" content="友達から届いたMIOの招待リンクです。MIOをはじめると、ふたりともアイコンフレーム交換チケットを受け取れます。" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="MIO" />
-    <meta property="og:title" content="MIOで ともだちになろう！" />
-    <meta property="og:description" content="友達からMIOのともだちリンクが届きました。MIOでつながろう！" />
-    <meta property="og:url" content="https://misoclub.pro/apps/mio/add/" />
-    <meta property="og:image" content="https://misoclub.pro/apps/mio/og-friend-add.jpg" />
+    <meta property="og:title" content="MIO、いっしょに使おう！" />
+    <meta property="og:description" content="学生生活をまとめるMIOを、友達といっしょにはじめよう。ふたりにうれしいチケットつき。" />
+    <meta property="og:url" content="https://misoclub.pro/apps/mio/invite/" />
+    <meta property="og:image" content="https://misoclub.pro/apps/mio/og-friend-invite.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="MIOで ともだちになろう！ ふたりの学生がハートの線でつながるカラフルなイラスト。" />
+    <meta property="og:image:alt" content="MIO、いっしょに使おう！ ふたりの学生がチケットを受け取るカラフルなイラスト。" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MIOで ともだちになろう！" />
-    <meta name="twitter:description" content="友達からMIOのともだちリンクが届きました。MIOでつながろう！" />
-    <meta name="twitter:image" content="https://misoclub.pro/apps/mio/og-friend-add.jpg" />
-    <title>MIO でともだち追加</title>
+    <meta name="twitter:title" content="MIO、いっしょに使おう！" />
+    <meta name="twitter:description" content="学生生活をまとめるMIOを、友達といっしょにはじめよう。ふたりにうれしいチケットつき。" />
+    <meta name="twitter:image" content="https://misoclub.pro/apps/mio/og-friend-invite.jpg" />
+    <title>MIO、いっしょに使おう！</title>
+    <!--
+      アプリが入っていれば OS がこのページより先に MIO を開く。
+      ここでは招待者を特定せず、サーバーにも問い合わせない。
+      招待コード（?i=）は画面への表示とアプリへの受け渡しだけに使う。
+    -->
     <style>
       :root {
         --bg: #f5f3fb; --card: #ffffff; --fg: #2a2540; --sub: #6b6580;
@@ -51,10 +57,8 @@
         width: 88px; height: 88px; border-radius: 20px; object-fit: cover;
         margin: 0 auto 16px; display: block;
       }
-      /* 説明文を置いていないので、見出し自身が下の余白を持つ。
-         「入っていれば自動で開きます」は、このページが開かれている時点で
-         たいてい入っていないので書かない。 */
-      h1 { font-size: 20px; margin: 0 0 24px; }
+      h1 { font-size: 20px; margin: 0 0 6px; }
+      p.sub { color: var(--sub); font-size: 14px; margin: 0 0 24px; line-height: 1.6; }
       .code-label { color: var(--sub); font-size: 12px; margin: 0 0 6px; }
       .code {
         font-size: 26px; font-weight: 700; letter-spacing: 3px;
@@ -72,7 +76,6 @@
       .btn.primary { background: var(--accent); color: var(--accentText); border-color: transparent; }
       .note { color: var(--sub); font-size: 12px; margin-top: 18px; line-height: 1.6; }
       .hidden { display: none; }
-      /* インストールから戻ってきた人に、次にやることだけを最上部で見せる。 */
       .resume {
         border: 1px solid var(--accent); border-radius: 16px;
         padding: 16px 14px 6px; margin: 0 0 20px; text-align: left;
@@ -83,23 +86,17 @@
   </head>
   <body>
     <div class="card">
-      <!--
-        インストール後に戻ってきた人だけに出すブロック。
-        Android は intent:// でそのままアプリを開ける。
-        iOS は Universal Links が**同一ドメイン内の遷移では発火しない**ので、
-        ここからアプリを開くことはできない。元のメッセージに戻って
-        リンクをもう一度タップしてもらう（そちらは別オリジンなので開く）。
-      -->
       <div id="resume" class="resume hidden">
-        <p>アプリを入れたら、下のボタンでともだち追加が開きます。</p>
+        <p>アプリを入れて名前を決めたら、下のボタンで招待コードを受け取れます。</p>
         <a class="btn primary" id="openBtn" href="#">MIO で開く</a>
       </div>
 
       <img class="icon" src="../icon.png" alt="MIO" />
-      <h1>MIO でともだち追加</h1>
+      <h1>MIO、いっしょに使おう！</h1>
+      <p class="sub">このリンクからMIOをはじめると、ふたりともアイコンフレーム交換チケットを受け取れます。</p>
 
       <div id="codeBlock" class="hidden">
-        <p class="code-label">ともだちコード</p>
+        <p class="code-label">招待コード</p>
         <div class="code" id="code">--------</div>
         <button class="btn" id="copyBtn" type="button">コードをコピー</button>
       </div>
@@ -109,15 +106,15 @@
       </a>
 
       <p class="note">
-        インストールしたら、送られてきたメッセージに戻って
-        <strong>このリンクをもう一度タップ</strong>すると、そのまま追加できます。<br />
-        うまくいかないときは、アプリの「ともだち追加」で上のコードを入力してください。
+        インストールして名前を決めたら、送られてきたメッセージやQRに戻って
+        <strong>このリンクをもう一度開く</strong>と、招待コードを受け取れます。<br />
+        うまくいかないときは、アプリの「友達を招待する」から上のコードを入力してください。
       </p>
 
       <div class="en">
         <p class="note">
-          This is a friend link for MIO. Install MIO above, then tap the
-          original link again — or enter the friend code shown above in the app.
+          A friend invited you to MIO. Install MIO above, set your name, then
+          open the original link again — or enter the invitation code in the app.
         </p>
       </div>
     </div>
@@ -126,10 +123,8 @@
     <script>
       (function () {
         var STORE_TAPPED_KEY = "mio_store_tapped";
-
-        // ?c= のコードを表示（XXXX-XXXX 整形）。
         var params = new URLSearchParams(location.search);
-        var raw = (params.get("c") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+        var raw = (params.get("i") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
         var pretty = "";
         if (raw.length === 8) {
           pretty = raw.slice(0, 4) + "-" + raw.slice(4);
@@ -140,7 +135,6 @@
         var ua = navigator.userAgent || "";
         var ios = /iPhone|iPad|iPod/.test(ua);
         var android = /Android/.test(ua);
-
         var storeBtn = document.getElementById("storeBtn");
         if (ios) {
           storeBtn.href = "https://apps.apple.com/app/id6789859554";
@@ -150,7 +144,6 @@
             "https://play.google.com/store/apps/details?id=com.misoclub.mio";
           storeBtn.textContent = "Google Play でインストール";
         }
-        // ストアへ出たことを覚えておき、戻ってきたときに続きを案内する。
         storeBtn.addEventListener("click", function () {
           try { sessionStorage.setItem(STORE_TAPPED_KEY, "1"); } catch (e) {}
         });
@@ -161,9 +154,7 @@
             if (!pretty) return;
             var done = function () {
               copyBtn.textContent = "コピーしました";
-              setTimeout(function () {
-                copyBtn.textContent = "コードをコピー";
-              }, 2000);
+              setTimeout(function () { copyBtn.textContent = "コードをコピー"; }, 2000);
             };
             if (navigator.clipboard && navigator.clipboard.writeText) {
               navigator.clipboard.writeText(pretty).then(done, function () {});
@@ -171,37 +162,26 @@
           });
         }
 
-        // インストールから戻ってきた人向けの案内。
         function showResume() {
           var tapped = false;
           try { tapped = sessionStorage.getItem(STORE_TAPPED_KEY) === "1"; } catch (e) {}
           if (!tapped) return;
-          // 開けなかったときの逃げ道は下の注意書きが持っているので、
-          // ここでは行き先を差し替えるだけにする（案内を厚くしない）。
           document.getElementById("openBtn").href = android
-            // App Links の検証が済んでいない端末や、既定でブラウザを選んだ人でも
-            // 明示 Intent なら MIO が開く。開けなければ Play へ落ちる。
             ? "intent://misoclub.pro" + location.pathname + location.search +
               "#Intent;scheme=https;package=com.misoclub.mio;" +
               "S.browser_fallback_url=" +
               encodeURIComponent(
                 "https://play.google.com/store/apps/details?id=com.misoclub.mio"
               ) + ";end"
-            // iOS の Universal Links は**同一ドメイン内の遷移では発火しない**ので、
-            // このページから招待URLを開いてもアプリは起動しない。custom scheme
-            // なら起動する。クエリは中身を見ずにそのまま渡す。
-            : "mio://add" + location.search;
+            : "mio://invite" + location.search;
           document.getElementById("resume").classList.remove("hidden");
         }
 
-        // 招待ページが開かれたことを1件だけ送る（コードそのものは送らない）。
-        // **コードそのものは渡さない**。8桁が付いていたかだけを bool にする。
         if (window.mioInviteAnalytics) {
-          window.mioInviteAnalytics.invitePageViewed("friend", raw.length === 8);
+          window.mioInviteAnalytics.invitePageViewed("invite", raw.length === 8);
         }
 
         showResume();
-        // ストアから戻ったときは bfcache 復帰になることが多いので、そこでも出す。
         window.addEventListener("pageshow", showResume);
         document.addEventListener("visibilitychange", function () {
           if (!document.hidden) showResume();
