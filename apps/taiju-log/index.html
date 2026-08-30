@@ -3,52 +3,322 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <!-- favicon / アイコン -->
     <link rel="icon" href="../../assets/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png" />
-    <link rel="manifest" href="../../site.webmanifest" />
-    <meta name="theme-color" content="#171716" />
-    <!-- OGP -->
+    <link rel="apple-touch-icon" href="./icon.png" />
+    <link rel="canonical" href="https://misoclub.pro/apps/taiju-log/" />
+    <meta name="theme-color" content="#f7fbff" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="misoclub" />
-    <meta property="og:image" content="../../assets/og-image.png" />
+    <meta property="og:site_name" content="きょうの体重 | misoclub" />
+    <meta property="og:title" content="きょうの体重 — ダイエットをやさしく続ける体重記録アプリ" />
+    <meta property="og:description" content="毎日の体重を3秒で記録。グラフ・カレンダー・実績・ヘルス連携で、ダイエットがやさしく続く体重管理アプリ。" />
+    <meta property="og:url" content="https://misoclub.pro/apps/taiju-log/" />
+    <meta property="og:image" content="https://misoclub.pro/apps/taiju-log/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="きょうの体重 — ダイエットに便利なかんたん体重記録アプリ" />
     <meta name="twitter:card" content="summary_large_image" />
-    <title>きょうの体重 をダウンロード | misoclub</title>
-    <meta
-      name="description"
-      content="きょうの体重 - ダイエットに便利な超シンプルな体重記録！ を App Store / Google Play からダウンロードできます。"
-    />
-    <link rel="stylesheet" href="../../css/style.css" />
+    <meta name="twitter:title" content="きょうの体重 — ダイエットをやさしく続ける体重記録アプリ" />
+    <meta name="twitter:description" content="毎日の体重を3秒で記録。グラフ・カレンダー・実績・ヘルス連携で、ダイエットがやさしく続く体重管理アプリ。" />
+    <meta name="twitter:image" content="https://misoclub.pro/apps/taiju-log/og.png" />
+    <meta name="twitter:image:alt" content="きょうの体重 — ダイエットに便利なかんたん体重記録アプリ" />
+    <title>きょうの体重 — ダイエットに便利なかんたん体重記録アプリ</title>
+    <meta name="description" content="毎日の体重を3秒で記録。体脂肪・BMI・グラフ・カレンダー・実績・ヘルス連携で、ダイエットや減量がやさしく続く無料の体重管理アプリ。iPhone・Android対応。" />
+    <link rel="stylesheet" href="./taiju-log.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "きょうの体重",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "iOS, Android",
+        "description": "毎日の体重をかんたんに記録し、グラフやカレンダーで振り返れる、ダイエットや減量に便利な体重管理アプリ。",
+        "keywords": "ダイエット, 体重記録, 体重管理, 減量, 体脂肪, BMI, グラフ, カレンダー",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+        "downloadUrl": [
+          "https://apps.apple.com/app/id6786136357",
+          "https://play.google.com/store/apps/details?id=com.misoclub.easydiet"
+        ]
+      }
+    </script>
   </head>
   <body>
-    <!--
-      アプリのシェア機能などから飛ばすダウンロード専用ページ。
-      iOS / Android を選んでダウンロードしてもらう。
-      misoclub の他アプリ一覧へのリンク以外は置かない。
-      ↓ ストアの URL を実際のものに差し替えてください（href="#" の箇所）。
-    -->
-    <main class="dl-page">
-      <img src="./splash.jpg" alt="きょうの体重 - ダイエットに便利な超シンプルな体重記録！" class="dl-splash" />
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="きょうの体重 トップへ">
+        <img src="./icon.png" alt="" width="44" height="44" />
+        <span>きょうの体重</span>
+      </a>
+      <nav aria-label="ページ内ナビゲーション">
+        <a href="#features">できること</a>
+        <a href="#design">着せ替え</a>
+        <a href="#faq">よくある質問</a>
+        <a class="nav-download" href="#download">無料で使う</a>
+      </nav>
+    </header>
 
-      <h1>きょうの体重 - ダイエットに便利な超シンプルな体重記録！</h1>
-      <p class="dl-desc">お使いの端末を選んでダウンロード</p>
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">ダイエットを、がんばりすぎない。</p>
+          <h1 id="hero-title">体重、<br /><span>3秒。</span></h1>
+          <p class="hero-pop">＋と−を、ぽちぽちするだけ。</p>
+          <p class="hero-lead">今日の数字をひとつ残したら、それで100点。<br />ゆるく続けるうちに、変化がちゃんと見えてくる。</p>
+          <div class="quick-points" aria-label="アプリの特徴">
+            <span>ログインなしですぐ使える</span>
+            <span>iPhone・Android対応</span>
+          </div>
+          <div class="store-badges" id="download">
+            <a href="https://apps.apple.com/app/id6786136357" aria-label="App Storeでダウンロード">
+              <img src="../../assets/app-store-badge.svg" alt="App Storeでダウンロード" />
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.misoclub.easydiet" aria-label="Google Playで手に入れよう">
+              <img src="../../assets/google-play-badge.png" alt="Google Playで手に入れよう" />
+            </a>
+          </div>
+        </div>
 
-      <div class="store-badges">
-        <!-- iOS / App Store -->
-        <a href="https://apps.apple.com/app/id6786136357" aria-label="App Store でダウンロード">
-          <img src="../../assets/app-store-badge.svg" alt="App Store でダウンロード" />
-        </a>
+        <div class="hero-visual" aria-label="きょうの体重のホーム画面">
+          <div class="spark spark-one" aria-hidden="true">✦</div>
+          <div class="spark spark-two" aria-hidden="true">●</div>
+          <div class="phone phone-hero">
+            <div class="phone-speaker" aria-hidden="true"></div>
+            <img src="./img/home.jpg" alt="プラスとマイナスをタップして体重を記録するホーム画面" width="668" height="1400" />
+          </div>
+          <div class="float-card float-card-time"><strong>ぽちぽち</strong><span>するだけ！</span></div>
+          <div class="float-card float-card-goal"><strong>できた！</strong><span>今日も記録完了</span></div>
+        </div>
+      </section>
 
-        <!-- Android / Google Play -->
-        <a href="https://play.google.com/store/apps/details?id=com.misoclub.easydiet" aria-label="Google Play で手に入れよう">
-          <img src="../../assets/google-play-badge.png" alt="Google Play で手に入れよう" />
-        </a>
-      </div>
+      <section class="numbers" aria-label="きょうの体重の主な特徴">
+        <div><strong>3<span>秒</span></strong><p>今日の体重を記録</p></div>
+        <div><strong>4<span>期間</span></strong><p>週・月・6か月・年</p></div>
+        <div><strong>44<span>個</span></strong><p>続けたくなる実績</p></div>
+        <div><strong>128<span>枚</span></strong><p>選べる背景</p></div>
+      </section>
 
-      <p class="dl-others">
-        <a href="../">misoclub の他のアプリを見る →</a>
-      </p>
+      <section class="section-intro" id="features">
+        <p class="section-kicker">FOR YOUR ROUTINE</p>
+        <h2>続く体重管理に、<br />必要なものだけ。</h2>
+        <p>ダイエットに、カロリー計算もむずかしい分析も必須ではありません。<br />量る、残す、振り返る。その小さな習慣を気持ちよく続けるためのアプリです。</p>
+      </section>
+
+      <section class="feature feature-blue">
+        <div class="feature-copy">
+          <span class="feature-number">01</span>
+          <p class="feature-label">RECORD</p>
+          <h2>＋と−をタップ。<br />今日の記録は、それだけ。</h2>
+          <p>体重と体脂肪率を、ホーム画面からすぐに記録。前回との差、目標までの距離、今週・今月の変化も自動でまとまります。</p>
+          <ul class="check-list">
+            <li>体重・体脂肪率をかんたん入力</li>
+            <li>前回との差を自動表示</li>
+            <li>目標まであと何kgかひと目でわかる</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div class="phone">
+            <div class="phone-speaker" aria-hidden="true"></div>
+            <img src="./img/home.jpg" alt="体重と体脂肪率をタップで記録するホーム画面" loading="lazy" width="668" height="1400" />
+          </div>
+        </div>
+      </section>
+
+      <section class="feature feature-mint feature-reverse">
+        <div class="feature-copy">
+          <span class="feature-number">02</span>
+          <p class="feature-label">GRAPH</p>
+          <h2>日々のブレより、<br />ほんとうの変化を見る。</h2>
+          <p>体重・体脂肪率・BMIの推移を、見やすいグラフで。週・月・6か月・年を切り替え、7日平均と目標ラインで長い目の変化をつかめます。</p>
+          <ul class="check-list">
+            <li>週・月・6か月・年で切り替え</li>
+            <li>7日間の移動平均を表示</li>
+            <li>横スワイプで過去の記録へ</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div class="phone phone-tilt-left">
+            <div class="phone-speaker" aria-hidden="true"></div>
+            <img src="./img/graph.jpg" alt="体重と7日平均の変化がわかるグラフ画面" loading="lazy" width="611" height="1280" />
+          </div>
+        </div>
+      </section>
+
+      <section class="feature feature-coral">
+        <div class="feature-copy">
+          <span class="feature-number">03</span>
+          <p class="feature-label">CALENDAR &amp; HISTORY</p>
+          <h2>1か月を、ひと目で。</h2>
+          <p>カレンダーで1か月の体重と増減を俯瞰。履歴では、朝・昼・夜・間食のメモや運動、ひとこと日記まで、その日の記録をまとめて振り返れます。</p>
+          <ul class="check-list">
+            <li>数字／折れ線の2つのカレンダー表示</li>
+            <li>食事は朝・昼・夜・間食ごとにメモ</li>
+            <li>運動と一日のひとことも残せる</li>
+          </ul>
+        </div>
+        <div class="double-phone">
+          <div class="phone phone-back">
+            <div class="phone-speaker" aria-hidden="true"></div>
+            <img src="./img/calendar.jpg" alt="1か月の記録を一覧できるカレンダー画面" loading="lazy" width="611" height="1280" />
+          </div>
+          <div class="phone phone-front">
+            <div class="phone-speaker" aria-hidden="true"></div>
+            <img src="./img/history.jpg" alt="体重と食事・運動・メモをまとめて見られる履歴画面" loading="lazy" width="611" height="1280" />
+          </div>
+        </div>
+      </section>
+
+      <section class="motivation">
+        <div class="motivation-copy">
+          <p class="section-kicker">A LITTLE MOTIVATION</p>
+          <h2>がんばった日は、<br />ちゃんと形に残る。</h2>
+          <p>記録回数、連続記録、食事や運動のメモ、目標への一歩。続けるほどブロンズ、シルバー、ゴールドのトロフィーが集まります。</p>
+          <div class="trophy-chips" aria-label="実績の例">
+            <span>はじめての記録</span><span>7日連続</span><span>目標への一歩</span><span>コンプリート</span>
+          </div>
+        </div>
+        <div class="trophy-phone">
+          <div class="phone">
+            <div class="phone-speaker" aria-hidden="true"></div>
+            <img src="./img/trophy.jpg" alt="続けた成果がトロフィーになる実績画面" loading="lazy" width="611" height="1280" />
+          </div>
+          <div class="trophy-orbit orbit-one" aria-hidden="true">★</div>
+          <div class="trophy-orbit orbit-two" aria-hidden="true">🏆</div>
+        </div>
+      </section>
+
+      <section class="design-section" id="design">
+        <div class="section-intro section-intro-light">
+          <p class="section-kicker">MAKE IT YOURS</p>
+          <h2>毎日ひらくから、<br />好きな見た目に。</h2>
+          <p>背景128枚、テーマカラー14色、アプリアイコン36種類。<br />自分の写真を背景にすることもできます。</p>
+        </div>
+        <div class="theme-showcase" aria-label="ダーク・さくら・ミントのテーマ例">
+          <figure class="theme-phone theme-dark">
+            <div class="phone"><div class="phone-speaker" aria-hidden="true"></div><img src="./img/home-dark.jpg" alt="ダークテーマのホーム画面" loading="lazy" width="611" height="1280" /></div>
+            <figcaption>ダーク</figcaption>
+          </figure>
+          <figure class="theme-phone theme-sakura">
+            <div class="phone"><div class="phone-speaker" aria-hidden="true"></div><img src="./img/home-sakura.jpg" alt="さくらテーマのホーム画面" loading="lazy" width="611" height="1280" /></div>
+            <figcaption>さくら</figcaption>
+          </figure>
+          <figure class="theme-phone theme-mint">
+            <div class="phone"><div class="phone-speaker" aria-hidden="true"></div><img src="./img/home-mint.jpg" alt="ミントテーマのホーム画面" loading="lazy" width="611" height="1280" /></div>
+            <figcaption>ミント</figcaption>
+          </figure>
+        </div>
+        <div class="design-stats">
+          <div><strong>128</strong><span>背景</span></div>
+          <div><strong>14</strong><span>カラー</span></div>
+          <div><strong>36</strong><span>アイコン</span></div>
+        </div>
+      </section>
+
+      <section class="reassurance">
+        <div class="reassurance-visual">
+          <div class="phone phone-tilt-left">
+            <div class="phone-speaker" aria-hidden="true"></div>
+            <img src="./img/health.jpg" alt="ヘルス連携・クラウド同期・パスコードロックの設定画面" loading="lazy" width="611" height="1280" />
+          </div>
+        </div>
+        <div class="reassurance-copy">
+          <p class="section-kicker">YOUR DATA, YOURS</p>
+          <h2>大切な記録を、<br />これからも。</h2>
+          <div class="reassurance-list">
+            <article>
+              <span aria-hidden="true">↔</span>
+              <div><h3>ヘルスケアと双方向同期</h3><p>Appleヘルスケア／ヘルスコネクトから体重・体脂肪率を取り込み、アプリの記録も書き出せます。</p></div>
+            </article>
+            <article>
+              <span aria-hidden="true">☁</span>
+              <div><h3>機種変更しても引き継げる</h3><p>任意のログインでクラウド同期。ファイルへのバックアップと復元にも対応しています。</p></div>
+            </article>
+            <article>
+              <span aria-hidden="true">⌁</span>
+              <div><h3>見られたくない記録に鍵を</h3><p>パスコードと生体認証で、アプリ全体をロックできます。</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-grid" aria-labelledby="more-title">
+        <div class="section-intro">
+          <p class="section-kicker">AND MORE</p>
+          <h2 id="more-title">毎日を支える、<br />小さな便利。</h2>
+        </div>
+        <div class="grid-cards">
+          <article><span>⏰</span><h3>リマインド通知</h3><p>好きな時刻にやさしくお知らせ。記録が空いたときの通知も設定できます。</p></article>
+          <article><span>▣</span><h3>ホーム画面ウィジェット</h3><p>アプリを開く前に、今日の記録や変化をホーム画面から確認できます。</p></article>
+          <article><span>↗</span><h3>シェアカード</h3><p>体重そのものを隠し、増減や達成状況だけを選んで共有できます。</p></article>
+          <article><span>◎</span><h3>年間レポート</h3><p>1年の記録日数、変化、実績を振り返る自分だけのまとめを作れます。</p></article>
+        </div>
+      </section>
+
+      <section class="faq" id="faq" aria-labelledby="faq-title">
+        <div class="faq-heading">
+          <p class="section-kicker">FAQ</p>
+          <h2 id="faq-title">よくある質問</h2>
+          <p>はじめる前に気になることを、まとめました。</p>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>ログインしないと使えませんか？</summary>
+            <p>いいえ。ログインなしで、すべての基本機能をそのまま使えます。クラウド同期や機種変更時の引き継ぎを使いたい場合だけ、任意でログインしてください。</p>
+          </details>
+          <details>
+            <summary>無料で使えますか？</summary>
+            <p>無料でダウンロードして、体重記録・グラフ・カレンダー・実績などの機能を利用できます。画面下部にバナー広告が表示され、必要な方は買い切りで非表示にできます。</p>
+          </details>
+          <details>
+            <summary>体脂肪率やBMIも記録できますか？</summary>
+            <p>体脂肪率を体重と一緒に記録できます。BMIは身長と体重から自動で計算され、グラフでも変化を確認できます。</p>
+          </details>
+          <details>
+            <summary>スマート体重計のデータを取り込めますか？</summary>
+            <p>スマート体重計の記録がAppleヘルスケアまたはヘルスコネクトに保存されていれば、連携して体重・体脂肪率を取り込めます。</p>
+          </details>
+          <details>
+            <summary>機種変更しても記録は残りますか？</summary>
+            <p>ログインしてクラウド同期を使うか、バックアップファイルを書き出して復元することで引き継げます。ログインは機種変更のときだけでも利用できます。</p>
+          </details>
+          <details>
+            <summary>記録をほかの人に見られたくありません。</summary>
+            <p>4桁のパスコードと、端末が対応している場合は生体認証でアプリをロックできます。</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="final-cta" aria-labelledby="cta-title">
+        <div class="cta-deco deco-left" aria-hidden="true">✦</div>
+        <div class="cta-deco deco-right" aria-hidden="true">●</div>
+        <img src="./icon.png" alt="きょうの体重 アプリアイコン" width="112" height="112" />
+        <p class="section-kicker">START TODAY</p>
+        <h2 id="cta-title">まずは今日の体重を、<br />ひとつ残してみよう。</h2>
+        <p>量るだけから始める、やさしい体重管理。</p>
+        <div class="store-badges">
+          <a href="https://apps.apple.com/app/id6786136357" aria-label="App Storeでダウンロード">
+            <img src="../../assets/app-store-badge.svg" alt="App Storeでダウンロード" />
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.misoclub.easydiet" aria-label="Google Playで手に入れよう">
+            <img src="../../assets/google-play-badge.png" alt="Google Playで手に入れよう" />
+          </a>
+        </div>
+      </section>
     </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="./icon.png" alt="" width="48" height="48" />
+          <div><strong>きょうの体重</strong><span>by misoclub</span></div>
+        </div>
+        <nav aria-label="フッターナビゲーション">
+          <a href="./privacy.html">プライバシーポリシー</a>
+          <a href="./tokushoho.html">特定商取引法に基づく表記</a>
+          <a href="./account-deletion.html">アカウントとデータの削除</a>
+          <a href="../../support.html">お問い合わせ</a>
+          <a href="../">misoclubのアプリ</a>
+        </nav>
+      </div>
+      <p class="copyright">© misoclub</p>
+    </footer>
   </body>
 </html>
