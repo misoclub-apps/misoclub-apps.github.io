@@ -256,14 +256,32 @@ p { margin-top: 0; }
 .grid-cards h3 { margin: 18px 0 8px; font-size: 17px; }
 .grid-cards p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
 
-.faq { width: 100%; margin: 0; padding: 78px max(24px, calc((100% - 1000px) / 2)); display: grid; grid-template-columns: .55fr 1fr; gap: 70px; align-items: start; background: white; }
+.faq { width: 100%; margin: 0; padding: 78px max(24px, calc((100% - 1000px) / 2)); display: grid; grid-template-columns: minmax(360px, .6fr) minmax(0, 1fr); gap: 58px; align-items: start; background: white; }
 .faq-heading { position: static; }
-.faq-heading > p:last-child { margin-top: 18px; color: var(--muted); line-height: 1.8; }
+.faq-heading h2 { font-size: clamp(38px, 4vw, 52px); white-space: nowrap; }
+.faq-heading > p:last-child { max-width: 380px; margin-top: 18px; color: var(--muted); line-height: 1.8; text-wrap: balance; }
 .faq-list { display: grid; border-top: 1px solid var(--line); }
 .faq details { border-bottom: 1px solid var(--line); }
 .faq summary { padding: 22px 46px 22px 0; cursor: pointer; list-style: none; font-weight: 800; line-height: 1.55; position: relative; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; position: absolute; right: 0; top: 50%; display: grid; place-items: center; width: 30px; height: 30px; padding-bottom: 2px; color: white; background: var(--blue); border: 2px solid #d9ecff; border-radius: 50%; font-family: Arial, sans-serif; font-size: 22px; font-weight: 500; line-height: 1; transform: translateY(-50%); transform-origin: center; }
+.faq summary::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(#fff, #fff) center / 14px 3px no-repeat,
+    linear-gradient(#fff, #fff) center / 3px 14px no-repeat,
+    var(--blue);
+  box-shadow: 0 0 0 4px #d9ecff;
+  transform: translateY(-50%);
+  transform-origin: 50% 50%;
+}
 .faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
 .faq summary:focus { outline: none; }
 .faq summary:focus-visible { outline: 3px solid rgba(22,136,243,.35); outline-offset: 5px; border-radius: 4px; }
@@ -312,6 +330,7 @@ footer { padding: 48px 24px 22px; color: #aebed0; background: #0b1a2d; }
   .grid-cards article:nth-child(4) { border-top: 1px solid var(--line); }
   .faq { grid-template-columns: 1fr; gap: 42px; }
   .faq-heading { text-align: center; }
+  .faq-heading > p:last-child { margin-right: auto; margin-left: auto; }
 }
 
 @media (max-width: 680px) {
