@@ -95,7 +95,7 @@ p { margin-top: 0; }
 .float-card span { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; font-weight: 800; }
 .float-card-time { top: 24%; left: 0; color: var(--blue-deep); }
 .float-card-goal { right: 0; bottom: 19%; color: #df4f57; border-color: #ffd5d6; }
-.hero-character { width: 230px; height: auto; position: absolute; right: -5px; bottom: 8px; z-index: 3; filter: drop-shadow(0 15px 16px rgba(36,74,112,.14)); pointer-events: none; }
+.hero-character { width: 270px; height: auto; position: absolute; right: -25px; bottom: 8px; z-index: 3; filter: drop-shadow(0 15px 16px rgba(36,74,112,.14)); pointer-events: none; }
 
 .phone {
   width: 258px;
@@ -165,14 +165,14 @@ p { margin-top: 0; }
 .feature-mint .feature-visual::before { border-color: rgba(21,173,130,.2); background: rgba(255,255,255,.4); }
 .feature-coral .feature-visual::before { border-color: rgba(255,109,112,.2); }
 .feature-visual .phone { width: 250px; }
-.feature-character { position: absolute; z-index: 3; width: 180px; height: auto; filter: drop-shadow(0 13px 14px rgba(36,74,112,.13)); pointer-events: none; }
-.graph-character { right: 0; bottom: -6px; }
+.feature-character { position: absolute; z-index: 3; width: 220px; height: auto; filter: drop-shadow(0 13px 14px rgba(36,74,112,.13)); pointer-events: none; }
+.graph-character { right: -28px; bottom: -6px; }
 
 .double-phone { min-height: 450px; display: flex; align-items: center; justify-content: center; gap: 18px; position: relative; z-index: 2; }
 .double-phone .phone { width: 184px; flex: 0 0 auto; }
 .phone-back { transform: rotate(-2deg); }
 .phone-front { transform: rotate(2deg); }
-.history-character { right: -18px; bottom: -8px; width: 170px; }
+.history-character { right: -38px; bottom: -8px; width: 210px; }
 
 .motivation {
   width: 100%;
@@ -194,7 +194,7 @@ p { margin-top: 0; }
 .trophy-phone { min-height: 460px; display: grid; place-items: center; position: relative; }
 .trophy-phone::before { content: ""; width: 390px; max-width: 90%; aspect-ratio: 1; position: absolute; border-radius: 50%; background: rgba(255,255,255,.33); border: 2px solid rgba(255,255,255,.5); }
 .trophy-phone .phone { width: 250px; transform: rotate(2deg); }
-.trophy-character { left: -2px; bottom: -10px; width: 175px; transform: scaleX(-1); }
+.trophy-character { left: -28px; bottom: -10px; width: 220px; transform: scaleX(-1); }
 .trophy-orbit { position: absolute; z-index: 3; font-size: 28px; }
 .orbit-one { top: 17%; left: 15%; color: #e8b900; }
 .orbit-two { right: 12%; bottom: 20%; }
@@ -351,7 +351,7 @@ footer { padding: 48px 24px 22px; color: #aebed0; background: #0b1a2d; }
   .store-badges img { height: 42px; }
   .hero-visual { min-height: 430px; }
   .hero-visual::before { width: 310px; }
-  .hero-character { width: 145px; right: 0; bottom: 14px; }
+  .hero-character { width: 175px; right: -22px; bottom: 14px; }
   .spark-one { right: 2%; }
   .spark-two { left: 2%; }
   .phone-hero { width: 215px; }
@@ -377,18 +377,18 @@ footer { padding: 48px 24px 22px; color: #aebed0; background: #0b1a2d; }
   .feature-visual { min-height: 0; }
   .feature-visual::before { width: 285px; }
   .feature-visual .phone { width: 220px; }
-  .feature-character { width: 115px; }
-  .graph-character { right: 8px; bottom: -4px; }
-  .double-phone { min-height: 0; gap: 9px; margin-bottom: 114px; }
+  .feature-character { width: 145px; }
+  .graph-character { right: -18px; bottom: -4px; }
+  .double-phone { min-height: 0; gap: 9px; margin-bottom: 145px; }
   .double-phone .phone { width: min(42vw, 158px); }
-  .history-character { right: 4px; bottom: -114px; width: 94px; }
+  .history-character { right: -18px; bottom: -145px; width: 125px; }
 
   .motivation { padding: 62px 20px; }
   .motivation-copy > p:not(.section-kicker) { font-size: 14px; }
   .trophy-phone { min-height: 400px; }
   .trophy-phone::before { width: 300px; }
   .trophy-phone .phone { width: 220px; }
-  .trophy-character { left: 5px; bottom: -4px; width: 110px; }
+  .trophy-character { left: -22px; bottom: -4px; width: 145px; }
   .trophy-orbit { display: none; }
 
   .design-section { padding: 62px 14px; }
