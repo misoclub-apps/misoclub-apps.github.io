@@ -379,9 +379,10 @@ footer { padding: 48px 24px 22px; color: #aebed0; background: #0b1a2d; }
   .feature-visual .phone { width: 220px; }
   .feature-character { width: 145px; }
   .graph-character { right: -18px; bottom: -4px; }
-  .double-phone { min-height: 0; gap: 9px; margin-bottom: 112px; }
+  .feature-coral { padding-bottom: 28px; }
+  .double-phone { min-height: 0; gap: 9px; margin-bottom: 0; }
   .double-phone .phone { width: min(42vw, 158px); }
-  .history-character { right: -18px; bottom: -92px; width: 125px; }
+  .history-character { right: -18px; bottom: 0; width: 125px; }
 
   .motivation { padding: 62px 20px; }
   .motivation-copy > p:not(.section-kicker) { font-size: 14px; }
