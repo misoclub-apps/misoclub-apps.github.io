@@ -186,11 +186,14 @@ p { margin-top: 0; }
 .feature-mint .feature-visual::before { border-color: rgba(21,173,130,.2); background: rgba(255,255,255,.4); }
 .feature-coral .feature-visual::before { border-color: rgba(255,109,112,.2); }
 .feature-visual .phone { width: 250px; }
+.feature-character { position: absolute; z-index: 3; width: 180px; height: auto; filter: drop-shadow(0 13px 14px rgba(36,74,112,.13)); pointer-events: none; }
+.graph-character { left: 0; bottom: -6px; }
 
 .double-phone { min-height: 500px; display: flex; align-items: center; justify-content: center; gap: 18px; position: relative; z-index: 2; }
 .double-phone .phone { width: 184px; flex: 0 0 auto; }
 .phone-back { transform: rotate(-2deg); }
 .phone-front { transform: rotate(2deg); }
+.history-character { right: -18px; bottom: -8px; width: 170px; }
 
 .motivation {
   width: 100%;
@@ -212,6 +215,7 @@ p { margin-top: 0; }
 .trophy-phone { min-height: 520px; display: grid; place-items: center; position: relative; }
 .trophy-phone::before { content: ""; width: 390px; max-width: 90%; aspect-ratio: 1; position: absolute; border-radius: 50%; background: rgba(255,255,255,.33); border: 2px solid rgba(255,255,255,.5); }
 .trophy-phone .phone { width: 250px; transform: rotate(2deg); }
+.trophy-character { left: -2px; bottom: -10px; width: 175px; }
 .trophy-orbit { position: absolute; z-index: 3; font-size: 28px; }
 .orbit-one { top: 17%; left: 15%; color: #e8b900; }
 .orbit-two { right: 12%; bottom: 20%; }
@@ -280,8 +284,10 @@ p { margin-top: 0; }
 .faq details { border-bottom: 1px solid var(--line); }
 .faq summary { padding: 22px 46px 22px 0; cursor: pointer; list-style: none; font-weight: 800; line-height: 1.55; position: relative; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; position: absolute; right: 4px; top: 50%; display: grid; place-items: center; width: 30px; height: 30px; color: white; background: var(--blue); border-radius: 50%; box-shadow: 0 4px 0 #c9e5ff; font-size: 21px; transform: translateY(-50%); }
+.faq summary::after { content: "+"; position: absolute; right: 0; top: 50%; display: grid; place-items: center; width: 30px; height: 30px; padding-bottom: 2px; color: white; background: var(--blue); border: 2px solid #d9ecff; border-radius: 50%; font-family: Arial, sans-serif; font-size: 22px; font-weight: 500; line-height: 1; transform: translateY(-50%); transform-origin: center; }
 .faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq summary:focus { outline: none; }
+.faq summary:focus-visible { outline: 3px solid rgba(22,136,243,.35); outline-offset: 5px; border-radius: 4px; }
 .faq details p { margin: 0; padding: 0 42px 22px 0; color: var(--muted); font-size: 14px; line-height: 1.9; }
 
 .final-cta { width: 100%; margin: 0; padding: 92px 24px; text-align: center; background: linear-gradient(135deg, #e9f5ff, #fff8ed 52%, #eafff8); }
@@ -378,14 +384,18 @@ footer { padding: 48px 24px 22px; color: #aebed0; background: #0b1a2d; }
   .feature-visual { min-height: 0; }
   .feature-visual::before { width: 285px; }
   .feature-visual .phone { width: 220px; }
+  .feature-character { width: 135px; }
+  .graph-character { left: calc(50% - 155px); bottom: -5px; }
   .double-phone { min-height: 0; gap: 9px; }
   .double-phone .phone { width: min(42vw, 158px); }
+  .history-character { right: -4px; bottom: -5px; width: 125px; }
 
   .motivation { padding: 78px 20px; }
   .motivation-copy > p:not(.section-kicker) { font-size: 14px; }
   .trophy-phone { min-height: 450px; }
   .trophy-phone::before { width: 300px; }
   .trophy-phone .phone { width: 220px; }
+  .trophy-character { left: calc(50% - 155px); bottom: -5px; width: 130px; }
   .trophy-orbit { display: none; }
 
   .design-section { padding: 78px 14px; }
