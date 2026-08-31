@@ -1,0 +1,53 @@
+name: Update sitemap
+
+# HTML を足したり消したりしたら sitemap.xml を作り直して main にコミットする。
+# 人が tools/gen-sitemap.py を叩く必要は無い（叩いても同じ結果になる）。
+#
+# 無限ループにならない理由:
+#   1. GITHUB_TOKEN による push は push ワークフローを起動しない（GitHub の仕様）
+#   2. そもそも差分が無ければコミットしない（下の git diff --quiet）
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - 'CNAME'
+      - 'tools/gen-sitemap.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 短い間隔で push が続いたときに、2本が同時に走って push が衝突しないように直列化する。
+concurrency:
+  group: sitemap
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # ブランチの先端を取る。順番待ちしていた実行が古いコミットを見て
+          # push に失敗するのを避けるため（トリガー時点の SHA ではなく main の今）。
+          ref: ${{ github.ref_name }}
+          # **fetch-depth: 0 は必須。** 既定の shallow clone だと
+          # `git log -1 -- <file>` が全ファイルで同じ1コミットを返し、
+          # <lastmod> が全部同じ日付という嘘になる。
+          fetch-depth: 0
+
+      - name: Regenerate sitemap.xml
+        run: python3 tools/gen-sitemap.py
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- sitemap.xml; then
+            echo "sitemap.xml に変更なし。何もしない。"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add sitemap.xml
+          git commit -m 'chore: sitemap.xml を自動更新'
+          git push

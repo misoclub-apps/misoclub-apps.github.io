@@ -1,0 +1,11 @@
+# misoclub.pro — クローラ向けの指示。
+# 検索に出したくないページは各 HTML の <meta name="robots" content="noindex"> で
+# 個別に塞いでいる（sitemap.xml の生成もそれを見ている）。ここに1枚ずつ列挙しない。
+
+User-agent: *
+Allow: /
+
+# アプリ追加用の雛形。タイトルがプレースホルダのままなので中身が公開に耐えない。
+Disallow: /apps/_template/
+
+Sitemap: https://misoclub.pro/sitemap.xml
