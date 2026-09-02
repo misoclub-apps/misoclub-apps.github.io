@@ -26,6 +26,8 @@ misoclub の公式サイト。素の HTML / CSS で作られた静的サイト�
 ├── css/
 │   └── style.css           # 共通スタイル（色は :root の変数で調整。スマホ最適化済み）
 ├── site.webmanifest        # PWA/ホーム画面用マニフェスト
+├── sitemap.xml             # **自動生成**（手で触らない）。tools/gen-sitemap.py と CI が作る
+├── robots.txt              # クローラ向け。sitemap.xml の所在を示す
 ├── assets/                 # サイト共通の画像（アプリ固有のものは apps/<アプリ>/ 配下）
 │   ├── logo.png            # ヘッダー用ロゴ（logo-source から余白トリム＋背景透過）
 │   ├── logo-source.png     # ロゴ原本（MC＋MISOCLUB・正方形・黒背景）。各素材の元データ
@@ -36,6 +38,10 @@ misoclub の公式サイト。素の HTML / CSS で作られた静的サイト�
 │   ├── og-image.png        # OGP画像（1200x630）
 │   ├── app-store-badge.svg # App Store 公式バッジ（日本語）
 │   └── google-play-badge.png # Google Play 公式バッジ（日本語）
+├── tools/
+│   └── gen-sitemap.py      # sitemap.xml の生成（下の「サイトマップ」参照）
+├── .github/workflows/
+│   └── sitemap.yml         # push のたびに sitemap.xml を作り直してコミットする
 └── .nojekyll               # GitHub Pages の Jekyll 処理を無効化
 ```
 
@@ -143,6 +149,9 @@ magick $D/icon.png -resize 128x128 -strip $D/icon-128.png
 
 1. **`apps/_template/` フォルダを `apps/<アプリ>/` にコピー**
 2. その中の `index.html`（DLページ）・`privacy.html`（日本語ポリシー）・`privacy-en.html`（英語ポリシー）を編集（アプリ名・各ストアの URL（`href="#"`）・ポリシー本文）
+   - **`index.html` の `<meta name="robots" content="noindex" />` を必ず消すこと。** 雛形そのものを検索に出さないために付けてある。消し忘れると、そのアプリのページが検索に出ず `sitemap.xml` にも載らない（消し忘れは `python3 tools/gen-sitemap.py` が警告してくれる）
+   - `og:url` と `hreflang` の `アプリ名` の部分を実際のパスに置き換える（3枚とも。`<!-- ↓ コピーしたら実際の URL に直すこと -->` が目印）
+   - ポリシー2枚の `noindex` は**そのまま残す**（検索結果に出さない方針）
 3. **`icon.png`**（正方形・256px 以上）と **`splash.jpg`**（縦長）を同フォルダに置く
 4. **`apps/index.html`**（`/apps/` 一覧）の `<article class="app-card">` を 1 つ複製し、アイコンのパス（`./<アプリ>/icon.png`）・アプリ名・説明・各ストアの URL を差し替え
 5. **トップページ `index.html`** の `#apps` セクションにも `<div class="app-card app-card--link">` を 1 つ複製して追記：
@@ -171,6 +180,29 @@ python3 -m http.server 8000
 
 各アプリに日本語版 `apps/<アプリ>/privacy.html` と英語版 `apps/<アプリ>/privacy-en.html` を用意しています。アプリ側からこれらの URL を直接リンクします（検索結果には出さない `noindex` 付き）。雛形は `apps/_template/privacy.html`（日本語）・`apps/_template/privacy-en.html`（英語）。トップページの各アプリカード右上（🔒 JA / EN）からも両方を開けます。
 
+## サイトマップ
+
+`sitemap.xml` は **GitHub Actions（`.github/workflows/sitemap.yml`）が push のたびに作り直してコミットする**ので、
+アプリやページを足したときに**手で何かを叩く必要は無い**。`sitemap.xml` を手で編集しないこと（次の push で上書きされる）。
+
+**載せる／載せないの判断は、各 HTML の `<meta name="robots" content="noindex">` が唯一の正典。**
+検索に出したくないページはそれを付けるだけでよく、除外リストのような二重管理はどこにも無い
+（例外は雛形の `apps/_template/` と Search Console の確認ファイルで、これはスクリプト側で除外している）。
+
+手元で結果を確認したいときだけ叩く。
+
+```sh
+python3 tools/gen-sitemap.py
+# → 10 URLs -> sitemap.xml
+```
+
+- `<lastmod>` は **git のコミット日時**から取る（ファイルの mtime は checkout のたびに変わるので使わない）。
+  そのため CI の `actions/checkout` には **`fetch-depth: 0` が必須**。浅いクローンだと全ページが同じ日付になる。
+- `<changefreq>` と `<priority>` は Google が公式に無視するので出力していない。
+- `apps/<アプリ>/index.html` に `noindex` が付いていると警告を出す（雛形からの消し忘れをここで捕まえる）。
+- CI の push が 403 で落ちる場合は、リポジトリの Settings → Actions → General → Workflow permissions を
+  **Read and write permissions** にする。
+
 ## GitHub Pages で公開する
 
 リポジトリの Settings → Pages で、Source を `main` ブランチのルート (`/`) に設定すると公開されます。
@@ -181,5 +213,5 @@ python3 -m http.server 8000
 - [x] favicon・ホーム画面アイコン・OGP画像を追加
 - [x] App Store / Google Play とも公式バッジを使用
 - [ ] ストアURL（App Store / Google Play）を差し替え（一覧カード内バッジ・各アプリの DLページ。現在は `href="#"`）
-- [ ] 公開URL（独自ドメイン等）が決まったら、各ページの `og:image` を**絶対URL**に変更（SNS/メッセージのプレビューは相対パスだと表示されないことがある）。あわせて `og:url` も設定推奨
+- [x] 公開URL（`misoclub.pro`）が決まったので、各ページの `og:image` を**絶対URL**に変更し、`og:url` / `og:title` も設定。あわせて検索対象ページに `canonical`、ja/en ペアに `hreflang` を追加
 - [x] トップページ（`index.html`）にヒーロー＋アプリ一覧（`#apps`）を用意
