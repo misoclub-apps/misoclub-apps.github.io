@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-03",
+  "framework": "vanilla-html",
+  "font_stack": "OS system stack in css/style.css; homepage now uses its own tokenized web-font stack",
+  "palette": "warm cream and miso-orange CSS variables in css/style.css",
+  "motion": "no motion library",
+  "spacing": "existing CSS uses a loose 4px-based rhythm",
+  "preserved": ["routes", "app copy intent", "app icons", "privacy links", "SEO metadata", "GitHub Pages deployment"]
+}

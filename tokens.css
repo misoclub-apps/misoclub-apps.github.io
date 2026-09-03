@@ -1,0 +1,85 @@
+/* Hallmark · custom palette · light / geometric-sans / chromatic-pink */
+:root {
+  --color-paper: oklch(97.8% 0.01 285);
+  --color-paper-2: oklch(95.5% 0.014 285);
+  --color-paper-3: oklch(93% 0.014 285);
+  --color-ink: oklch(21% 0.035 302);
+  --color-ink-soft: oklch(39% 0.035 302);
+  --color-muted: oklch(51% 0.028 302);
+  --color-rule: oklch(84% 0.035 285);
+  --color-rule-strong: oklch(68% 0.055 285);
+  --color-accent: oklch(68% 0.2 354);
+  --color-accent-deep: oklch(54% 0.2 354);
+  --color-accent-ink: oklch(20% 0.035 302);
+  --color-blue: oklch(72% 0.14 235);
+  --color-blue-deep: oklch(50% 0.15 235);
+  --color-purple: oklch(66% 0.17 298);
+  --color-purple-deep: oklch(48% 0.16 298);
+  --color-mint: oklch(82% 0.12 160);
+  --color-mint-deep: oklch(48% 0.12 160);
+  --color-pink-tint: oklch(94% 0.055 354);
+  --color-blue-tint: oklch(94% 0.05 235);
+  --color-sky-tint: oklch(95% 0.048 220);
+  --color-purple-tint: oklch(92% 0.065 298);
+  --color-mint-tint: oklch(94% 0.05 160);
+  --color-focus: oklch(52% 0.2 298);
+  --color-shadow: oklch(24% 0.055 302);
+  --color-paper-on-ink: oklch(97% 0.016 285);
+  --color-stage-mio: oklch(62% 0.24 332);
+  --color-stage-weight: oklch(78% 0.15 169);
+  --color-stage-memory: oklch(72% 0.16 231);
+  --color-stage-night: oklch(25% 0.095 287);
+  --color-stage-travel: oklch(65% 0.2 24);
+
+  --font-display: "Bricolage Grotesque", "M PLUS Rounded 1c", sans-serif;
+  --font-body: "M PLUS Rounded 1c", "Bricolage Grotesque", sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.25rem;
+  --text-3xl: 3rem;
+  --text-4xl: 4rem;
+  --text-display: clamp(2.75rem, 7vw, 5.75rem);
+
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --radius-sm: 0.75rem;
+  --radius-input: 1rem;
+  --radius-card: 1.5rem;
+  --radius-large: 2rem;
+  --radius-pill: 999px;
+  --rule-hair: 1px;
+  --rule-bold: 2px;
+
+  --page-max: 94rem;
+  --page-gutter: clamp(1rem, 4vw, 3rem);
+  --section-gap: clamp(4.5rem, 10vw, 8rem);
+  --nav-height: 4rem;
+  --nav-height-stage: 5rem;
+  --nav-height-stage-mobile: 4.5rem;
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky: 200;
+  --z-tooltip: 600;
+}

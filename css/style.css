@@ -106,6 +106,93 @@ section {
   height: 46px;
   display: block;
 }
+
+.portal-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #000;
+  background: var(--color-dark);
+}
+
+.portal-nav {
+  display: flex;
+  width: 100%;
+  min-height: 80px;
+  padding: 12px clamp(16px, 4vw, 48px);
+  align-items: center;
+  gap: 40px;
+}
+
+.portal-brand {
+  display: inline-flex;
+  margin-right: auto;
+  min-height: 56px;
+  align-items: center;
+  gap: 12px;
+  color: #f3f0e9;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.portal-brand img {
+  width: 56px;
+  height: 56px;
+}
+
+.portal-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.portal-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: #f3f0e9;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.portal-action {
+  display: inline-flex;
+  min-height: 48px;
+  padding: 0 24px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  color: var(--color-dark);
+  background: #f3f0e9;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.portal-brand:hover,
+.portal-links a:hover,
+.portal-action:hover { text-decoration: none; }
+
+.portal-links a:hover { color: var(--color-accent); }
+.portal-action:hover { color: var(--color-dark); }
+
+.portal-brand:focus-visible,
+.portal-links a:focus-visible,
+.portal-action:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.portal-brand:active,
+.portal-links a:active,
+.portal-action:active { transform: translateY(1px); }
 .nav a {
   margin-left: 24px;
   color: #f3f0e9;
@@ -239,6 +326,44 @@ section {
 }
 .app-card .store-badges img {
   height: 42px;
+}
+
+.app-policy-links {
+  display: flex;
+  margin-top: 14px;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+}
+
+.app-policy-links > svg {
+  flex: 0 0 auto;
+}
+
+.app-policy-links a {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  display: inline-flex;
+  padding: 0 8px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-fg);
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.app-policy-links a:hover,
+.app-policy-links a:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+.app-policy-links a:active {
+  background: var(--color-border);
 }
 
 /* リンク付きカード（トップページ用）
@@ -507,6 +632,33 @@ section {
   }
   .app-card .store-badges {
     justify-content: center;
+  }
+  .app-policy-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 639px) {
+  .portal-nav {
+    min-height: 72px;
+    padding-block: 8px;
+    gap: 16px;
+  }
+  .portal-brand {
+    min-height: 44px;
+    gap: 8px;
+    font-size: 1.125rem;
+  }
+  .portal-brand img {
+    width: 40px;
+    height: 40px;
+  }
+  .portal-links { display: none; }
+  .portal-action {
+    min-height: 44px;
+    padding-inline: 16px;
+    font-size: 0.875rem;
   }
 }
 
