@@ -755,6 +755,12 @@ a[aria-disabled="true"] {
   color: var(--color-paper-on-ink);
 }
 
+.site-footer__social--note {
+  font-size: var(--text-xs);
+  letter-spacing: -0.04em;
+  text-transform: none;
+}
+
 .site-footer__utility {
   display: flex;
   align-items: center;

@@ -76,7 +76,7 @@
   --section-gap: clamp(4.5rem, 10vw, 8rem);
   --nav-height: 4rem;
   --nav-height-stage: 5rem;
-  --nav-height-stage-mobile: 4.5rem;
+  --nav-height-stage-mobile: 2.75rem;
 
   --z-base: 1;
   --z-raised: 10;

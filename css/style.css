@@ -641,24 +641,24 @@ section {
 
 @media (max-width: 639px) {
   .portal-nav {
-    min-height: 72px;
-    padding-block: 8px;
-    gap: 16px;
+    min-height: 44px;
+    padding-block: 0;
+    gap: 12px;
   }
   .portal-brand {
     min-height: 44px;
     gap: 8px;
-    font-size: 1.125rem;
+    font-size: 0.875rem;
   }
   .portal-brand img {
-    width: 40px;
-    height: 40px;
+    width: 28px;
+    height: 28px;
   }
   .portal-links { display: none; }
   .portal-action {
-    min-height: 44px;
-    padding-inline: 16px;
-    font-size: 0.875rem;
+    min-height: 36px;
+    padding-inline: 12px;
+    font-size: 0.8125rem;
   }
 }
 

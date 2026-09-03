@@ -69,6 +69,19 @@
   white-space: nowrap;
 }
 
+.featured-heading {
+  margin-block-end: var(--space-lg);
+}
+
+.featured-heading h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl));
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
 .mio-feature {
   display: grid;
   width: min(calc(100% - (var(--page-gutter) * 2)), 64rem);
@@ -116,12 +129,6 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.mio-feature__copy strong {
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  line-height: 1;
 }
 
 .mio-feature__copy > span:not(.mio-feature__label):not(.mio-feature__link) {
@@ -350,7 +357,7 @@
 .app-shelf {
   padding-block: var(--space-xl);
   border-block: var(--rule-hair) solid var(--color-rule-strong);
-  background: color-mix(in oklch, var(--color-purple-tint) 68%, var(--color-paper));
+  background: color-mix(in oklch, var(--color-purple-tint) 40%, var(--color-paper));
 }
 
 .app-shelf .shell {
@@ -552,21 +559,31 @@
 }
 
 @media (max-width: 47.99rem) {
+  .site-header,
   .nav-pill { min-height: var(--nav-height-stage-mobile); }
+  .nav-pill { padding-block: var(--space-2xs); }
   .wordmark--logo { gap: var(--space-xs); }
-  .wordmark--logo img { width: 2.5rem; height: 2.5rem; }
-  .wordmark--logo .wordmark__text { font-size: var(--text-md); }
-  .showcase { padding-block: var(--space-xl) 0; }
+  .wordmark--logo img { width: 1.75rem; height: 1.75rem; }
+  .wordmark--logo .wordmark__text { font-size: var(--text-sm); }
+  .showcase { padding-block: var(--space-lg) 0; }
   .mio-feature {
     width: 100%;
     max-width: 100%;
     grid-template-columns: minmax(0, 1fr);
-    margin-block: calc(var(--space-xl) * -1) 0;
+    margin-block: 0;
     padding-inline: 0;
     color: var(--color-ink);
-    background: var(--color-pink-tint);
+    background: var(--color-paper);
   }
-  .mio-feature__copy { padding: var(--space-lg) var(--page-gutter); }
+  .mio-feature__media { position: relative; z-index: 0; }
+  .mio-feature__copy {
+    position: relative;
+    z-index: 1;
+    margin-block-start: calc(var(--space-lg) * -1);
+    padding: var(--space-xl) var(--page-gutter) var(--space-lg);
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    background: color-mix(in oklch, var(--color-paper) 88%, var(--color-pink-tint));
+  }
   .mio-feature__label { color: var(--color-accent-deep); }
   .mio-feature__copy > span:not(.mio-feature__label):not(.mio-feature__link) { color: var(--color-ink-soft); }
   .mio-feature__link { color: var(--color-ink); }
