@@ -143,11 +143,11 @@
 
         var storeBtn = document.getElementById("storeBtn");
         if (ios) {
-          storeBtn.href = "https://apps.apple.com/app/id6789859554";
+          storeBtn.href = "https://apps.apple.com/jp/app/id6789859554";
           storeBtn.textContent = "App Store でインストール";
         } else if (android) {
           storeBtn.href =
-            "https://play.google.com/store/apps/details?id=com.misoclub.mio";
+            "https://play.google.com/store/apps/details?id=com.misoclub.mio&hl=ja";
           storeBtn.textContent = "Google Play でインストール";
         }
         // ストアへ出たことを覚えておき、戻ってきたときに続きを案内する。
@@ -185,7 +185,7 @@
               "#Intent;scheme=https;package=com.misoclub.mio;" +
               "S.browser_fallback_url=" +
               encodeURIComponent(
-                "https://play.google.com/store/apps/details?id=com.misoclub.mio"
+                "https://play.google.com/store/apps/details?id=com.misoclub.mio&hl=ja"
               ) + ";end"
             // iOS の Universal Links は**同一ドメイン内の遷移では発火しない**ので、
             // このページから招待URLを開いてもアプリは起動しない。custom scheme
