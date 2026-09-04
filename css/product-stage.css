@@ -58,6 +58,10 @@
   background: var(--color-paper);
 }
 
+.showcase.showcase--without-feature {
+  padding-block-start: 0;
+}
+
 .showcase__intro {
   position: absolute;
   width: 1px;
@@ -71,6 +75,11 @@
 
 .featured-heading {
   margin-block-end: var(--space-lg);
+}
+
+.featured-heading[hidden],
+.mio-feature[hidden] {
+  display: none;
 }
 
 .featured-heading h2 {
@@ -589,10 +598,10 @@
   .mio-feature__link { color: var(--color-ink); }
   .app-switcher { padding-inline: var(--page-gutter); }
   .stage-panel {
-    height: 43rem;
-    min-height: 43rem;
+    height: calc(10rem + clamp(20rem, calc(100vw - (var(--page-gutter) * 2)), 26rem));
+    min-height: 0;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 11rem 32rem;
+    grid-template-rows: 10rem clamp(20rem, calc(100vw - (var(--page-gutter) * 2)), 26rem);
     gap: 0;
   }
   .stage-panel__copy { gap: var(--space-md); padding: 0; }
