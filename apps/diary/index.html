@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" href="../../assets/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png" />
+    <link rel="canonical" href="https://misoclub.pro/apps/diary/" />
+    <meta name="theme-color" content="#fff8f2" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="misoclub" />
+    <meta property="og:title" content="秒速日記 — 1日に何回でも書ける日記アプリ" />
+    <meta property="og:description" content="書きたい瞬間に、秒で日記を書こう。チャットのように書きためる日記アプリ。写真も貼れて、カレンダーで振り返れる。会員登録なしで無料。" />
+    <meta property="og:url" content="https://misoclub.pro/apps/diary/" />
+    <meta property="og:image" content="https://misoclub.pro/assets/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="秒速日記 — 1日に何回でも書ける日記アプリ" />
+    <meta name="twitter:description" content="書きたい瞬間に、秒で日記を書こう。チャットのように書きためる日記アプリ。" />
+    <title>秒速日記 — 1日に何回でも書ける日記アプリ</title>
+    <meta name="description" content="書きたい瞬間に、秒で日記を書こう。1日1ページじゃなくていい。チャットのように書きためる日記アプリ。写真も貼れて、カレンダーで振り返れる。日記帳は何冊でも。iPhone・Android対応、無料。" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "秒速日記",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "iOS, Android",
+        "description": "思いついたときにひとことだけ書ける、チャットのような日記アプリ。写真も貼れて、カレンダーで振り返れる。",
+        "keywords": "日記, 日記アプリ, 秒速, ライフログ, 写真, カレンダー",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+      }
+    </script>
+    <style>
+      /* このページだけで完結させる（アプリのホームページとして登録するため、
+         外部リクエストを増やさない。共通の style.css は法務ページ側で使う）。 */
+      :root {
+        --bg: #fff8f2;
+        --ink: #3d3330;
+        --ink-soft: #7a6a63;
+        --accent: #f2865e;
+        --accent-soft: #ffe3d6;
+        --mint: #7fc8b8;
+        --card: #ffffff;
+        --line: rgba(61, 51, 48, 0.12);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Hiragino Maru Gothic ProN",
+          "Hiragino Sans", "Noto Sans JP", "Segoe UI", sans-serif;
+        line-height: 1.8;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; }
+      .site-header {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 16px; padding: 14px 20px; position: sticky; top: 0; z-index: 10;
+        background: rgba(255, 248, 242, 0.92); backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; }
+      .brand-mark {
+        width: 34px; height: 34px; border-radius: 11px; background: var(--accent);
+        color: #fff; display: grid; place-items: center; font-size: 17px;
+      }
+      .site-header nav { display: flex; gap: 18px; font-size: 14px; }
+      .site-header nav a { text-decoration: none; color: var(--ink-soft); }
+      .site-header nav a:hover { color: var(--accent); }
+      main { display: block; }
+      section { padding: 72px 20px; max-width: 1040px; margin: 0 auto; }
+      .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center; padding-top: 56px; }
+      .eyebrow { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: 0.08em; margin: 0 0 8px; }
+      h1 { font-size: clamp(34px, 6vw, 54px); line-height: 1.3; margin: 0 0 16px; }
+      h1 span { color: var(--accent); }
+      .lead { font-size: 17px; color: var(--ink-soft); margin: 0 0 24px; }
+      .points { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+      .points span {
+        background: var(--accent-soft); color: #a04a2a; border-radius: 999px;
+        padding: 5px 14px; font-size: 13px; font-weight: 700;
+      }
+      .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+      .cta-note {
+        display: inline-block; background: var(--ink); color: #fff; border-radius: 999px;
+        padding: 12px 26px; font-weight: 700; text-decoration: none;
+      }
+      .cta-sub { font-size: 13px; color: var(--ink-soft); }
+      /* ストア公開後に使うバッジ（下のヒーロー内のコメントを参照）。 */
+      .store-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+      .store-badges img { height: 52px; width: auto; }
+
+      /* チャット風のモックアップ（画像を使わずCSSだけで作る） */
+      .phone {
+        width: 280px; margin: 0 auto; background: var(--card); border-radius: 34px;
+        border: 1px solid var(--line); box-shadow: 0 24px 50px rgba(61, 51, 48, 0.14);
+        padding: 22px 16px 26px; position: relative;
+      }
+      .phone::before {
+        content: ""; position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+        width: 62px; height: 5px; border-radius: 3px; background: var(--line);
+      }
+      .day-chip {
+        display: block; width: fit-content; margin: 6px auto 14px; font-size: 12px;
+        color: var(--ink-soft); background: rgba(61, 51, 48, 0.06);
+        border-radius: 999px; padding: 3px 12px;
+      }
+      .bubble {
+        background: var(--accent-soft); border-radius: 16px 16px 16px 4px;
+        padding: 10px 13px; font-size: 14px; margin-bottom: 10px; line-height: 1.7;
+      }
+      .bubble .time { display: block; font-size: 11px; color: var(--ink-soft); margin-top: 4px; }
+      .bubble.photo { background: var(--card); border: 1px solid var(--line); border-radius: 16px; }
+      .bubble .shot {
+        height: 96px; border-radius: 10px; margin-bottom: 8px;
+        background: linear-gradient(135deg, #ffd9a8, #f6a2b0 55%, #9fd8e8);
+      }
+      .bubble.mint { background: #e2f4ef; }
+
+      .section-head { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+      .kicker { color: var(--mint); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; margin: 0 0 8px; }
+      h2 { font-size: clamp(24px, 4vw, 34px); line-height: 1.45; margin: 0 0 12px; }
+      .section-head p { color: var(--ink-soft); margin: 0; }
+
+      .features { display: grid; gap: 20px; grid-template-columns: repeat(3, 1fr); }
+      .features article {
+        background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px;
+      }
+      .features .icon {
+        width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+        background: var(--accent-soft); font-size: 20px; margin-bottom: 14px;
+      }
+      .features h3 { margin: 0 0 8px; font-size: 18px; }
+      .features p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+
+      .split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+      .split ul { margin: 16px 0 0; padding-left: 0; list-style: none; }
+      .split li { padding-left: 26px; position: relative; margin-bottom: 10px; font-size: 15px; }
+      .split li::before {
+        content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700;
+      }
+      .band { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .band-inner { max-width: 1040px; margin: 0 auto; padding: 72px 20px; }
+
+      .faq details {
+        background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+        padding: 16px 20px; margin-bottom: 12px;
+      }
+      .faq summary { font-weight: 700; cursor: pointer; }
+      .faq p { margin: 10px 0 0; font-size: 15px; color: var(--ink-soft); }
+
+      .final { text-align: center; }
+      .final .phone { margin-bottom: 28px; }
+
+      footer { border-top: 1px solid var(--line); padding: 32px 20px 44px; }
+      .footer-inner {
+        max-width: 1040px; margin: 0 auto; display: flex; flex-wrap: wrap;
+        justify-content: space-between; gap: 18px; align-items: center;
+      }
+      .footer-inner nav { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; }
+      .footer-inner nav a { color: var(--ink-soft); text-decoration: none; }
+      .footer-inner nav a:hover { color: var(--accent); }
+      .copyright { text-align: center; color: var(--ink-soft); font-size: 13px; margin: 24px 0 0; }
+
+      @media (max-width: 860px) {
+        .hero, .split { grid-template-columns: 1fr; }
+        .features { grid-template-columns: 1fr; }
+        .site-header nav { display: none; }
+        section { padding: 56px 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">✎</span>
+        <span>秒速日記</span>
+      </a>
+      <nav aria-label="ページ内ナビゲーション">
+        <a href="#features">できること</a>
+        <a href="#notebooks">日記帳</a>
+        <a href="#safe">データ</a>
+        <a href="#faq">よくある質問</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">1日1ページ、じゃなくていい。</p>
+          <h1>書きたい瞬間に、<br /><span>秒で日記を書こう</span></h1>
+          <p class="lead">
+            日記が続かないのは、まとめて書こうとするから。<br />
+            チャットに送るみたいに、1日に何回でも。<br />
+            その積み重ねが、そのまま今日の記録になります。
+          </p>
+          <div class="points">
+            <span>会員登録なしで使える</span>
+            <span>写真もいっしょに</span>
+            <span>iPhone・Android</span>
+          </div>
+          <div class="cta">
+            <!-- ストア公開後、この store-badges を有効にして、下の cta-note の行を消すこと。
+            <div class="store-badges">
+              <a href="https://apps.apple.com/app/idXXXXXXXXXX" aria-label="App Storeでダウンロード">
+                <img src="../../assets/app-store-badge.svg" alt="App Storeでダウンロード" />
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.misoclub.diary" aria-label="Google Playで手に入れよう">
+                <img src="../../assets/google-play-badge.png" alt="Google Playで手に入れよう" />
+              </a>
+            </div>
+            -->
+            <a class="cta-note" href="../">近日公開 — misoclubのアプリ一覧へ</a>
+            <span class="cta-sub">ストア公開までもうすこしお待ちください。</span>
+          </div>
+        </div>
+        <div class="phone" aria-label="秒速日記のタイムライン画面のイメージ">
+          <span class="day-chip">9月22日（火）</span>
+          <div class="bubble">朝いちのコーヒーがうまい<span class="time">7:42</span></div>
+          <div class="bubble mint">会議おわった〜。がんばった<span class="time">11:20</span></div>
+          <div class="bubble photo">
+            <div class="shot" aria-hidden="true"></div>
+            帰り道の空がすごかった<span class="time">18:05</span>
+          </div>
+          <div class="bubble">今日はよく寝られそう<span class="time">23:10</span></div>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="section-head">
+          <p class="kicker">WHAT YOU CAN DO</p>
+          <h2>書くことを、できるだけ少なく。</h2>
+          <p>気分も天気もタグも選ばせません。入力するのは、本文と写真だけです。</p>
+        </div>
+        <div class="features">
+          <article>
+            <div class="icon" aria-hidden="true">💬</div>
+            <h3>何回でも書ける</h3>
+            <p>1日に何件でも。時刻はあとから直せるので、「昨日の分」もその場で足せます。</p>
+          </article>
+          <article>
+            <div class="icon" aria-hidden="true">🖼</div>
+            <h3>写真をそのまま</h3>
+            <p>1つの記録に最大12枚。並べて表示され、タップすれば大きく見られます。</p>
+          </article>
+          <article>
+            <div class="icon" aria-hidden="true">📅</div>
+            <h3>カレンダーで振り返る</h3>
+            <p>書いた日には印がつきます。日付をタップすれば、その日の記録だけが並びます。</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="band">
+        <div class="band-inner split" id="notebooks">
+          <div>
+            <p class="kicker">NOTEBOOKS</p>
+            <h2>日記帳は、<br />何冊でも作れる。</h2>
+            <p class="lead">
+              毎日のこと、仕事のメモ、子どもの記録、旅の記録。
+              分けておけば、あとから読み返すのがぐっと楽になります。
+              表紙の写真も自由に選べます。
+            </p>
+            <ul>
+              <li>日記帳ごとに表紙の写真を設定</li>
+              <li>「すべて」でまとめて読むこともできる</li>
+              <li>あとから別の日記帳へ移せる</li>
+              <li>ことばを検索して、その日へジャンプ</li>
+            </ul>
+          </div>
+          <div class="phone" aria-label="日記帳の切り替えイメージ">
+            <span class="day-chip">日記帳をえらぶ</span>
+            <div class="bubble">📓 いつもの日記<span class="time">128件</span></div>
+            <div class="bubble mint">💼 しごとメモ<span class="time">54件</span></div>
+            <div class="bubble">🌱 そだてた記録<span class="time">31件</span></div>
+            <div class="bubble photo">
+              <div class="shot" aria-hidden="true"></div>
+              ✈ 旅のきろく<span class="time">12件</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="split" id="safe">
+        <div class="phone" aria-label="バックアップとロックのイメージ">
+          <span class="day-chip">まもる</span>
+          <div class="bubble mint">☁ クラウドに同期しました<span class="time">たったいま</span></div>
+          <div class="bubble">🔒 パスコードでロック中<span class="time">生体認証でひらく</span></div>
+          <div class="bubble">🔔 21:00 に、そっとお知らせ<span class="time">書き忘れ防止</span></div>
+        </div>
+        <div>
+          <p class="kicker">YOUR DIARY, YOURS</p>
+          <h2>誰にも見せない前提で、<br />作っています。</h2>
+          <p class="lead">
+            このアプリに、他の人へ共有する機能はありません。
+            書いたものは、あなただけのものです。
+          </p>
+          <ul>
+            <li>機種変更しても引き継げる（連携は任意）</li>
+            <li>写真は非公開の場所に保存。リンクは作られません</li>
+            <li>パスコードと生体認証でアプリ全体をロック</li>
+            <li>書き忘れのリマインドは、好きな時刻に1本だけ</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="band">
+        <div class="band-inner faq" id="faq">
+          <div class="section-head">
+            <p class="kicker">FAQ</p>
+            <h2>よくある質問</h2>
+          </div>
+          <details>
+            <summary>会員登録は必要ですか？</summary>
+            <p>いいえ。登録なしで、そのまま書きはじめられます。機種変更でデータを引き継ぎたいときだけ、任意で Google または Apple のアカウントを連携してください。</p>
+          </details>
+          <details>
+            <summary>無料で使えますか？</summary>
+            <p>無料で使えます。画面の下にバナー広告が表示され、有料プランで非表示にできます。有料プランでは、写真をクラウドに保存できる容量（100MB→2GB）と、1つの記録に付けられる枚数（12枚→24枚）も増えます。</p>
+          </details>
+          <details>
+            <summary>書いた日記は他の人に見られますか？</summary>
+            <p>見られません。共有する機能そのものがありません。クラウドに保存されたデータは、あなた自身のアカウントでしか読み書きできないよう設定されています。</p>
+          </details>
+          <details>
+            <summary>1日にまとめて書かないとだめですか？</summary>
+            <p>いいえ。思いついたときに、ひとことずつで大丈夫です。同じ日のものは自動でまとまって表示されます。</p>
+          </details>
+          <details>
+            <summary>過去の日付にも書けますか？</summary>
+            <p>書けます。日時はあとから自由に変えられるので、昨日の分やずっと前の思い出も残せます。</p>
+          </details>
+          <details>
+            <summary>写真はどのくらい保存できますか？</summary>
+            <p>端末には制限なく保存できます。クラウドへ預けられるのは無料で100MB、有料プランで2GBです。超えた分も端末には残り、クラウドへ上がらないだけです。</p>
+          </details>
+        </div>
+      </div>
+
+      <section class="final">
+        <div class="phone" aria-label="今日の1件目を書くイメージ">
+          <span class="day-chip">きょう</span>
+          <div class="bubble">さあ、なんて書こうかな<span class="time">いま</span></div>
+        </div>
+        <p class="kicker">START TODAY</p>
+        <h2>今日のひとことから、はじめよう。</h2>
+        <p class="lead">続かなかった人のための、いちばん軽い日記です。</p>
+        <div class="cta" style="justify-content: center">
+          <a class="cta-note" href="../">misoclubのアプリを見る →</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">✎</span>
+          <div><strong>秒速日記</strong><br /><span style="font-size: 13px; color: var(--ink-soft)">by misoclub</span></div>
+        </div>
+        <nav aria-label="フッターナビゲーション">
+          <a href="./privacy.html">プライバシーポリシー</a>
+          <a href="./terms.html">利用規約</a>
+          <a href="./tokushoho.html">特定商取引法に基づく表記</a>
+          <a href="../../support.html">お問い合わせ</a>
+          <a href="../">misoclubのアプリ</a>
+        </nav>
+      </div>
+      <p class="copyright">© misoclub</p>
+    </footer>
+  </body>
+</html>

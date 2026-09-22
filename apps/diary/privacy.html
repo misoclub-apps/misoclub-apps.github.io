@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" href="../../assets/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png" />
+    <meta name="theme-color" content="#171716" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="misoclub" />
+    <meta property="og:title" content="プライバシーポリシー | 秒速日記 | misoclub" />
+    <meta property="og:url" content="https://misoclub.pro/apps/diary/privacy.html" />
+    <meta property="og:image" content="https://misoclub.pro/assets/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>プライバシーポリシー | 秒速日記 | misoclub</title>
+    <meta name="robots" content="noindex" />
+    <link rel="alternate" hreflang="ja" href="https://misoclub.pro/apps/diary/privacy.html" />
+    <link rel="alternate" hreflang="en" href="https://misoclub.pro/apps/diary/privacy-en.html" />
+    <link rel="alternate" hreflang="x-default" href="https://misoclub.pro/apps/diary/privacy.html" />
+    <link rel="stylesheet" href="../../css/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <h1>プライバシーポリシー</h1>
+      <p class="updated">アプリ名：秒速日記 ／ 制定日：2026年9月22日 ／ 最終更新日：2026年9月22日</p>
+
+      <p>
+        「秒速日記」（以下「本アプリ」）は、misoclub（以下「当方」）が提供する日記アプリです。当方は、本アプリにおける利用者のプライバシーを尊重し、以下のとおりプライバシーポリシー（以下「本ポリシー」）を定めます。
+      </p>
+      <p>
+        <strong>本アプリには、利用者どうしが日記や写真を共有する機能はありません。</strong>利用者が書いた日記と写真は、その利用者だけが見るためのものです。クラウド（Google Firebase）は、機種変更や複数端末での引き継ぎのために、利用者本人のデータを控えておく目的でのみ使用します。
+      </p>
+
+      <h2>1. アカウントについて（匿名認証と、任意のアカウント連携）</h2>
+      <p>
+        本アプリは、クラウドへのバックアップと複数端末での同期のために、Google Firebase の匿名認証を用いて、利用者ごとに匿名の識別子（ランダムなID）を割り当てます。この時点では、氏名・メールアドレス・電話番号などの登録は不要で、これらを取得することはありません。
+      </p>
+      <p>
+        機種変更でのデータ引き継ぎやアカウントの復元を希望する場合は、利用者の任意で <strong>Google または Apple のアカウントを連携（サインイン）</strong>できます。連携した場合、当方は、そのアカウントから提供されるメールアドレスと表示名を取得し、連携済みアカウントであることの識別・サポート対応・復元のために、当方のクラウド（Cloud Firestore）に保存します。連携は任意であり、連携しなくても本アプリの機能はご利用いただけます。
+      </p>
+      <p>
+        「Sign in with Apple」で「メールを非公開」を選択した場合は、Apple の非公開用中継アドレスが用いられます。連携は設定画面からいつでも行え、後述の「すべてのデータを削除」により連携も解除できます。
+      </p>
+
+      <h2>2. 端末内に保存する情報</h2>
+      <p>
+        利用者が入力・記録する情報（日記の本文、日時、日記帳の名前と表紙、添付した写真、通知・テーマ・背景・フォントなどの設定）は、お使いの端末内に保存されます。写真の実体は、本アプリ専用の保存領域に保存され、他のアプリからは参照されません。
+      </p>
+      <p>
+        アプリロックのパスコードと生体認証の設定は、<strong>端末内にのみ保存され、クラウドへ送信されることはありません</strong>（書き出しやバックアップにも含まれません）。
+      </p>
+
+      <h2>3. クラウドに保存する情報</h2>
+      <p>
+        バックアップ・機種変更のため、次の情報が当方のクラウド（Google Cloud Firestore および Firebase Storage）に、<strong>その利用者本人だけが読み書きできる領域</strong>へ保存されます。他の利用者に公開されることはありません。
+      </p>
+      <ul>
+        <li>日記の本文・日時・日記帳の情報などの記録。</li>
+        <li>添付した写真の画像データ（非公開の保存先に置かれ、共有用のURLは作成しません）。</li>
+        <li>テーマ・背景・フォントなどの見た目の設定（複数端末で揃えるため）。</li>
+        <li>アカウント連携の情報（前項）、購入した権利の状態。</li>
+        <li>プッシュ通知用のデバイストークン（次項参照）。</li>
+      </ul>
+      <p>
+        写真をクラウドへ保存できる容量には上限があり（無料 100MB、プレミアム 2GB）、上限を超えた写真は端末内に残りますが、クラウドへは保存されません。
+      </p>
+      <p>
+        利用者がアプリ内で写真や日記を削除すると、クラウド上の該当データも削除されます。誤削除や障害からの復旧に備えるため、削除された画像の実体は、当方のストレージの論理削除機能により<strong>最大90日間</strong>保持されたのち、完全に消去されます。この保持は運用上の保険であり、アプリに「元に戻す」機能はありません。
+      </p>
+
+      <h2>4. プッシュ通知について</h2>
+      <p>
+        日記を書き忘れたときのリマインドは、端末内で生成されるローカル通知です。このほか、当方からのお知らせを届けるために Google Firebase Cloud Messaging（FCM）を利用しており、この目的で端末ごとの通知用トークンをクラウドに保存します。通知の受信は設定画面から切り替えられます。
+      </p>
+
+      <h2>5. 広告について</h2>
+      <p>
+        本アプリは、広告配信のために Google が提供する Google AdMob を利用しています。AdMob は、広告の配信・不正防止・効果測定のために、広告識別子（Advertising ID／iOS の IDFA）や端末・利用に関する情報を取得・利用する場合があります。これらの情報の取り扱いは Google のプライバシーポリシーに従います。
+      </p>
+      <p>
+        広告を利用者の関心に合わせて最適化（パーソナライズ）するかどうかは、利用者の同意にもとづきます。<strong>iOS では、アプリの利用開始時などに「トラッキングの許可」（App Tracking Transparency）を確認します。</strong>許可した場合は広告識別子（IDFA）を用いたパーソナライズ広告を、許可しない場合はパーソナライズを行わない広告を配信します。いずれの場合も、アプリのすべての機能はそのままご利用いただけます。EU/EEA など同意管理が必要な地域では、Google のユーザーメッセージングプラットフォーム（UMP）による同意フォームを表示し、その結果に従います。
+      </p>
+      <ul>
+        <li>
+          Google のプライバシーポリシー：<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a>
+        </li>
+        <li>iOS のトラッキング許可は「設定 ＞ プライバシーとセキュリティ ＞ トラッキング」から、Android では端末の「広告」設定から、いつでも変更（パーソナライズのOFF・広告IDのリセット）できます。</li>
+      </ul>
+      <p>
+        本アプリでは、バナー広告の非表示などの特典を利用できる自動更新サブスクリプション（アプリ内課金）を提供しています。購入・決済は App Store（Apple）／ Google Play（Google）が行い、当方がお客様のクレジットカード番号等の決済情報を取得・保存することはありません。課金の取引条件は<a href="tokushoho.html">特定商取引法に基づく表記</a>をご確認ください。
+      </p>
+
+      <h2>6. 不具合の記録と利用状況の把握</h2>
+      <p>
+        本アプリの品質改善のために、アプリが異常終了した際の情報（発生箇所・端末の機種・OSのバージョン・アプリのバージョンなど）を Firebase Crashlytics で、画面の表示や機能の利用回数といった統計情報を Firebase Analytics で受け取ります。<strong>日記の本文や写真の内容がこれらに含まれることはありません。</strong>
+      </p>
+
+      <h2>7. 利用する外部サービス</h2>
+      <p>本アプリは、機能提供のために次の外部サービスを利用します。</p>
+      <ul>
+        <li>Firebase Authentication（匿名認証・アカウント連携／Google LLC）</li>
+        <li>Cloud Firestore・Firebase Storage（データと写真の保存・同期／Google LLC）</li>
+        <li>Firebase Cloud Messaging・Cloud Functions（通知・サーバー処理／Google LLC）</li>
+        <li>Firebase Crashlytics・Firebase Analytics（不具合の記録・利用状況の把握／Google LLC）</li>
+        <li>Google AdMob（広告／Google LLC）</li>
+        <li>Sign in with Apple（Apple アカウントでの連携／Apple Inc.）</li>
+        <li>Google サインイン（Google アカウントでの連携／Google LLC）</li>
+        <li>Resend（お問い合わせメールの送信／Resend, Inc.）</li>
+      </ul>
+      <p>
+        これらにおけるデータの取り扱いは、各社のプライバシーポリシー（Google：<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a>、Apple：<a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">https://www.apple.com/legal/privacy/</a>）に従います。
+      </p>
+
+      <h2>8. お問い合わせ・報告</h2>
+      <p>
+        設定画面のお問い合わせから当方へご連絡いただいた場合、当方は、お問い合わせの内容、返信のためにご入力いただいた連絡先（任意）、添付いただいた画像、および対応に必要なアプリ・端末の情報（アプリのバージョン、OSやプラットフォームの種類、言語設定など）を受け取り、サポート対応のために利用します。設定画面から、アプリ内の不適切な表示などを報告することもできます。
+      </p>
+
+      <h2>9. 第三者への提供</h2>
+      <p>
+        当方は、法令に基づく場合を除き、利用者の情報を利用者の同意なく第三者へ提供することはありません。上記の外部サービスは、本アプリの機能を提供するための委託先であり、当方の指示に基づいて情報を取り扱います。
+      </p>
+
+      <h2>10. データの削除</h2>
+      <p>
+        設定画面の「すべてのデータを削除」から、端末内のデータとクラウドに保存された利用者のデータ（写真・連携情報を含む）を削除できます。この操作により、連携していた Google／Apple の資格情報も解放されます。連携を解除（ログアウト）した場合は、端末内のデータは消去され、クラウドのデータは残るため、同じアカウントで再度ログインすれば復元できます。本アプリをアンインストールすると端末内のデータは消去されます。
+      </p>
+
+      <h2>11. お子様のプライバシー</h2>
+      <p>
+        本アプリは特定の年齢層を対象とした情報収集を行いません。お子様が利用される場合は、保護者の管理のもとでご利用ください。
+      </p>
+
+      <h2>12. 安全管理</h2>
+      <p>
+        当方は、取得・保存する情報の漏洩・滅失・毀損を防止するため、適切な安全管理措置を講じます。クラウド上のデータは、利用者本人の認証情報でのみ読み書きできるよう、アクセス制御を設定しています。
+      </p>
+
+      <h2>13. 本ポリシーの変更</h2>
+      <p>
+        本ポリシーは、必要に応じて改定されることがあります。重要な変更がある場合は、本ページにて告知します。改定後の内容は、本ページに掲載した時点から効力を生じます。
+      </p>
+
+      <h2>14. お問い合わせ</h2>
+      <p>本ポリシーや本アプリに関するお問い合わせは、下記までご連絡ください。</p>
+      <ul>
+        <li>提供者：misoclub</li>
+        <li>メール：<a href="mailto:misoclubsupport@gmail.com">misoclubsupport@gmail.com</a></li>
+      </ul>
+    </main>
+  </body>
+</html>
