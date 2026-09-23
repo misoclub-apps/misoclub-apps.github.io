@@ -23,7 +23,7 @@
   <body>
     <main class="page">
       <h1>Privacy Policy</h1>
-      <p class="updated">App: Byosoku Diary / Effective: September 22, 2026 / Last updated: September 22, 2026</p>
+      <p class="updated">App: Byosoku Diary / Effective: September 22, 2026 / Last updated: September 24, 2026</p>
 
       <p>
         Byosoku Diary (the "App") is a diary app provided by misoclub ("we", "us"). We respect the privacy of everyone who uses the App, and this Privacy Policy (the "Policy") explains how we handle information.
@@ -32,12 +32,12 @@
         <strong>The App has no feature for sharing diaries or photos with other users.</strong> What you write and the photos you attach are for you alone. We use the cloud (Google Firebase) only to keep a copy of your own data so that it survives a change of device and stays in sync across your devices.
       </p>
 
-      <h2>1. Accounts (anonymous authentication and optional account linking)</h2>
+      <h2>1. Accounts (without signing in, everything stays on your device)</h2>
       <p>
-        To back up and sync your data, the App uses Firebase anonymous authentication to assign each user a random, anonymous identifier. No name, email address or phone number is required at this point, and we do not collect any.
+        <strong>The App does not create an account for you unless you sign in.</strong> While you use the App without signing in, your entries, photos and settings are <strong>stored only on your device and are never sent to our cloud</strong>, and we cannot identify you. In that case, deleting the App also deletes your diary, and it cannot be recovered.
       </p>
       <p>
-        If you want to move your data to a new device or restore your account, you may optionally <strong>link a Google or Apple account</strong>. When you do, we receive the email address and display name provided by that account and store them in our cloud database (Cloud Firestore) to identify the linked account, to support you and to restore your data. Linking is optional; the App works without it.
+        If you want cloud backup, sync across devices, photo storage, subscription restore or support, you may optionally <strong>sign in with a Google or Apple account</strong>. Only then do we receive the email address and display name provided by that account and store them in our cloud database (Cloud Firestore) to identify your account, to support you and to restore your data. Signing in is optional; you can keep writing your diary without it.
       </p>
       <p>
         If you choose "Hide My Email" with Sign in with Apple, Apple's private relay address is used instead. You can link an account at any time from Settings, and "Delete all data" (below) also unlinks it.
@@ -53,7 +53,7 @@
 
       <h2>3. Information stored in the cloud</h2>
       <p>
-        For backup and device migration, the following is stored in our cloud (Cloud Firestore and Firebase Storage) in an area <strong>only you can read and write</strong>. It is never made visible to other users.
+        <strong>The following applies only if you are signed in with a Google or Apple account.</strong> If you are not signed in, nothing is stored in our cloud. For backup and device migration, the following is stored in our cloud (Cloud Firestore and Firebase Storage) in an area <strong>only you can read and write</strong>. It is never made visible to other users.
       </p>
       <ul>
         <li>Your diary entries: text, dates and times, and notebook information.</li>
@@ -63,7 +63,7 @@
         <li>A push notification token for your device (see below).</li>
       </ul>
       <p>
-        There is a limit on how many photo bytes can be stored in the cloud (100MB on the free plan, 2GB with Premium). Photos beyond that limit stay on your device but are not uploaded.
+        There is a limit on how many photo bytes can be stored in the cloud (100MB on the free plan, 1GB with Premium). Photos beyond that limit stay on your device but are not uploaded.
       </p>
       <p>
         When you delete a photo or an entry in the App, the corresponding cloud data is deleted as well. To guard against accidental deletion and failures, deleted image files are retained by our storage provider's soft-delete feature for <strong>up to 90 days</strong> before being permanently erased. This is an operational safeguard; the App itself offers no "undo".
@@ -97,7 +97,7 @@
       <h2>7. Third-party services</h2>
       <p>The App uses the following services:</p>
       <ul>
-        <li>Firebase Authentication (anonymous auth and account linking / Google LLC)</li>
+        <li>Firebase Authentication (sign-in with Google or Apple / Google LLC)</li>
         <li>Cloud Firestore and Firebase Storage (data and photo storage and sync / Google LLC)</li>
         <li>Firebase Cloud Messaging and Cloud Functions (notifications, server logic / Google LLC)</li>
         <li>Firebase Crashlytics and Firebase Analytics (crash reports, usage statistics / Google LLC)</li>
