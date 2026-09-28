@@ -191,6 +191,7 @@
 }
 
 .stage-panel--weight { --panel-art: var(--color-stage-weight); background: transparent; }
+.stage-panel--diary { --panel-art: var(--color-paper); background: transparent; }
 .stage-panel--memory { --panel-art: var(--color-stage-memory); background: transparent; }
 .stage-panel--night { --panel-art: var(--color-stage-night); background: transparent; }
 .stage-panel--travel { --panel-art: var(--color-stage-travel); background: transparent; }

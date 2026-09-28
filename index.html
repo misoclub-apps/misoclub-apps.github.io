@@ -7,6 +7,13 @@
     <link rel="icon" type="image/png" href="./assets/favicon-32.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
     <link rel="manifest" href="./site.webmanifest" />
+    <link
+      rel="preload"
+      as="image"
+      href="./assets/stage/diary.webp"
+      type="image/webp"
+      fetchpriority="high"
+    />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="misoclub" />
@@ -37,7 +44,7 @@
     />
     <link rel="stylesheet" href="./tokens.css?v=20260903-5" />
     <link rel="stylesheet" href="./css/home.css?v=20260903-10" />
-    <link rel="stylesheet" href="./css/product-stage.css?v=20260904-3" />
+    <link rel="stylesheet" href="./css/product-stage.css?v=20260928-2" />
   </head>
   <body>
     <a class="skip-link" href="#main">本文へ移動</a>
@@ -97,11 +104,24 @@
           <div class="app-tabs" role="tablist" aria-label="表示するアプリを選ぶ">
             <button
               class="app-tab is-selected"
-              id="tab-mio"
+              id="tab-diary"
               type="button"
               role="tab"
               aria-selected="true"
+              aria-controls="panel-diary"
+              data-panel="panel-diary"
+            >
+              <img src="./apps/diary/icon.png" alt="" width="48" height="48" />
+              <span>秒速日記</span>
+            </button>
+            <button
+              class="app-tab"
+              id="tab-mio"
+              type="button"
+              role="tab"
+              aria-selected="false"
               aria-controls="panel-mio"
+              tabindex="-1"
               data-panel="panel-mio"
             >
               <img src="./apps/mio/icon.png" alt="" width="48" height="48" />
@@ -162,7 +182,39 @@
           </div>
 
           <div class="app-stage">
-            <article class="stage-panel stage-panel--mio" id="panel-mio" role="tabpanel" aria-labelledby="tab-mio">
+            <article
+              class="stage-panel stage-panel--diary"
+              id="panel-diary"
+              role="tabpanel"
+              aria-labelledby="tab-diary"
+            >
+              <div class="stage-panel__copy">
+                <div class="stage-panel__heading">
+                  <img src="./apps/diary/icon.png" alt="" width="80" height="80" />
+                  <h2>秒速日記</h2>
+                </div>
+                <p>開いて、打って、送るだけ。ひとことでも長文でも、1日に何回でも書ける自分だけの日記です。</p>
+              </div>
+              <figure class="stage-panel__visual">
+                <img
+                  class="stage-panel__art"
+                  src="./assets/stage/diary.webp"
+                  alt="秒速日記のスプラッシュアート"
+                  width="1024"
+                  height="1024"
+                  decoding="sync"
+                  fetchpriority="high"
+                />
+              </figure>
+            </article>
+
+            <article
+              class="stage-panel stage-panel--mio"
+              id="panel-mio"
+              role="tabpanel"
+              aria-labelledby="tab-mio"
+              hidden
+            >
               <div class="stage-panel__copy">
                 <div class="stage-panel__heading">
                   <img src="./apps/mio/icon.png" alt="" width="80" height="80" />
@@ -173,11 +225,11 @@
               <figure class="stage-panel__visual">
                 <img
                   class="stage-panel__art"
-                  src="./assets/stage/mio.png"
+                  src="./assets/stage/mio.webp"
                   alt="MIOのスプラッシュアート"
                   width="1024"
                   height="1024"
-                  fetchpriority="high"
+                  loading="lazy"
                 />
               </figure>
             </article>
@@ -199,7 +251,7 @@
               <figure class="stage-panel__visual">
                 <img
                   class="stage-panel__art"
-                  src="./assets/stage/weight.png"
+                  src="./assets/stage/weight.webp"
                   alt="きょうの体重のスプラッシュアート"
                   width="1024"
                   height="1024"
@@ -225,7 +277,7 @@
               <figure class="stage-panel__visual">
                 <img
                   class="stage-panel__art"
-                  src="./assets/stage/memory.png"
+                  src="./assets/stage/memory.webp"
                   alt="キネンカのスプラッシュアート"
                   width="1024"
                   height="1024"
@@ -251,7 +303,7 @@
               <figure class="stage-panel__visual">
                 <img
                   class="stage-panel__art"
-                  src="./assets/stage/night.png"
+                  src="./assets/stage/night.webp"
                   alt="夜会計ナビのスプラッシュアート"
                   width="1024"
                   height="1024"
@@ -277,7 +329,7 @@
               <figure class="stage-panel__visual">
                 <img
                   class="stage-panel__art"
-                  src="./assets/stage/travel.png"
+                  src="./assets/stage/travel.webp"
                   alt="日本旅日記のスプラッシュアート"
                   width="1024"
                   height="1024"
@@ -337,6 +389,13 @@
           </header>
           <div class="app-carousel">
             <div class="app-grid">
+              <article class="app-card">
+                <a href="./apps/diary/">
+                  <img src="./apps/diary/icon.png" alt="" width="96" height="96" loading="lazy" />
+                  <span><strong>秒速日記</strong></span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </article>
               <article class="app-card">
                 <a href="./apps/mio/">
                   <img src="./apps/mio/icon.png" alt="" width="96" height="96" loading="lazy" />
