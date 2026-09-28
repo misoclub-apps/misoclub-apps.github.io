@@ -14,6 +14,11 @@
       type="image/webp"
       fetchpriority="high"
     />
+    <link rel="preload" as="image" href="./assets/stage/mio.webp" type="image/webp" fetchpriority="low" />
+    <link rel="preload" as="image" href="./assets/stage/weight.webp" type="image/webp" fetchpriority="low" />
+    <link rel="preload" as="image" href="./assets/stage/memory.webp" type="image/webp" fetchpriority="low" />
+    <link rel="preload" as="image" href="./assets/stage/night.webp" type="image/webp" fetchpriority="low" />
+    <link rel="preload" as="image" href="./assets/stage/travel.webp" type="image/webp" fetchpriority="low" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="misoclub" />
@@ -193,7 +198,7 @@
                   <img src="./apps/diary/icon.webp" alt="" width="80" height="80" />
                   <h2>秒速日記</h2>
                 </div>
-                <p>開いて、打って、送るだけ。ひとことでも長文でも、1日に何回でも書ける自分だけの日記です。</p>
+                <p>開いて、打って、送るだけ。メッセージを送るように、思い立った瞬間に書ける自分だけの日記です。</p>
               </div>
               <figure class="stage-panel__visual">
                 <img
@@ -229,7 +234,8 @@
                   alt="MIOのスプラッシュアート"
                   width="1024"
                   height="1024"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                 />
               </figure>
             </article>
@@ -255,7 +261,8 @@
                   alt="きょうの体重のスプラッシュアート"
                   width="1024"
                   height="1024"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                 />
               </figure>
             </article>
@@ -281,7 +288,8 @@
                   alt="キネンカのスプラッシュアート"
                   width="1024"
                   height="1024"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                 />
               </figure>
             </article>
@@ -307,7 +315,8 @@
                   alt="夜会計ナビのスプラッシュアート"
                   width="1024"
                   height="1024"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                 />
               </figure>
             </article>
@@ -333,7 +342,8 @@
                   alt="日本旅日記のスプラッシュアート"
                   width="1024"
                   height="1024"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                 />
               </figure>
             </article>
