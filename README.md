@@ -4,7 +4,7 @@ misoclub の公式サイト。素の HTML / CSS で作られた静的サイト�
 
 ## 構成
 
-アプリは **1 アプリ = 1 ディレクトリ**（`apps/<アプリ>/`）にまとめ、中身は固定ファイル名（`index.html` / `privacy.html` / `privacy-en.html` / `icon.png` / `splash.jpg`）で統一しています。追加するときはフォルダごとコピーするだけです。
+アプリは **1 アプリ = 1 ディレクトリ**（`apps/<アプリ>/`）にまとめ、中身は固定ファイル名（`index.html` / `privacy.html` / `privacy-en.html` / `icon.png` / `icon.webp` / `splash.webp`）で統一しています。追加するときはフォルダごとコピーするだけです。`icon.png` は Apple Touch Icon などのメタデータ用、`icon.webp` はページ表示用です。
 
 ```
 .
@@ -19,8 +19,9 @@ misoclub の公式サイト。素の HTML / CSS で作られた静的サイト�
 │   │   ├── index.html      #   DLページ（シェアからの遷移先）
 │   │   ├── privacy.html    #   プライバシーポリシー（日本語）
 │   │   ├── privacy-en.html #   プライバシーポリシー（英語）
-│   │   ├── icon.png        #   アイコン（一覧カード用・正方形 256px）
-│   │   └── splash.jpg      #   スプラッシュ（DLページ上部・縦長）
+│   │   ├── icon.png        #   アイコン原本（メタデータ用・正方形 256px以上）
+│   │   ├── icon.webp       #   アイコン（ページ表示用）
+│   │   └── splash.webp     #   スプラッシュ（DLページ上部・縦長）
 │   ├── kinenka/            #（同じ構成）
 │   └── taiju-log/          #（同じ構成）
 ├── css/
@@ -29,7 +30,7 @@ misoclub の公式サイト。素の HTML / CSS で作られた静的サイト�
 ├── sitemap.xml             # **自動生成**（手で触らない）。tools/gen-sitemap.py と CI が作る
 ├── robots.txt              # クローラ向け。sitemap.xml の所在を示す
 ├── assets/                 # サイト共通の画像（アプリ固有のものは apps/<アプリ>/ 配下）
-│   ├── logo.png            # ヘッダー用ロゴ（logo-source から余白トリム＋背景透過）
+│   ├── logo.webp           # ヘッダー用ロゴ（logo-source から余白トリム＋背景透過）
 │   ├── logo-source.png     # ロゴ原本（MC＋MISOCLUB・正方形・黒背景）。各素材の元データ
 │   ├── favicon.ico         # favicon（16/32/48）
 │   ├── favicon-32.png      # favicon（PNG・32px）
@@ -54,7 +55,7 @@ misoclub の公式サイト。素の HTML / CSS で作られた静的サイト�
 ```sh
 cd assets
 # ヘッダー用ロゴ（余白トリム＋黒を透過）
-magick logo-source.png -fuzz 12% -trim +repage -bordercolor black -border 60 -fuzz 12% -transparent black logo.png
+magick logo-source.png -fuzz 12% -trim +repage -bordercolor black -border 60 -fuzz 12% -transparent black -quality 92 logo.webp
 
 # アイコン類は MC モノグラム部分だけを使う（小サイズで MISOCLUB がつぶれるため）
 magick logo-source.png -crop 1254x900+0+0 +repage -fuzz 10% -trim +repage _mc.png
@@ -84,7 +85,7 @@ MIO のランディングページ（`apps/mio/index.html`）だけは、専用�
 | `apps/mio/img/screens/` | 機能セクションの実画面（装飾なし） | `store/screenshots/old/source/dreamy/*.png` |
 | `apps/mio/img/widgets/` | ウィジェットの見本 | `assets/widget_previews/*.png` |
 | `apps/mio/img/poster/` | ストア掲載の装飾ポスター11枚 | `store/screenshots/android/*.png` |
-| `apps/mio/og.jpg` / `splash.jpg` | OGP画像 / DLページの上部 | 同じポスターから切り出し |
+| `apps/mio/og.jpg` / `splash.webp` | OGP画像 / DLページの上部 | 同じポスターから切り出し |
 
 `mc-mio` のリポジトリを隣に置いた状態で、`mc-mio/` をカレントにして実行する。
 
@@ -97,13 +98,13 @@ j() { magick "$1" -colorspace sRGB -resize "$2" -strip -interlace Plane \
         -sampling-factor 4:2:0 -quality "$3" "$4"; }
 
 # ヒーローの3台
-j $S/dreamy/02_timetable.png 520x 82 $D/img/hero/tt-dreamy.jpg
-j $S/cool/02_timetable.png   430x 80 $D/img/hero/tt-cool.jpg
-j $S/fresh/02_timetable.png  430x 80 $D/img/hero/tt-fresh.jpg
+j $S/dreamy/02_timetable.png 520x 85 $D/img/hero/tt-dreamy.webp
+j $S/cool/02_timetable.png   430x 85 $D/img/hero/tt-cool.webp
+j $S/fresh/02_timetable.png  430x 85 $D/img/hero/tt-fresh.webp
 
 # きせかえの6テーマ（同じ画面・同じ寸法にすること）
 for t in cute dreamy natural fresh cool simple; do
-  j $S/$t/02_timetable.png 320x 78 $D/img/themes/tt-$t.jpg
+  j $S/$t/02_timetable.png 320x 85 $D/img/themes/tt-$t.webp
 done
 
 # 機能セクションの実画面（すべて dreamy で揃える）
@@ -113,28 +114,28 @@ for pair in "01_home:home" "06_calendar_month:calendar-month" \
   "13_todo:todo" "20_friend_timetable:friend-timetable" \
   "23_warikan_detail:warikan" "15_events:events" \
   "21_settings_design:settings-design" "22_app_icon:app-icon"; do
-  j $S/dreamy/${pair%%:*}.png 440x 80 $D/img/screens/${pair##*:}.jpg
+  j $S/dreamy/${pair%%:*}.png 440x 85 $D/img/screens/${pair##*:}.webp
 done
 
 # ウィジェット（**縦横比を変えない**。440x440> は枠に収めるだけ）
 for f in tt_today tt_week sc_month_labeled sc_three_days hm_upcoming hm_oshi; do
   magick $W/$f.png -colorspace sRGB -resize '440x440>' -strip -quality 84 \
-    $D/img/widgets/$f.jpg
+    $D/img/widgets/$f.webp
 done
 
 # ストアの装飾ポスター11枚
-for f in $A/*.png; do j "$f" 520x 80 "$D/img/poster/$(basename "$f" .png).jpg"; done
+for f in $A/*.png; do j "$f" 520x 85 "$D/img/poster/$(basename "$f" .png).webp"; done
 
 # OGP（1200x630。キャッチとサブコピー2行が収まる位置で切る）
 magick $A/01_timetable.png -colorspace sRGB -resize 1200x -gravity north \
   -crop 1200x630+0+70 +repage -strip -quality 84 $D/og.jpg
 
 # DLページのスプラッシュ（総覧ポスター＝ロゴとタグラインが入っている）
-j $A/10_overview.png 900x 82 $D/splash.jpg
+j $A/10_overview.png 900x 85 $D/splash.webp
 
-# ヘッダー用の軽いアイコン（icon.png は 210KB を 36px で出していたので別に持つ。
-# icon.png 自体は site.webmanifest とトップ・一覧が参照しているので消さない）
-magick $D/icon.png -resize 128x128 -strip $D/icon-128.png
+# ヘッダー用の軽いアイコン。icon.png はメタデータ用に残す。
+magick $D/icon.png -resize 128x128 -strip -quality 95 $D/icon-128.webp
+magick $D/icon.png -resize 512x512 -strip -quality 95 $D/icon.webp
 ```
 
 書き出したら `apps/mio/index.html` の `width` / `height` 属性を実寸に合わせ直すこと
@@ -152,8 +153,8 @@ magick $D/icon.png -resize 128x128 -strip $D/icon-128.png
    - **`index.html` の `<meta name="robots" content="noindex" />` を必ず消すこと。** 雛形そのものを検索に出さないために付けてある。消し忘れると、そのアプリのページが検索に出ず `sitemap.xml` にも載らない（消し忘れは `python3 tools/gen-sitemap.py` が警告してくれる）
    - `og:url` と `hreflang` の `アプリ名` の部分を実際のパスに置き換える（3枚とも。`<!-- ↓ コピーしたら実際の URL に直すこと -->` が目印）
    - ポリシー2枚の `noindex` は**そのまま残す**（検索結果に出さない方針）
-3. **`icon.png`**（正方形・256px 以上）と **`splash.jpg`**（縦長）を同フォルダに置く
-4. **`apps/index.html`**（`/apps/` 一覧）の `<article class="app-card">` を 1 つ複製し、アイコンのパス（`./<アプリ>/icon.png`）・アプリ名・説明・各ストアの URL を差し替え
+3. **`icon.png`**（メタデータ用・正方形・256px 以上）、表示用の **`icon.webp`**、縦長の **`splash.webp`** を同フォルダに置く
+4. **`apps/index.html`**（`/apps/` 一覧）の `<article class="app-card">` を 1 つ複製し、アイコンのパス（`./<アプリ>/icon.webp`）・アプリ名・説明・各ストアの URL を差し替え
 5. **トップページ `index.html`** の `#apps` セクションにも `<div class="app-card app-card--link">` を 1 つ複製して追記：
    - カードのリンク先＝`./apps/<アプリ>/`
    - 右上の `app-privacy` 内の JA リンク＝`./apps/<アプリ>/privacy.html`、EN リンク＝`./apps/<アプリ>/privacy-en.html`
