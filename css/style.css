@@ -731,6 +731,11 @@ section {
   min-height: 160px;
   resize: vertical;
 }
+.support-form .field-hint {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  margin: 6px 0 0;
+}
 .support-form input:focus,
 .support-form select:focus,
 .support-form textarea:focus {
