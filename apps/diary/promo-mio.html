@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!--
+      MIO アプリの「起動時お知らせポップアップ」（アプリ内 WebView）専用の単体ページ。
+      - **1画面に収める**（スクロールさせない）。ポスター画像1枚＋一言だけ。
+      - 画像全体がリンク。OS をユーザーエージェントで見て App Store / Google Play を
+        出し分ける（JS 数行。アプリ側の WebView は JS 有効）。JS が無い場合は Google Play。
+      - リンクは素の <a href>。target="_blank" / window.open はアプリ側が拾えないので使わない。
+      - リダイレクトが起きない正規の URL（…/promo-mio.html）で管理ツールに登録する。
+      - 検索には出さない（noindex）。
+    -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#fdf7ef" />
+    <title>チャットみたいに、日記が続く。</title>
+    <style>
+      :root {
+        --paper: #fdf7ef;
+        --ink: #1f2f6b;
+        --ink-soft: #7a6c70;
+        --pink: #ef4d6d;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+      }
+      main {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 12px 10px;
+        gap: 8px;
+      }
+      a.poster {
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
+      a.poster img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        display: block;
+        border-radius: 22px;
+        box-shadow: 0 14px 34px rgba(104, 55, 66, 0.22);
+      }
+      a.poster:active img { transform: scale(0.985); }
+      .cta {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: var(--pink);
+        color: #fff;
+        font-weight: 800;
+        font-size: 15px;
+        text-decoration: none;
+        box-shadow: 0 8px 18px rgba(239, 77, 109, 0.35);
+        white-space: nowrap;
+      }
+      .cta small { font-weight: 600; font-size: 11px; opacity: 0.9; }
+      .note { flex: none; margin: 0; font-size: 11px; color: var(--ink-soft); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="poster store-link" href="https://play.google.com/store/apps/details?id=com.misoclub.diary&amp;hl=ja" aria-label="秒速日記をストアで見る">
+        <img src="./img/posters/02_chat_style.webp" alt="チャットみたいに、日記が続く。気分・天気・タグなし。書くだけ" width="480" height="1038" />
+      </a>
+      <a class="cta store-link" href="https://play.google.com/store/apps/details?id=com.misoclub.diary&amp;hl=ja">
+        いまの気持ちを、チャットみたいに日記へ <small>▶</small>
+      </a>
+      <p class="note">タップでストアへ・無料・登録なし</p>
+    </main>
+    <script>
+      (function () {
+        var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        if (!ios) return;
+        var url = 'https://apps.apple.com/jp/app/id6814693888';
+        var links = document.querySelectorAll('a.store-link');
+        for (var i = 0; i < links.length; i++) links[i].setAttribute('href', url);
+      })();
+    </script>
+  </body>
+</html>

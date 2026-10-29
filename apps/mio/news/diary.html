@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!--
+      MIO の「HTML のお知らせ」（アプリ内 WebView のポップアップ）に出す中身。
+      管理ツールで popupUrl に https://misoclub.pro/apps/mio/news/diary.html を登録する。
+
+      - **Web ページではなく、ダイアログの中身**。ヘッダー・フッター・他ページへの
+        リンクは置かない。アプリ側がタイトルと「閉じる」を付けるので、ここは
+        見出し→絵→ボタンだけ。
+      - **1画面に収める**（スクロールさせない）。表示領域は幅 約370px・高さ 約440px
+        （ダイアログのヘッダーと「閉じる」を除いた分）。高さは flex で詰める。
+      - ストアへのリンクは素の <a href>。target="_blank" / window.open はアプリ側が
+        拾えないので使わない（別オリジンはアプリが外部ブラウザ／ストアで開く）。
+      - OS をユーザーエージェントで見て App Store / Google Play を出し分ける（JS 数行）。
+        JS が無ければ Google Play。
+      - リダイレクトが起きない正規の URL で登録する（404・リダイレクトは出ない扱い）。
+      - 検索には出さない（noindex）。
+    -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#fffaf7" />
+    <title>かわいいのに、かんたん。— 秒速日記</title>
+    <style>
+      :root {
+        --paper: #fffaf7;
+        --ink: #402f34;
+        --ink-soft: #78666b;
+        --berry: #9d4058;
+        --pink: #f7c8d2;
+        --coral: #f47d72;
+        --yellow: #ffd66b;
+        --blue: #153b78;
+        --white: #ffffff;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+      body {
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(157, 64, 88, 0.035) 1px, transparent 1px) 0 0 / 100% 28px,
+          var(--paper);
+        font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+        line-height: 1.6;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; }
+
+      main {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 16px 12px;
+      }
+
+      /* 見出し。アプリ側のヘッダーにタイトルが出るので、ここは一言のコピーだけ。 */
+      .copy { flex: none; width: 100%; text-align: center; }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 4px;
+        color: var(--berry);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+      }
+      .eyebrow::before, .eyebrow::after { content: ""; width: 18px; height: 2px; background: var(--coral); }
+      h1 {
+        margin: 0;
+        font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+        font-size: clamp(20px, 6.2vw, 25px);
+        line-height: 1.35;
+        letter-spacing: -0.02em;
+      }
+      h1 em {
+        font-style: normal;
+        color: var(--berry);
+        text-decoration: underline;
+        text-decoration-color: var(--pink);
+        text-decoration-thickness: 0.18em;
+        text-underline-offset: 0.05em;
+      }
+      .lead { margin: 6px 0 0; font-size: 12.5px; color: var(--ink-soft); }
+      .points {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2px 12px;
+        margin: 6px 0 0;
+        padding: 0;
+        list-style: none;
+        color: var(--berry);
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .points li::before { content: "●"; margin-right: 5px; color: var(--coral); font-size: 7px; vertical-align: middle; }
+
+      /* 絵。残りの高さをぜんぶ使い、はみ出す分は下を切る（スクロールさせない）。 */
+      a.shot {
+        position: relative;
+        flex: 1 1 auto;
+        min-height: 0;
+        width: min(100%, 300px);
+        display: block;
+        overflow: hidden;
+        border-radius: 20px 20px 0 0;
+        background: var(--white);
+        border: 5px solid var(--white);
+        border-bottom: 0;
+        box-shadow: 0 12px 30px rgba(104, 55, 66, 0.16);
+        text-decoration: none;
+      }
+      /* アプリの画面そのものを上から見せる（ヘッダー＋最初の数件）。下は切れてよい。 */
+      a.shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+      a.shot::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 36px;
+        background: linear-gradient(transparent, var(--paper));
+      }
+      /* 絵の後ろにピンクのにじみ（秒速日記のページと同じあしらい）。 */
+      .shot-wrap::before {
+        content: "";
+        position: absolute;
+        inset: 10% -6% 6% -6%;
+        z-index: 0;
+        background: var(--pink);
+        border-radius: 46% 54% 45% 55% / 56% 42% 58% 44%;
+        transform: rotate(-5deg);
+        opacity: 0.8;
+      }
+      a.shot { z-index: 1; }
+      .sticker {
+        position: absolute;
+        right: 0;
+        top: 4px;
+        z-index: 1;
+        padding: 5px 10px;
+        color: var(--blue);
+        background: var(--yellow);
+        border: 2px solid var(--blue);
+        box-shadow: 3px 3px 0 var(--blue);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.05em;
+        transform: rotate(5deg);
+      }
+      .shot-wrap {
+        position: relative;
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      /* ボタン。いちばん下に固定で、絵の上に少しかぶせる。 */
+      .cta-wrap { flex: none; width: 100%; margin-top: -4px; }
+      .cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 13px 18px;
+        border-radius: 999px;
+        background: var(--berry);
+        color: var(--white);
+        font-size: 15.5px;
+        font-weight: 800;
+        text-decoration: none;
+        box-shadow: 0 10px 22px rgba(157, 64, 88, 0.32);
+      }
+      .cta:active { transform: scale(0.985); }
+      .cta small { font-weight: 600; font-size: 11px; opacity: 0.9; }
+      .note { margin: 6px 0 0; font-size: 10.5px; color: var(--ink-soft); text-align: center; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="copy">
+        <p class="eyebrow">新アプリ「秒速日記」リリースしたよ！</p>
+        <h1><em>かわいい</em>のに、<em>かんたん</em>。</h1>
+        <p class="lead">開いて、打って、送るだけ。<br />きせかえもできる、自分だけの日記。</p>
+        <ul class="points">
+          <li>ひとことでOK</li>
+          <li>きせかえ</li>
+          <li>写真も</li>
+          <li>無料・登録なし</li>
+        </ul>
+      </div>
+
+      <div class="shot-wrap">
+        <a class="shot store-link" href="https://play.google.com/store/apps/details?id=com.misoclub.diary&amp;hl=ja" aria-label="秒速日記をストアで見る">
+          <img src="../../diary/img/screens/01_timeline.webp" alt="秒速日記の画面。ピンクのチャット風に日記と写真が並ぶ" width="560" height="1156" />
+        </a>
+        <span class="sticker">NEW ♡</span>
+      </div>
+
+      <div class="cta-wrap">
+        <a class="cta store-link" href="https://play.google.com/store/apps/details?id=com.misoclub.diary&amp;hl=ja">
+          秒速日記を無料でダウンロード <small>▶</small>
+        </a>
+        <p class="note">タップするとストアが開きます</p>
+      </div>
+    </main>
+    <script>
+      (function () {
+        var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        if (!ios) return;
+        var url = 'https://apps.apple.com/jp/app/id6814693888';
+        var links = document.querySelectorAll('a.store-link');
+        for (var i = 0; i < links.length; i++) links[i].setAttribute('href', url);
+      })();
+    </script>
+  </body>
+</html>
