@@ -155,10 +155,10 @@ magick $D/icon.png -resize 512x512 -strip -quality 95 $D/icon.webp
    - ポリシー2枚の `noindex` は**そのまま残す**（検索結果に出さない方針）
 3. **`icon.png`**（メタデータ用・正方形・256px 以上）、表示用の **`icon.webp`**、縦長の **`splash.webp`** を同フォルダに置く
 4. **`apps/index.html`**（`/apps/` 一覧）の `<article class="app-card">` を 1 つ複製し、アイコンのパス（`./<アプリ>/icon.webp`）・アプリ名・説明・各ストアの URL を差し替え
-5. **トップページ `index.html`** の `#apps` セクションにも `<div class="app-card app-card--link">` を 1 つ複製して追記：
+5. **トップページ `index.html`** の `#apps .app-directory` で `<li>` を 1 つ複製して追記：
    - カードのリンク先＝`./apps/<アプリ>/`
-   - 右上の `app-privacy` 内の JA リンク＝`./apps/<アプリ>/privacy.html`、EN リンク＝`./apps/<アプリ>/privacy-en.html`
-   - アイコン・アプリ名・説明を差し替え
+   - アプリのアイコン・名前・分類・説明を差し替え
+   - 利用規約・プライバシーポリシー・ストアへの導線は各アプリのページで管理する
 
    **アプリはトップと `/apps/` の 2 か所に載る**ので、両方の更新を忘れないこと。
 
